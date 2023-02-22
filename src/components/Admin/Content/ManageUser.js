@@ -1,118 +1,58 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import React, { useEffect, useState } from 'react';
+import ModalAddUser from './ModalAddUser';
+import TableUser from './TableUser';
+import { getAllUser } from '../../../services/apiService';
+import ModalUpdateUser from './ModalUpdateUser';
+import { Value } from 'sass';
+const ManageUser = (pros) => {
+   const [showModal, setShowModal] = useState(false);
+   const [showUpdate, setShowUpdate] = useState(false);
+   const [listUser, setListUser] = useState([{ id: 1, name: 'abv' }]);
+   const [dataUpdate, setDataUpdate] = useState({});
 
-function UserModal() {
-   const [show, setShow] = useState(false);
+   const fetchListUser = async () => {
+      //     let res = await getAllUser();
+      //     console.log(res);
+      //   if(res.data. == 0 ){
+      //     setListUser = res.data
+      //   }
+   };
+   useEffect(() => {
+      //   fetchListUser();
+   }, []);
 
-   const handleClose = () => setShow(false);
-   const handleShow = () => setShow(true);
+   const handleClickUpdate = (value, item) => {
+      setShowUpdate(value);
+      setDataUpdate(item);
+   };
 
-   return (
-      <>
-         <Button variant='primary' onClick={handleShow}>
-            Launch demo modal
-         </Button>
+   const handleShowHideModal = (value) => {
+      setShowModal(value);
+   };
 
-         <Modal show={show} onHide={handleClose} size='xl'>
-            <Modal.Header closeButton>
-               <Modal.Title>Add new user</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-               <form class='row g-3'>
-                  <div class='col-md-6'>
-                     <label for='inputEmail4' class='form-label'>
-                        Email
-                     </label>
-                     <input type='email' class='form-control' id='inputEmail4' />
-                  </div>
-                  <div class='col-md-6'>
-                     <label for='inputPassword4' class='form-label'>
-                        Password
-                     </label>
-                     <input type='password' class='form-control' id='inputPassword4' />
-                  </div>
-                  <div class='col-12'>
-                     <label for='inputAddress' class='form-label'>
-                        Address
-                     </label>
-                     <input
-                        type='text'
-                        class='form-control'
-                        id='inputAddress'
-                        placeholder='1234 Main St'
-                     />
-                  </div>
-                  <div class='col-12'>
-                     <label for='inputAddress2' class='form-label'>
-                        Address 2
-                     </label>
-                     <input
-                        type='text'
-                        class='form-control'
-                        id='inputAddress2'
-                        placeholder='Apartment, studio, or floor'
-                     />
-                  </div>
-                  <div class='col-md-6'>
-                     <label for='inputCity' class='form-label'>
-                        City
-                     </label>
-                     <input type='text' class='form-control' id='inputCity' />
-                  </div>
-                  <div class='col-md-4'>
-                     <label for='inputState' class='form-label'>
-                        State
-                     </label>
-                     <select id='inputState' class='form-select'>
-                        <option selected>Choose...</option>
-                        <option>...</option>
-                     </select>
-                  </div>
-                  <div class='col-md-2'>
-                     <label for='inputZip' class='form-label'>
-                        Zip
-                     </label>
-                     <input type='text' class='form-control' id='inputZip' />
-                  </div>
-                  <div class='col-12'>
-                     <div class='form-check'>
-                        <input class='form-check-input' type='checkbox' id='gridCheck' />
-                        <label class='form-check-label' for='gridCheck'>
-                           Check me out
-                        </label>
-                     </div>
-                  </div>
-                  <div class='col-12'>
-                     <button type='submit' class='btn btn-primary'>
-                        Sign in
-                     </button>
-                  </div>
-               </form>
-            </Modal.Body>
-            <Modal.Footer>
-               <Button variant='secondary' onClick={handleClose}>
-                  Close
-               </Button>
-               <Button variant='primary' onClick={handleClose}>
-                  Save Changes
-               </Button>
-            </Modal.Footer>
-         </Modal>
-      </>
-   );
-}
-
-const ManageUser = () => {
    return (
       <div className='manage-container'>
          <div className='title'>Manage User</div>
          <div className='user-content'>
-            add
-            <div className='table-user'>table</div>
+            <button className='border-0 btn btn-primary' onClick={() => setShowModal(true)}>
+               Add
+            </button>
+            <div className='table-user mt-3'>
+               <TableUser listUser={listUser} handleClickUpdate={handleClickUpdate} />
+            </div>
          </div>
          <div>
-            <UserModal />
+            <ModalAddUser
+               show={showModal}
+               setShow={handleShowHideModal}
+               fetchListUser={fetchListUser}
+            />
+            <ModalUpdateUser
+               show={showUpdate}
+               setShow={handleClickUpdate}
+               fetchListUser={fetchListUser}
+               dataUpdate={dataUpdate}
+            />
          </div>
       </div>
    );

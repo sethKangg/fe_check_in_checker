@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import SideBar from '../SideBar/SideBar';
 import { FaBars } from 'react-icons/fa';
 import { Outlet } from 'react-router-dom';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Admin = () => {
    const [collapsed, setCollapsed] = useState(false);
    return (
@@ -14,10 +15,22 @@ const Admin = () => {
             <div className='admin-header'>
                <FaBars onClick={() => setCollapsed(!collapsed)} /> lorem
             </div>
-            <div className='admin-main'>
+            <div className='admin-main p-3'>
                <Outlet />
             </div>
          </div>
+         <ToastContainer
+            position='top-right'
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme='colored'
+         />
       </div>
    );
 };
