@@ -34,7 +34,12 @@ const TableUser = (pros) => {
                               </button>
                            </td>
                            <td>
-                              <button className='btn btn-danger'>Disable</button>
+                              <button
+                                 className='btn btn-danger'
+                                 onClick={() => pros.handleDelete(item)}
+                              >
+                                 Disable
+                              </button>
                            </td>
                         </tr>
                      );

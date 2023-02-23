@@ -21,8 +21,11 @@ const ModalAddUser = (pros) => {
       //api
 
       //   let res = await postCreateUser(email);
-      await pros.fetchListUser();
-      pros.toast.error('ehe xd');
+      // await pros.fetchListUser();
+      // pros.setCurrentPage(1);
+      // await pros.fetchListUserPage(1);
+      handleClose();
+      toast.error('ehe xd');
    };
    return (
       <>
@@ -110,7 +113,7 @@ const ModalAddUser = (pros) => {
                <Button variant='secondary' onClick={handleClose}>
                   Close
                </Button>
-               <Button variant='primary' onClick={() => handleSubmit()}>
+               <Button variant='primary' onClick={handleSubmit}>
                   Save Changes
                </Button>
             </Modal.Footer>

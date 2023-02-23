@@ -8,4 +8,19 @@ const postCreateUser = (email) => {
 const getAllUser = () => {
    return axios.get('api/..');
 };
-export { postCreateUser, getAllUser };
+
+const updateUser = (email) => {
+   const data = new FormData();
+   data.put('email', email);
+   return axios.post('html', data);
+};
+
+const deleteUser = (id) => {
+   return axios.put('html', { data: { id: id } });
+};
+
+const getUserPage = (page, limit) => {
+   return axios.get(`html?page=${page}&limit=${limit}`);
+};
+
+export { postCreateUser, getAllUser, updateUser, deleteUser, getUserPage };

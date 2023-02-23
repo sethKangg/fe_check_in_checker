@@ -2,9 +2,11 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { toast } from 'react-toastify';
+
 import { postCreateUser } from '../../../services/apiService';
 import _ from 'lodash';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 const ModalUpdateUser = (pros) => {
    const { show, setShow, dataUpdate } = pros;
 
@@ -17,20 +19,23 @@ const ModalUpdateUser = (pros) => {
    const [email, setEmail] = useState('');
 
    useEffect(() => {
-      console.log('dataupdate', dataUpdate);
+      // console.log('dataupdate', dataUpdate);
       if (!_.isEmpty(dataUpdate)) {
          setEmail(dataUpdate.name);
       }
    }, [dataUpdate]);
 
-   const handleSubmit = async () => {
+   const handleSubmit = () => {
       //validate
 
       //api
 
       //   let res = await postCreateUser(email);
-      await pros.fetchListUser();
-      pros.toast.error('ehe xd');
+      // pros.fetchListUser();
+
+      pros.fetchListUserPage(pros.currentPage);
+      handleClose();
+      toast.error('ehe');
    };
 
    return (

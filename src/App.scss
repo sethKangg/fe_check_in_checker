@@ -17,6 +17,23 @@
             }
         }
     }
+
+    .main-container {
+        .app-content {
+            .home-container {
+                .home-content {
+                    .img-profile {
+                        img {
+                            border: 3px solid green;
+                            height: 160px;
+                            width: 250px;
+                            clip-path: circle();
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 .main-container {
