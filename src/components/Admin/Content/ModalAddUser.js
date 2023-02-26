@@ -22,8 +22,8 @@ const ModalAddUser = (pros) => {
 
       //   let res = await postCreateUser(email);
       // await pros.fetchListUser();
-      // pros.setCurrentPage(1);
-      // await pros.fetchListUserPage(1);
+      pros.setCurrentPage(1);
+      await pros.fetchListUserPage(1);
       handleClose();
       toast.error('ehe xd');
    };

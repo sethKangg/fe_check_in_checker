@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../utils/axiosCustomize';
 const postCreateUser = (email) => {
    const data = new FormData();
    data.append('email', email);
@@ -23,4 +23,12 @@ const getUserPage = (page, limit) => {
    return axios.get(`html?page=${page}&limit=${limit}`);
 };
 
-export { postCreateUser, getAllUser, updateUser, deleteUser, getUserPage };
+const postLogin = (email, password) => {
+   return axios.post(`html`, { email, password });
+};
+
+const getTestAPI = () => {
+   return axios.get('entries');
+};
+
+export { postCreateUser, getAllUser, updateUser, deleteUser, getUserPage, postLogin, getTestAPI };

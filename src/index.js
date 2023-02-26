@@ -1,26 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import User from './components/User/User';
-import Admin from './components/Admin/Admin';
-import Home from './components/Home/Home';
-import ManageUser from './components/Admin/Content/ManageUser';
-import Dashboard from './components/Admin/Content/Dashboard';
+import Layout from './Layout';
+import 'nprogress/nprogress.css';
+import { Provider } from 'react-redux';
+import { store, persistor } from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-   <BrowserRouter>
-      <Routes>
-         <Route path='/' element={<App />}>
-            <Route index element={<Home />} />
-            <Route path='/users' element={<User />} />
-         </Route>
-         <Route path='/admins' element={<Admin />}>
-            <Route index path='dashboard' element={<Dashboard />} />
-            <Route path='manage-users' element={<ManageUser />} />
-         </Route>
-      </Routes>
-   </BrowserRouter>,
+   <PersistGate loading={null} persistor={persistor}>
+      <Provider store={store}>
+         <BrowserRouter>
+            <Layout />
+         </BrowserRouter>
+      </Provider>
+   </PersistGate>,
 );
