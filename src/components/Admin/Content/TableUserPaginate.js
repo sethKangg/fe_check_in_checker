@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import ReactPaginate from 'react-paginate';
+import React, { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
 
 // const PaginatedItems = ({ itemsPerPage }) => {
 //    // We start with an empty list of items.
@@ -27,8 +27,7 @@ import ReactPaginate from 'react-paginate';
 // };
 
 const TableUserPaginate = (pros) => {
-   const { listUser } = pros;
-
+   const { listUser, pageCount } = pros;
    const handlePageClick = (event) => {
       pros.fetchListUserPage(`${+event.selected + 1}`);
       pros.setCurrentPage(event.selected + 1);
@@ -39,10 +38,12 @@ const TableUserPaginate = (pros) => {
          <table className='table table-hover table-bordered'>
             <thead>
                <tr>
-                  <th scope='col'>#</th>
-                  <th scope='col'>First</th>
-                  <th scope='col'>Last</th>
-                  <th scope='col'>Handle</th>
+                  <th scope='col'>Mã ID</th>
+                  <th scope='col'>Tên tài khoản</th>
+                  <th scope='col'>Tên</th>
+                  <th scope='col'>Email</th>
+                  <th scope='col'>Chức vụ</th>
+                  <th scope='col'>Khả dụng</th>
                </tr>
             </thead>
             <tbody>
@@ -50,28 +51,28 @@ const TableUserPaginate = (pros) => {
                   listUser.length > 0 &&
                   listUser.map((item, index) => {
                      return (
-                        <tr key={item.id}>
+                        <tr key={index}>
                            <th scope='row'>{item.id}</th>
-                           <td>{item.name}</td>
-                           <td>
-                              <button className='btn btn-primary'>View</button>
-                           </td>
-                           <td>
+                           <td>{item.username}</td>
+                           <td>{item.staffName}</td>
+                           <td>{item.email}</td>
+                           <td>{item.roleName}</td>
+                           <td>{item.enable}</td>
+                           <th className='d-flex '>
+                              <button className='btn btn-primary ml-3'>View</button>
                               <button
-                                 className='btn btn-warning'
+                                 className='btn btn-warning mx-3'
                                  onClick={() => pros.handleClickUpdate(true, item)}
                               >
                                  Update
                               </button>
-                           </td>
-                           <td>
                               <button
-                                 className='btn btn-danger'
+                                 className='btn btn-danger mr-3'
                                  onClick={() => pros.handleDelete(item)}
                               >
                                  Disable
                               </button>
-                           </td>
+                           </th>
                         </tr>
                      );
                   })}
@@ -88,7 +89,7 @@ const TableUserPaginate = (pros) => {
                onPageChange={handlePageClick}
                pageRangeDisplayed={3}
                marginPagesDisplayed={2}
-               pageCount={5}
+               pageCount={pageCount}
                previousLabel='<Prev'
                pageClassName='page-item'
                pageLinkClassName='page-link'

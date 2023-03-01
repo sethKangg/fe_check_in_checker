@@ -9,6 +9,8 @@ import ManageUser from './components/Admin/Content/ManageUser';
 import Login from './components/Auth/Login';
 import Home from './components/Home/Home';
 import User from './components/User/User';
+import AllCamera from './components/Camera/AllCamera';
+import Camera from './components/Camera/Camera';
 const Layout = () => {
    return (
       <>
@@ -22,6 +24,7 @@ const Layout = () => {
                <Route path='manage-users' element={<ManageUser />} />
             </Route>
             <Route path='/login' element={<Login />}></Route>
+            <Route path='/camera' element={<Camera />}></Route>
          </Routes>
          <ToastContainer
             position='top-right'

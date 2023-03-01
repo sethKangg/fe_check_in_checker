@@ -1,12 +1,15 @@
-import axios from 'axios';
-import nProgress from 'nprogress';
+import axios from "axios";
+import nProgress from "nprogress";
 nProgress.configure({
    showSpinner: false,
    trickleSpeed: 100,
-   color: '#e34234',
+   color: "#e34234",
 });
 const instance = axios.create({
-   baseURL: 'https://api.publicapis.org/',
+   baseURL: "http://192.168.1.13:8080/",
+   withCredentials: false,
+
+   // baseURL: 'https://api.publicapis.org/',
 });
 
 // Add a request interceptor

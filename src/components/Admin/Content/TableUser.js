@@ -8,9 +8,10 @@ const TableUser = (pros) => {
          <table className='table table-hover table-bordered'>
             <thead>
                <tr>
-                  <th scope='col'>#</th>
-                  <th scope='col'>First</th>
-                  <th scope='col'>Last</th>
+                  <th scope='col'>Mã ID</th>
+                  <th scope='col'>Họ</th>
+                  <th scope='col'>Tên</th>
+                  <th scope='col'>Email</th>
                   <th scope='col'>Handle</th>
                </tr>
             </thead>
@@ -22,25 +23,25 @@ const TableUser = (pros) => {
                         <tr key={item.id}>
                            <th scope='row'>{item.id}</th>
                            <td>{item.name}</td>
-                           <td>
+                           <tr>
                               <button className='btn btn-primary'>View</button>
-                           </td>
-                           <td>
+                           </tr>
+                           <tr>
                               <button
                                  className='btn btn-warning'
                                  onClick={() => pros.handleClickUpdate(true, item)}
                               >
                                  Update
                               </button>
-                           </td>
-                           <td>
+                           </tr>
+                           <tr>
                               <button
                                  className='btn btn-danger'
                                  onClick={() => pros.handleDelete(item)}
                               >
                                  Disable
                               </button>
-                           </td>
+                           </tr>
                         </tr>
                      );
                   })}

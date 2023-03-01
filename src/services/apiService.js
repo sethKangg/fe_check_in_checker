@@ -1,26 +1,26 @@
-import axios from '../utils/axiosCustomize';
+import axios from "../utils/axiosCustomize";
 const postCreateUser = (email) => {
    const data = new FormData();
-   data.append('email', email);
-   return axios.post('html', data);
+   data.append("email", email);
+   return axios.post("html", data);
 };
 
 const getAllUser = () => {
-   return axios.get('api/..');
+   return axios.get("accounts/getAllAccount");
 };
 
 const updateUser = (email) => {
    const data = new FormData();
-   data.put('email', email);
-   return axios.post('html', data);
+   data.put("email", email);
+   return axios.post("html", data);
 };
 
 const deleteUser = (id) => {
-   return axios.put('html', { data: { id: id } });
+   return axios.put("html", { data: { id: id } });
 };
 
 const getUserPage = (page, limit) => {
-   return axios.get(`html?page=${page}&limit=${limit}`);
+   return axios.get(`accounts/getAllAccount?page=${page}&size=${limit}`);
 };
 
 const postLogin = (email, password) => {
@@ -28,7 +28,22 @@ const postLogin = (email, password) => {
 };
 
 const getTestAPI = () => {
-   return axios.get('entries');
+   return axios.get("entries");
 };
 
-export { postCreateUser, getAllUser, updateUser, deleteUser, getUserPage, postLogin, getTestAPI };
+const getCombineUser = (page, size, searchValue, filterMode) => {
+   return axios.get(
+      `accounts/getAllAccount?page=${page}&size=${size}&username=${searchValue}&filter=${filterMode}`,
+   );
+};
+
+export {
+   postCreateUser,
+   getAllUser,
+   updateUser,
+   deleteUser,
+   getUserPage,
+   postLogin,
+   getTestAPI,
+   getCombineUser,
+};
