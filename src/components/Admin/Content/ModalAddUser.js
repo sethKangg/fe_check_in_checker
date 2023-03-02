@@ -1,31 +1,55 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { toast } from 'react-toastify';
-import { postCreateUser } from '../../../services/apiService';
+import axios from "axios";
+import React, { useState } from "react";
+import { Form } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { toast } from "react-toastify";
+import { postCreateUser } from "../../../services/apiService";
 const ModalAddUser = (pros) => {
    const { show, setShow, fetchListUser } = pros;
 
    const handleClose = () => {
       pros.setShow(false);
-      setEmail('');
+      setEmail("");
+      setPassword("");
+      setUsername("");
+      setRoleId(1);
+      setSurName("");
+      setFirstName("");
+      setPhone("");
+      setdateOfBirth("");
    };
    //    const handleShow = () => pros.setShow(true);
 
-   const [email, setEmail] = useState('');
+   const [username, setUsername] = useState("");
+   const [password, setPassword] = useState("");
+   const [email, setEmail] = useState("");
+   const [roleId, setRoleId] = useState(1);
+   const [surName, setSurName] = useState("");
+   const [firstName, setFirstName] = useState("");
+   const [phone, setPhone] = useState("");
+   const [dateOfBirth, setdateOfBirth] = useState("");
 
    const handleSubmit = async () => {
       //validate
-
+      console.log(dateOfBirth);
       //api
 
-      //   let res = await postCreateUser(email);
-      // await pros.fetchListUser();
+      let res = await postCreateUser(
+         username,
+         password,
+         roleId,
+         email,
+         firstName,
+         surName,
+         dateOfBirth,
+         phone,
+      );
+      console.log(res);
       pros.setCurrentPage(1);
-      await pros.fetchListUserPage(1);
+      // await pros.fetchListUserPage(1);
       handleClose();
-      toast.error('ehe xd');
+      toast.error("ehe xd");
    };
    return (
       <>
@@ -33,87 +57,95 @@ const ModalAddUser = (pros) => {
             Launch demo modal
          </Button> */}
 
-         <Modal show={show} onHide={handleClose} size='xl'>
+         <Modal show={show} onHide={handleClose} size="xl">
             <Modal.Header closeButton>
                <Modal.Title>Add new user</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-               <form className='row g-3'>
-                  <div className='col-md-6'>
-                     <label htmlFor='inputEmail4' className='form-label'>
-                        Email
-                     </label>
+               <form className="row g-3" enctype="multipart/form-data">
+                  <div className="col-md-6">
+                     <label className="form-label">Tên tài khoản</label>
                      <input
-                        type='email'
-                        className='form-control'
-                        id='inputEmail4'
-                        value={email}
+                        type="text"
+                        className="form-control"
+                        value={username || ""}
+                        onChange={(event) => setUsername(event.target.value)}
+                     />
+                  </div>
+                  <div className="col-md-6">
+                     <label className="form-label">Password</label>
+                     <input
+                        type="password"
+                        className="form-control"
+                        value={password || ""}
+                        onChange={(event) => setPassword(event.target.value)}
+                     />
+                  </div>
+                  <div className="col-md-8 ">
+                     <label className="form-label">Email</label>
+                     <input
+                        type="email"
+                        className="form-control"
+                        value={email || ""}
                         onChange={(event) => setEmail(event.target.value)}
                      />
                   </div>
-                  <div className='col-md-6'>
-                     <label htmlFor='inputPassword4' className='form-label'>
-                        Password
-                     </label>
-                     <input type='password' className='form-control' id='inputPassword4' />
+                  <div className="col-md-4">
+                     <label className="form-label">Họ</label>
+                     <Form.Select
+                        value={roleId}
+                        onChange={(event) => setRoleId(event.target.value)}
+                     >
+                        <option value="1">Admin</option>
+                        <option value="2">HR</option>
+                        <option value="5">Staff</option>
+                     </Form.Select>
                   </div>
-                  <div className='col-md-6'>
-                     <label htmlFor='inputEmail4' className='form-label'>
-                        First Name
-                     </label>
-                     <input type='email' className='form-control' id='inputEmail4' />
-                  </div>
-                  <div className='col-md-6'>
-                     <label htmlFor='inputPassword4' className='form-label'>
-                        Last Name
-                     </label>
-                     <input type='password' className='form-control' id='inputPassword4' />
-                  </div>
-
-                  <div className='col-12'>
-                     <label htmlFor='inputAddress2' className='form-label'>
-                        Address 2
-                     </label>
+                  <div className="col-md-6">
+                     <label className="form-label">Họ</label>
                      <input
-                        type='text'
-                        className='form-control'
-                        id='inputAddress2'
-                        placeholder='Apartment, studio, or floor'
+                        type="text"
+                        className="form-control"
+                        value={surName || ""}
+                        onChange={(event) => setSurName(event.target.value)}
                      />
                   </div>
-                  <div className='col-md-6'>
-                     <label htmlFor='inputCity' className='form-label'>
-                        City
-                     </label>
-                     <input type='text' className='form-control' id='inputCity' />
+                  <div className="col-md-6">
+                     <label className="form-label">Tên</label>
+                     <input
+                        type="text"
+                        className="form-control"
+                        value={firstName || ""}
+                        onChange={(event) => setFirstName(event.target.value)}
+                     />
                   </div>
 
-                  <div className='col-md-2'>
-                     <label htmlFor='inputZip' className='form-label'>
-                        Zip
-                     </label>
-                     <input type='text' className='form-control' id='inputZip' />
+                  <div className="col-7">
+                     <label className="form-label">Số điện thoại</label>
+                     <input
+                        type="text"
+                        className="form-control"
+                        placeholder="X.XXX.XXX.XXX"
+                        value={phone || ""}
+                        onChange={(event) => setPhone(event.target.value)}
+                     />
                   </div>
-                  <div className='col-12'>
-                     <div className='form-check'>
-                        <input className='form-check-input' type='checkbox' id='gridCheck' />
-                        <label className='form-check-label' htmlFor='gridCheck'>
-                           Check me out
-                        </label>
-                     </div>
-                  </div>
-                  <div className='col-12'>
-                     <button type='submit' className='btn btn-primary'>
-                        Sign in
-                     </button>
+                  <div className="col-5">
+                     <label className="form-label">Ngày sinh</label>
+                     <input
+                        type="date"
+                        className="form-control"
+                        value={dateOfBirth || ""}
+                        onChange={(e) => setdateOfBirth(e.target.value)}
+                     />
                   </div>
                </form>
             </Modal.Body>
             <Modal.Footer>
-               <Button variant='secondary' onClick={handleClose}>
+               <Button variant="secondary" onClick={handleClose}>
                   Close
                </Button>
-               <Button variant='primary' onClick={handleSubmit}>
+               <Button variant="primary" onClick={handleSubmit}>
                   Save Changes
                </Button>
             </Modal.Footer>

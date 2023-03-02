@@ -1,8 +1,45 @@
 import axios from "../utils/axiosCustomize";
-const postCreateUser = (email) => {
-   const data = new FormData();
-   data.append("email", email);
-   return axios.post("html", data);
+const postCreateUser = (
+   username,
+   password,
+   roleId,
+   email,
+   firstName,
+   surname,
+   dateOfBirth,
+   phone,
+) => {
+   var data = JSON.stringify({
+      username: username,
+      password: password,
+      roleId: +roleId,
+      staffDTO: {
+         email: email,
+         firstName: firstName,
+         surname: surname,
+         phone: phone,
+         dateOfBirth: dateOfBirth,
+         promotionLevelId: 1,
+      },
+   });
+
+   var config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "http://192.168.1.13:8080/accounts/addAccount",
+      headers: {
+         "Content-Type": "application/json",
+      },
+      data: data,
+   };
+
+   axios(config)
+      .then(function (response) {
+         // console.log(JSON.stringify(response));
+      })
+      .catch(function (error) {
+         // console.log(error);
+      });
 };
 
 const getAllUser = () => {
@@ -23,8 +60,8 @@ const getUserPage = (page, limit) => {
    return axios.get(`accounts/getAllAccount?page=${page}&size=${limit}`);
 };
 
-const postLogin = (email, password) => {
-   return axios.post(`html`, { email, password });
+const postLogin = (username, password) => {
+   return axios.post(`auth/login`, { username, password });
 };
 
 const getTestAPI = () => {

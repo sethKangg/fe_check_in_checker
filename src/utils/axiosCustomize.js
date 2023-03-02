@@ -8,6 +8,9 @@ nProgress.configure({
 const instance = axios.create({
    baseURL: "http://192.168.1.13:8080/",
    withCredentials: false,
+   headers: {
+      "Content-Type": "application/json",
+   },
 
    // baseURL: 'https://api.publicapis.org/',
 });

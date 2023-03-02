@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { doLogin } from '../../redux/action/userAction';
-import { getTestAPI, postLogin } from '../../services/apiService';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import './Login.scss';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { doLogin } from "../../redux/action/userAction";
+import { getTestAPI, postLogin } from "../../services/apiService";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import "./Login.scss";
 
 const Login = () => {
-   const [email, setEmail] = useState('');
-   const [password, setPassword] = useState('');
+   const [username, setUsername] = useState("");
+   const [password, setPassword] = useState("");
    const [loading, setLoading] = useState(false);
    const navigate = useNavigate();
    const dispatch = useDispatch();
@@ -18,53 +18,53 @@ const Login = () => {
       //api
       setLoading(true);
 
-      let data = await getTestAPI();
+      let data = await postLogin(username, password);
       if (data) {
-         toast.success('login success');
+         toast.success("login success");
          setLoading(false);
          console.log(data);
-         navigate('/');
+         navigate("/");
       }
       if (!data) {
-         toast.error('fail');
+         toast.error("fail");
       }
       dispatch(doLogin(data));
    };
    return (
-      <div className='login-container'>
-         <div className='login-header'>Welcome to Checkin Checker</div>
-         <div className='login-title '>Checkin Checker</div>
-         <div className='login-welcome '>Hello, who is this ?</div>
-         <div className='login-content col-4 mx-auto d-flex flex-column gap-3 '>
-            <div className='login-form form-group '>
-               <label>Email</label>
+      <div className="login-container">
+         <div className="login-header">Welcome to Checkin Checker</div>
+         <div className="login-title ">Checkin Checker</div>
+         <div className="login-welcome ">Hello, who is this ?</div>
+         <div className="login-content col-4 mx-auto d-flex flex-column gap-3 ">
+            <div className="login-form form-group ">
+               <label>Username</label>
                <input
-                  type={'email'}
-                  className='form-control'
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  type={"email"}
+                  className="form-control"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                />
             </div>
-            <div className='form-group '>
+            <div className="form-group ">
                <label>Password</label>
                <input
-                  type={'password'}
-                  className='form-control'
+                  type={"password"}
+                  className="form-control"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                />
             </div>
-            <span className='forgot-password'>Forgot password</span>
+            <span className="forgot-password">Forgot password</span>
             <div>
-               <button className='btn-submit' onClick={() => handleSubmit()} disabled={loading}>
+               <button className="btn-submit" onClick={() => handleSubmit()} disabled={loading}>
                   Login
-                  {loading == true ? <AiOutlineLoading3Quarters className='spin' /> : <></>}
+                  {loading == true ? <AiOutlineLoading3Quarters className="spin" /> : <></>}
                </button>
-               <div className='text-center'>
+               <div className="text-center">
                   <span
-                     className='back '
+                     className="back "
                      onClick={() => {
-                        navigate('/');
+                        navigate("/");
                      }}
                   >
                      &#60;&#60; Homepage
