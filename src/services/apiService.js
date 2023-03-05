@@ -54,7 +54,7 @@ const getTestAPI = () => {
 
 const getCombineUser = (page, size, searchValue, filterMode) => {
    return axios.get(
-      `accounts/getAllAccount?page=${page}&size=${size}&username=${searchValue}&filter=${filterMode}`,
+      `accounts/getAllAccount?page=${page}&size=${size}&username=${searchValue}&enable=${filterMode}`,
    );
 };
 

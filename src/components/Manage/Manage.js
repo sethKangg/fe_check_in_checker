@@ -3,7 +3,7 @@ import SideBar from "../SideBar/SideBar";
 import { FaBars } from "react-icons/fa";
 import { Outlet } from "react-router-dom";
 
-const Admin = () => {
+const Manage = () => {
    const [collapsed, setCollapsed] = useState(false);
    return (
       <div className="admin-container">
@@ -22,4 +22,4 @@ const Admin = () => {
    );
 };
 
-export default Admin;
+export default Manage;

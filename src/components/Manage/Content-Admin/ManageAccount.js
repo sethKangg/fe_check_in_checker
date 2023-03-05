@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import ModalAddUser from "./ModalAddUser";
-import { getAllUser, getCombineUser, getUserPage } from "../../../services/apiService";
-import ModalUpdateUser from "./ModalUpdateUser";
-import ModalDeleteUser from "./ModalDeleteUser";
-import TableUserPaginate from "./TableUserPaginate";
+import { getCombineUser, getUserPage } from "../../../services/apiService";
+import TableAccountPaginate from "./TableAccountPaginate";
 import { Button, Form, InputGroup } from "react-bootstrap";
-const ManageUser = (pros) => {
+import ModalAddAccount from "./ModalAddAccount";
+import ModalUpdateAccount from "./ModalUpdateAccount";
+import ModalDisableAccount from "./ModalDisableAccount";
+const ManageAccount = (pros) => {
    const PAGE_LIMIT = 1;
 
    const [showModal, setShowModal] = useState(false);
@@ -100,12 +100,7 @@ const ManageUser = (pros) => {
                </div>
             </div>
             <div className="table-user mt-3">
-               {/* <TableUser
-                  listUser={listUser}
-                  handleClickUpdate={handleClickUpdate}
-                  handleDelete={handleDelete}
-               /> */}
-               <TableUserPaginate
+               <TableAccountPaginate
                   listUser={listUser}
                   handleClickUpdate={handleClickUpdate}
                   handleDelete={handleDelete}
@@ -119,14 +114,14 @@ const ManageUser = (pros) => {
             </div>
          </div>
          <div>
-            <ModalAddUser
+            <ModalAddAccount
                show={showModal}
                setShow={handleShowHideModal}
                fetchListUser={fetchListUser}
                currentPage={currentPage}
                setCurrentPage={setCurrentPage}
             />
-            <ModalUpdateUser
+            <ModalUpdateAccount
                show={showUpdate}
                setShow={handleClickUpdate}
                fetchListUser={fetchListUser}
@@ -134,7 +129,7 @@ const ManageUser = (pros) => {
                currentPage={currentPage}
                setCurrentPage={setCurrentPage}
             />
-            <ModalDeleteUser
+            <ModalDisableAccount
                show={showModalDelete}
                setShow={setShowModalDelete}
                dataDelete={dataDelete}
@@ -147,4 +142,4 @@ const ManageUser = (pros) => {
    );
 };
 
-export default ManageUser;
+export default ManageAccount;
