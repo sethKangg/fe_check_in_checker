@@ -22,13 +22,13 @@ const Login = () => {
       if (data) {
          toast.success("login success");
          setLoading(false);
-         console.log(data);
+         console.log("data ", data);
          navigate("/");
+         dispatch(doLogin(data));
       }
       if (!data) {
          toast.error("fail");
       }
-      dispatch(doLogin(data));
    };
    return (
       <div className="login-container">

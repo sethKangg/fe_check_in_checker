@@ -22,24 +22,15 @@ const ManageUser = (pros) => {
 
    const fetchListUser = async (page, size, searchValue, filterIndex) => {
       let res = await getCombineUser(page, size, searchValue, filterIndex);
-      console.log(res);
-      if (res) {
-         setListUser(res.list);
-         setPageCount(res.allPages);
+      // console.log("Userdata: ", res);
+      if (res.status == 200) {
+         setListUser(res.data.list);
+         setPageCount(res.data.allPages);
       }
-   };
-
-   const fetchListUserPage = async (page, size, searchValue, filterIndex) => {
-      let res = await fetchListUser(page, size, searchValue, filterIndex);
-      console.log(res);
-      setListUser(res.list);
-      setPageCount(res.allPages);
    };
 
    useEffect(() => {
       fetchListUser(1, PAGE_LIMIT, searchValue, filterIndex);
-      // console.log(res);
-      // fetchListUserPage(1, PAGE_LIMIT);
    }, []);
 
    const handleClickUpdate = (value, item) => {
@@ -56,10 +47,10 @@ const ManageUser = (pros) => {
       setShowModalDelete(true);
    };
 
-   const handleClickSearch = () => {
+   const handleClickSearch = async () => {
       setCurrentPage(1);
-
-      fetchListUser(currentPage, PAGE_LIMIT, searchValue, filterIndex);
+      let res = await fetchListUser(currentPage, PAGE_LIMIT, searchValue, filterIndex);
+      console.log(res);
    };
 
    const handleClickFilter = (event) => {
@@ -131,7 +122,6 @@ const ManageUser = (pros) => {
                show={showModal}
                setShow={handleShowHideModal}
                fetchListUser={fetchListUser}
-               fetchListUserPage={fetchListUserPage}
                currentPage={currentPage}
                setCurrentPage={setCurrentPage}
             />
@@ -140,7 +130,6 @@ const ManageUser = (pros) => {
                setShow={handleClickUpdate}
                fetchListUser={fetchListUser}
                dataUpdate={dataUpdate}
-               fetchListUserPage={fetchListUserPage}
                currentPage={currentPage}
                setCurrentPage={setCurrentPage}
             />
@@ -149,7 +138,6 @@ const ManageUser = (pros) => {
                setShow={setShowModalDelete}
                dataDelete={dataDelete}
                fetchListUser={fetchListUser}
-               fetchListUserPage={fetchListUserPage}
                currentPage={currentPage}
                setCurrentPage={setCurrentPage}
             />

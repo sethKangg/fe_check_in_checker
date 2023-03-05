@@ -6,13 +6,12 @@ nProgress.configure({
    color: "#e34234",
 });
 const instance = axios.create({
-   baseURL: "http://192.168.1.13:8080/",
+   // baseURL: "http://192.168.1.13:8080/",//hunglocal
+   baseURL: "https://cts-backend-v1.azurewebsites.net/", //SethLocal
    withCredentials: false,
    headers: {
       "Content-Type": "application/json",
    },
-
-   // baseURL: 'https://api.publicapis.org/',
 });
 
 // Add a request interceptor
@@ -34,14 +33,12 @@ instance.interceptors.response.use(
       nProgress.done();
       // Any status code that lie within the range of 2xx cause this function to trigger
       // Do something with response data
-      return response && response.data ? response.data : response;
+      return response;
    },
    function (error) {
       // Any status codes that falls outside the range of 2xx cause this function to trigger
       // Do something with response error
-      return error && error.response && error.response.data
-         ? error.response.data
-         : Promise.reject(error);
+      return error && error.response;
    },
 );
 

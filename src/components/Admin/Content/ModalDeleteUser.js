@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { toast } from 'react-toastify';
-import { deleteUser } from '../../../services/apiService';
+import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { toast } from "react-toastify";
+import { deleteUser } from "../../../services/apiService";
 const ModalDeleteUser = (pros) => {
    const { show, setShow, dataDelete } = pros;
 
@@ -14,14 +14,14 @@ const ModalDeleteUser = (pros) => {
       toast.success(`Deactive ${item.name} sucessfully`);
       handleClose();
       pros.setCurrentPage(1);
-      pros.fetchListUserPage(pros.currentPage);
+      pros.fetchListUser(pros.currentPage, 1, "", "");
       // await pros.fetchListUser();
       // }
    };
 
    return (
       <>
-         <Modal show={show} onHide={handleClose} backdrop='static'>
+         <Modal show={show} onHide={handleClose} backdrop="static">
             <Modal.Header closeButton>
                <Modal.Title>Comfirm Disable User</Modal.Title>
             </Modal.Header>
@@ -30,11 +30,11 @@ const ModalDeleteUser = (pros) => {
                <b>{dataDelete && dataDelete.name ? dataDelete.name : ``}</b>
             </Modal.Body>
             <Modal.Footer>
-               <Button variant='secondary' onClick={handleClose}>
+               <Button variant="secondary" onClick={handleClose}>
                   Cancel
                </Button>
                <Button
-                  variant='primary'
+                  variant="primary"
                   onClick={() => {
                      handleComfirm(dataDelete);
                   }}

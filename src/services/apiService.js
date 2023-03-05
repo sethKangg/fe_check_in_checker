@@ -9,7 +9,7 @@ const postCreateUser = (
    dateOfBirth,
    phone,
 ) => {
-   var data = JSON.stringify({
+   let data = {
       username: username,
       password: password,
       roleId: +roleId,
@@ -21,25 +21,9 @@ const postCreateUser = (
          dateOfBirth: dateOfBirth,
          promotionLevelId: 1,
       },
-   });
-
-   var config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: "http://192.168.1.13:8080/accounts/addAccount",
-      headers: {
-         "Content-Type": "application/json",
-      },
-      data: data,
    };
 
-   axios(config)
-      .then(function (response) {
-         // console.log(JSON.stringify(response));
-      })
-      .catch(function (error) {
-         // console.log(error);
-      });
+   return axios.post("accounts/addAccount", data);
 };
 
 const getAllUser = () => {

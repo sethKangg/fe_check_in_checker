@@ -32,7 +32,6 @@ const ModalAddUser = (pros) => {
 
    const handleSubmit = async () => {
       //validate
-      console.log(dateOfBirth);
       //api
 
       let res = await postCreateUser(
@@ -45,11 +44,22 @@ const ModalAddUser = (pros) => {
          dateOfBirth,
          phone,
       );
-      console.log(res);
+      console.log("res +", res);
+      if (res.status === 200) {
+         handleClose();
+         toast.success(`${res.data} `);
+      } else {
+         // let response = res.data.error.map((number, index) => {
+         // });
+         // var msgToast = "";
+         Object.values(res.data.error).map((item, index) => {
+            // msgToast += item + "\n";
+            toast.error(item);
+         });
+         // console.log(msgToast);
+      }
       pros.setCurrentPage(1);
-      // await pros.fetchListUserPage(1);
-      handleClose();
-      toast.error("ehe xd");
+      await pros.fetchListUser(1, 1, "", "");
    };
    return (
       <>
@@ -62,7 +72,7 @@ const ModalAddUser = (pros) => {
                <Modal.Title>Add new user</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-               <form className="row g-3" enctype="multipart/form-data">
+               <form className="row g-3" encType="multipart/form-data">
                   <div className="col-md-6">
                      <label className="form-label">Tên tài khoản</label>
                      <input
