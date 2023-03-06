@@ -1,0 +1,59 @@
+.app-container {
+    .header-container {
+
+
+        .navbar-expand-lg {
+            .navbar {
+                padding-top: 20px;
+                z-index: 10;
+                opacity: 0.6;
+                background-color: rgba(0, 0, 0, 0);
+
+                .nav-link {
+                    &.active {
+                        color: red;
+                    }
+                }
+            }
+        }
+    }
+
+    .main-container {
+        .app-content {
+            .home-container {
+                .home-content {
+                    .img-profile {
+                        img {
+                            border: 3px solid green;
+                            height: 160px;
+                            width: 250px;
+                            clip-path: circle();
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.main-container {
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: rgba(245, 235, 220, 0.767);
+}
+
+video {
+    right: 0;
+}
+
+@media (min-width: 1400px) {
+
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+        max-width: 1500px !important;
+    }
+}
