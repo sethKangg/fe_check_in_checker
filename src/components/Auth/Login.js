@@ -30,6 +30,13 @@ const Login = () => {
          toast.error("fail");
       }
    };
+
+   const handleKeyDown = (e) => {
+      if (e && e.key == "Enter") {
+         handleSubmit();
+      }
+   };
+
    return (
       <div className="login-container">
          <div className="login-header">Welcome to Checkin Checker</div>
@@ -52,6 +59,7 @@ const Login = () => {
                   className="form-control"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  onKeyDown={(e) => handleKeyDown((e) => handleKeyDown(e))}
                />
             </div>
             <span className="forgot-password">Forgot password</span>
