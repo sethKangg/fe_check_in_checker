@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getCombineUser, getUserPage } from "../../../services/apiService";
-import TableAccountPaginate from "./TableAccountPaginate";
-import { Button, Form, InputGroup } from "react-bootstrap";
-import ModalAddAccount from "./ModalAddAccount";
-import ModalUpdateAccount from "./ModalUpdateAccount";
-import ModalDisableAccount from "./ModalDisableAccount";
-const ManageAccount = (pros) => {
+import { Button, Card, Dropdown, DropdownButton, Form, InputGroup, Table } from "react-bootstrap";
+import "./HRManager.scss";
+import ModalUpdateStaff from "./ModalUpdateStaff";
+import TableStaffPaginate from "./TableStaffPaginate";
+const ManageStaff = () => {
    const PAGE_LIMIT = 1;
 
    const [showModal, setShowModal] = useState(false);
@@ -16,19 +14,19 @@ const ManageAccount = (pros) => {
    const [filterIndex, setFilterIndex] = useState(2);
    const [searchValue, setSearchValue] = useState("");
 
-   const [listUser, setListUser] = useState([]);
+   const [listStaff, setListStaff] = useState([
+      { id: 1, username: "ABC", staffName: "AC", email: "EHE", roleName: "AV", enable: 1 },
+   ]);
    const [dataUpdate, setDataUpdate] = useState({});
    const [dataDelete, setDataDelete] = useState({});
 
-   const debouncedSearchTerm = useDebounce(searchValue, 800);
-
    const fetchListUser = async (page, size, searchValue, filterIndex) => {
-      let res = await getCombineUser(page, size, searchValue, filterIndex);
+      // let res = await getCombineUser(page, size, searchValue, filterIndex);
       // console.log("Userdata: ", res);
-      if (res.status == 200) {
-         setListUser(res.data.list);
-         setPageCount(res.data.allPages);
-      }
+      // if (res.status == 200) {
+      //    setListUser(res.data.list);
+      //    setPageCount(res.data.allPages);
+      // }
    };
 
    useEffect(() => {
@@ -38,12 +36,11 @@ const ManageAccount = (pros) => {
       };
 
       fetchData();
-   }, [currentPage, debouncedSearchTerm, filterIndex]);
+   }, [currentPage, searchValue, filterIndex]);
 
    const handleClickUpdate = (value, item) => {
       setShowUpdate(value);
       setDataUpdate(item);
-      // console.log(item);
    };
 
    const handleShowHideModal = (value) => {
@@ -55,16 +52,12 @@ const ManageAccount = (pros) => {
       setShowModalDelete(true);
    };
 
-   const handleSearch = (e) => {
-      setSearchValue(e.target.value);
+   const handleClickSearch = async () => {
       setCurrentPage(1);
-      // let res = await fetchListUser(1, PAGE_LIMIT, searchValue, filterIndex);
-      // console.log(res);
    };
-   const handleClickFilter = (event) => {
+   const handleClickFilter = async (event) => {
       setFilterIndex(event.target.value);
       setCurrentPage(1);
-      // let res = await fetchListUser(1, PAGE_LIMIT, searchValue, event.target.value);
    };
 
    return (
@@ -78,8 +71,11 @@ const ManageAccount = (pros) => {
                   <Form.Control
                      placeholder="Tìm theo tên tài khoản"
                      value={searchValue}
-                     onChange={(e) => handleSearch(e)}
+                     onChange={(e) => setSearchValue(e.target.value)}
                   />
+                  <Button variant="outline-secondary" onClick={() => handleClickSearch()}>
+                     Tìm kiếm
+                  </Button>
                </InputGroup>
             </div>
             <div className="d-flex align-items-center justify-content-between">
@@ -101,8 +97,8 @@ const ManageAccount = (pros) => {
                </div>
             </div>
             <div className="table-user mt-3">
-               <TableAccountPaginate
-                  listUser={listUser}
+               <TableStaffPaginate
+                  listStaff={listStaff}
                   handleClickUpdate={handleClickUpdate}
                   handleDelete={handleDelete}
                   fetchListUser={fetchListUser}
@@ -115,14 +111,14 @@ const ManageAccount = (pros) => {
             </div>
          </div>
          <div>
-            <ModalAddAccount
+            {/* <ModalAddAccount
                show={showModal}
                setShow={handleShowHideModal}
                fetchListUser={fetchListUser}
                currentPage={currentPage}
                setCurrentPage={setCurrentPage}
-            />
-            <ModalUpdateAccount
+            /> */}
+            <ModalUpdateStaff
                show={showUpdate}
                setShow={handleClickUpdate}
                fetchListUser={fetchListUser}
@@ -130,14 +126,14 @@ const ManageAccount = (pros) => {
                currentPage={currentPage}
                setCurrentPage={setCurrentPage}
             />
-            <ModalDisableAccount
+            {/* <ModalDisableAccount
                show={showModalDelete}
                setShow={setShowModalDelete}
                dataDelete={dataDelete}
                fetchListUser={fetchListUser}
                currentPage={currentPage}
                setCurrentPage={setCurrentPage}
-            />
+            /> */}
          </div>
       </div>
    );
@@ -160,4 +156,4 @@ function useDebounce(value, delay) {
    return debouncedValue;
 }
 
-export default ManageAccount;
+export default ManageStaff;

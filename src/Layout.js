@@ -9,6 +9,7 @@ import User from "./components/User/User";
 import CheckIn from "./components/Checkin/CheckIn";
 import ManageAccount from "./components/Manage/Content-Admin/ManageAccount";
 import Manage from "./components/Manage/Manage";
+import ManageStaff from "./components/Manage/Content-HR/ManageStaff";
 // import AllCamera from "./components/Camera/AllCamera";
 // import Camera from "./components/Camera/Camera";
 const Layout = () => {
@@ -22,6 +23,7 @@ const Layout = () => {
             </Route>
             <Route path="/manage" element={<Manage />}>
                <Route index path="manage-account" element={<ManageAccount />} />
+               <Route index path="manage-staff" element={<ManageStaff />} />
                {/* <Route path="dashboard" element={<Admin />} /> */}
             </Route>
             <Route path="/login" element={<Login />}></Route>

@@ -27,7 +27,7 @@ const ModalDisableAccount = (pros) => {
             </Modal.Header>
             <Modal.Body>
                Are you sure to disable this user ?
-               <b>{dataDelete && dataDelete.name ? dataDelete.name : ``}</b>
+               <b>{dataDelete && dataDelete.username ? dataDelete.username : ``}</b>
             </Modal.Body>
             <Modal.Footer>
                <Button variant="secondary" onClick={handleClose}>
