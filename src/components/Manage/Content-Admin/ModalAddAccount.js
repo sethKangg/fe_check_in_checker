@@ -6,7 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
 import { postCreateUser } from "../../../services/apiService";
 const ModalAddAccount = (pros) => {
-   const { show, setShow, fetchListUser } = pros;
+   const { show, setShow, fetchListUser, PAGE_LIMIT } = pros;
 
    const handleClose = () => {
       pros.setShow(false);
@@ -59,7 +59,7 @@ const ModalAddAccount = (pros) => {
          // console.log(msgToast);
       }
       pros.setCurrentPage(1);
-      await pros.fetchListUser(1, 1, "", "");
+      await pros.fetchListUser(1, PAGE_LIMIT, "", "");
    };
    return (
       <>

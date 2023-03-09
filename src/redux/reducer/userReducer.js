@@ -15,16 +15,16 @@ const INITIAL_STATE = {
 const userReducer = (state = INITIAL_STATE, action) => {
    switch (action.type) {
       case FETCH_USER_LOGIN_SUCCESS:
-         console.log(">>>action: ", action);
+         // console.log(">>>action: ", action);
          return {
             ...state,
             account: {
-               id: action?.payload?.accountDTO?.id,
-               username: action?.payload?.accountDTO?.username,
-               email: action?.payload?.accountDTO?.email,
-               staffName: action?.payload?.accountDTO?.staffName,
-               roleName: action?.payload?.accountDTO?.roleName,
-               accessToken: action?.payload?.accessToken,
+               id: action?.payload?.data?.accountDTO?.id,
+               username: action?.payload?.data?.accountDTO?.username,
+               email: action?.payload?.data?.accountDTO?.email,
+               staffName: action?.payload?.data?.accountDTO?.staffName,
+               roleName: action?.payload?.data?.accountDTO?.roleName,
+               accessToken: action?.payload?.data?.accessToken,
             },
             isAuthenticated: true,
          };

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Dropdown, DropdownButton, Form, InputGroup, Table } from "react-bootstrap";
+import { getListLevel, getStaff } from "../../../services/apiService";
 import "./HRManager.scss";
 import ModalUpdateStaff from "./ModalUpdateStaff";
 import TableStaffPaginate from "./TableStaffPaginate";
 const ManageStaff = () => {
-   const PAGE_LIMIT = 1;
+   const PAGE_LIMIT = 4;
 
    const [showModal, setShowModal] = useState(false);
    const [showUpdate, setShowUpdate] = useState(false);
@@ -14,19 +15,28 @@ const ManageStaff = () => {
    const [filterIndex, setFilterIndex] = useState(2);
    const [searchValue, setSearchValue] = useState("");
 
-   const [listStaff, setListStaff] = useState([
-      { id: 1, username: "ABC", staffName: "AC", email: "EHE", roleName: "AV", enable: 1 },
-   ]);
+   const [listStaff, setListStaff] = useState([]);
+   const [listLevel, setListLevel] = useState([]);
    const [dataUpdate, setDataUpdate] = useState({});
    const [dataDelete, setDataDelete] = useState({});
 
+   const debouncedSearchTerm = useDebounce(searchValue, 800);
+
    const fetchListUser = async (page, size, searchValue, filterIndex) => {
-      // let res = await getCombineUser(page, size, searchValue, filterIndex);
+      let res = await getStaff(page, size, searchValue, filterIndex);
       // console.log("Userdata: ", res);
-      // if (res.status == 200) {
-      //    setListUser(res.data.list);
-      //    setPageCount(res.data.allPages);
-      // }
+      if (res.status == 200) {
+         setListStaff(res.data.list);
+         setPageCount(res.data.allPages);
+      }
+   };
+   const fetchListLevel = async () => {
+      let res = await getListLevel();
+      console.log("List Level: ", res);
+      if (res.status == 200) {
+         setListLevel(res.data);
+         // setPageCount(res.data.allPages);
+      }
    };
 
    useEffect(() => {
@@ -36,11 +46,22 @@ const ManageStaff = () => {
       };
 
       fetchData();
-   }, [currentPage, searchValue, filterIndex]);
+   }, [currentPage, debouncedSearchTerm, filterIndex]);
 
+   useEffect(() => {
+      const fetchLevel = async () => {
+         let res = await fetchListLevel();
+         // console.log(res);
+         // console.log("Fetch level");
+         // Process the response here
+      };
+
+      fetchLevel();
+   }, []);
    const handleClickUpdate = (value, item) => {
       setShowUpdate(value);
       setDataUpdate(item);
+      // console.log(item);
    };
 
    const handleShowHideModal = (value) => {
@@ -73,9 +94,6 @@ const ManageStaff = () => {
                      value={searchValue}
                      onChange={(e) => setSearchValue(e.target.value)}
                   />
-                  <Button variant="outline-secondary" onClick={() => handleClickSearch()}>
-                     Tìm kiếm
-                  </Button>
                </InputGroup>
             </div>
             <div className="d-flex align-items-center justify-content-between">
@@ -98,6 +116,7 @@ const ManageStaff = () => {
             </div>
             <div className="table-user mt-3">
                <TableStaffPaginate
+                  PAGE_LIMIT={PAGE_LIMIT}
                   listStaff={listStaff}
                   handleClickUpdate={handleClickUpdate}
                   handleDelete={handleDelete}
@@ -119,10 +138,13 @@ const ManageStaff = () => {
                setCurrentPage={setCurrentPage}
             /> */}
             <ModalUpdateStaff
+               PAGE_LIMIT={PAGE_LIMIT}
+               listLevel={listLevel}
                show={showUpdate}
-               setShow={handleClickUpdate}
+               setShow={setShowUpdate}
                fetchListUser={fetchListUser}
                dataUpdate={dataUpdate}
+               setDataUpdate={setDataUpdate}
                currentPage={currentPage}
                setCurrentPage={setCurrentPage}
             />

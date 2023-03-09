@@ -1,111 +1,89 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { putLevelStaff } from "../../../services/apiService";
 
 const ModalUpdateStaff = (pros) => {
-   const { show, setShow, dataUpdate } = pros;
+   const { show, setShow, dataUpdate, listLevel, setDataUpdate, PAGE_LIMIT } = pros;
 
    const handleClose = () => {
       setShow(false);
-      setEmail("");
+      setCurrentLevel("");
    };
    //    const handleShow = () => pros.setShow(true);
 
-   const [email, setEmail] = useState("");
-   const [id, setId] = useState("");
-   const [isEnable, setIsEnable] = useState();
-   const [staffName, setStaffName] = useState("");
-   const [roleName, setRoleName] = useState("");
+   const [currentLevel, setCurrentLevel] = useState("");
 
-   const [username, setUsername] = useState("");
+   const updateStaffLevel = async () => {
+      let res = await putLevelStaff("" + dataUpdate.id, "" + currentLevel);
+      console.log("update status: ", res);
+      if ((res.status = 200)) {
+         toast.success(`Update ${dataUpdate.fullName} successfully`);
+      }
+   };
    useEffect(() => {
       // console.log('dataupdate', dataUpdate);
       if (!_.isEmpty(dataUpdate)) {
-         setEmail(dataUpdate.email);
-         setId(dataUpdate.id);
-         setIsEnable(dataUpdate.isEnable);
-         setStaffName(dataUpdate.staffName);
-         setUsername(dataUpdate.username);
-         setRoleName(dataUpdate.roleName);
+         console.log("dataUpdate >>>.", dataUpdate);
+         setCurrentLevel("" + dataUpdate.promotionLevel);
       }
-   }, [dataUpdate]);
+   }, [show]);
 
-   const handleSubmit = () => {
+   useEffect(() => {
+      console.log("currentLevel: ", currentLevel);
+   }, [currentLevel]);
+
+   const handleSubmit = async () => {
       //validate
-
+      await updateStaffLevel();
       //api
 
       //   let res = await postCreateUser(email);
       // pros.fetchListUser();
 
-      pros.fetchListUser(pros.currentPage, 1, "", "   ");
+      pros.fetchListUser(pros.currentPage, PAGE_LIMIT, "", "");
       handleClose();
-      toast.error("ehe");
+
+      // toast.error("ehe");
+   };
+
+   const handleClickFilter = (event) => {
+      setCurrentLevel(event.target.value);
    };
 
    return (
       <>
          <Modal show={show} onHide={handleClose} size="xl">
             <Modal.Header closeButton>
-               <Modal.Title>Update user</Modal.Title>
+               <Modal.Title>Update levle of user</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                <form className="row g-3">
                   <div className="col-md-6">
-                     <label className="form-label">ID</label>
+                     <label className="form-label">Level</label>
                      <input
                         type="text"
                         className="form-control"
-                        value={id ? id : ""}
-                        onChange={(event) => setId(event.target.value)}
+                        value={dataUpdate.promotionLevel ? dataUpdate.promotionLevel : ""}
+                        onChange={(event) => setCurrentLevel(event.target.value)}
                      />
                   </div>
                   <div className="col-md-6">
-                     <label className="form-label">Email</label>
-                     <input
-                        type="email"
-                        className="form-control"
-                        value={email ? email : ""}
-                        onChange={(event) => setEmail(event.target.value)}
-                     />
-                  </div>
-
-                  <div className="col-md-6">
-                     <label className="form-label">Username</label>
-                     <input
-                        type="text"
-                        className="form-control"
-                        value={username ? username : ""}
-                        onChange={(event) => setUsername(event.target.value)}
-                     />
-                  </div>
-                  <div className="col-md-6">
-                     <label className="form-label">Staff Name</label>
-                     <input
-                        type="text"
-                        className="form-control"
-                        value={staffName ? staffName : ""}
-                        onChange={(event) => setStaffName(event.target.value)}
-                     />
-                  </div>
-                  <div className="col-md-6">
-                     <label className="form-label">Role</label>
-                     <input
-                        type="text"
-                        className="form-control"
-                        value={roleName ? roleName : ""}
-                        onChange={(event) => setRoleName(event.target.value)}
-                     />
-                  </div>
-                  <div className="col-md-6">
-                     <label className="form-label">isEnable</label>
-                     <input
-                        type="text"
-                        className="form-control"
-                        value={isEnable ? isEnable : ""}
-                        onChange={(event) => setIsEnable(event.target.value)}
-                     />
+                     <label className="form-label">Level</label>
+                     <Form.Select
+                        aria-label="Default select example"
+                        value={currentLevel ? currentLevel : "2"}
+                        onChange={(event) => handleClickFilter(event)}
+                     >
+                        {listLevel.map((level, index) => {
+                           return (
+                              <option key={level.id} value={level.id}>
+                                 {level.description}
+                              </option>
+                           );
+                        })}
+                     </Form.Select>
                   </div>
                </form>
             </Modal.Body>

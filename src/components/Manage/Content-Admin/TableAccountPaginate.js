@@ -32,7 +32,7 @@ const TableAccountPaginate = (pros) => {
                            <td>{item.staffName}</td>
                            <td>{item.email}</td>
                            <td>{item.roleName}</td>
-                           <td>{item.enable}</td>
+                           <td>{item.enable ? "TRUE" : "FALSE"}</td>
                            <th className="d-flex ">
                               <button className="btn btn-primary ml-3">View</button>
                               <button

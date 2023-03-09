@@ -3,10 +3,10 @@ import { Table } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 
 const TableStaffPaginate = (pros) => {
-   const { listStaff, pageCount, searchValue, filterIndex } = pros;
+   const { listStaff, pageCount, searchValue, filterIndex, PAGE_LIMIT } = pros;
    const handlePageClick = (event) => {
-      //   pros.fetchListUser(event.selected + 1, 1, searchValue, filterIndex);
-      //   pros.setCurrentPage(event.selected + 1);
+      pros.fetchListUser(event.selected + 1, PAGE_LIMIT, searchValue, filterIndex);
+      pros.setCurrentPage(event.selected + 1);
       // console.log(`User requested page number ${event.selected}, which is offset `);
    };
    return (
@@ -29,11 +29,11 @@ const TableStaffPaginate = (pros) => {
                      return (
                         <tr key={index}>
                            <th scope="row">{item.id}</th>
-                           <td>{item.username}</td>
-                           <td>{item.staffName}</td>
-                           <td>{item.email}</td>
-                           <td>{item.roleName}</td>
-                           <td>{item.enable}</td>
+                           <td scope="row">{item.fullName}</td>
+                           <td scope="row">{item.dateOfBirth}</td>
+                           <td scope="row">{item.email}</td>
+                           <td scope="row">{item.phone}</td>
+                           <td scope="row">{item.promotionLevel}</td>
                            <th className="actions">
                               <button className="btn btn-primary ml-3">View</button>
                               <button

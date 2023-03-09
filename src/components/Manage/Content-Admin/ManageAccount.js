@@ -24,7 +24,7 @@ const ManageAccount = (pros) => {
 
    const fetchListUser = async (page, size, searchValue, filterIndex) => {
       let res = await getCombineUser(page, size, searchValue, filterIndex);
-      // console.log("Userdata: ", res);
+      console.log("Userdata: ", res);
       if (res.status == 200) {
          setListUser(res.data.list);
          setPageCount(res.data.allPages);
@@ -51,6 +51,7 @@ const ManageAccount = (pros) => {
    };
 
    const handleDelete = (value) => {
+      // console.log(value);
       setDataDelete(value);
       setShowModalDelete(true);
    };
@@ -116,6 +117,7 @@ const ManageAccount = (pros) => {
          </div>
          <div>
             <ModalAddAccount
+               PAGE_LIMIT={PAGE_LIMIT}
                show={showModal}
                setShow={handleShowHideModal}
                fetchListUser={fetchListUser}
