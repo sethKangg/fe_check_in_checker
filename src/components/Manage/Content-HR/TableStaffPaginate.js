@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { Table } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 
-const TableAccountPaginate = (pros) => {
-   const { listUser, pageCount, searchValue, filterIndex } = pros;
+const TableStaffPaginate = (pros) => {
+   const { listStaff, pageCount, searchValue, filterIndex, PAGE_LIMIT } = pros;
    const handlePageClick = (event) => {
-      pros.fetchListUser(event.selected + 1, 1, searchValue, filterIndex);
+      pros.fetchListUser(event.selected + 1, PAGE_LIMIT, searchValue, filterIndex);
       pros.setCurrentPage(event.selected + 1);
       // console.log(`User requested page number ${event.selected}, which is offset `);
    };
    return (
       <>
-         <table className="table table-hover table-bordered">
+         <Table striped bordered hover responsive className="user-table">
             <thead>
                <tr>
                   <th scope="col">Mã ID</th>
@@ -22,18 +23,18 @@ const TableAccountPaginate = (pros) => {
                </tr>
             </thead>
             <tbody>
-               {listUser &&
-                  listUser.length > 0 &&
-                  listUser.map((item, index) => {
+               {listStaff &&
+                  listStaff.length > 0 &&
+                  listStaff.map((item, index) => {
                      return (
                         <tr key={index}>
                            <th scope="row">{item.id}</th>
-                           <td>{item.username}</td>
-                           <td>{item.staffName}</td>
-                           <td>{item.email}</td>
-                           <td>{item.roleName}</td>
-                           <td>{item.enable ? "TRUE" : "FALSE"}</td>
-                           <th className="d-flex ">
+                           <td scope="row">{item.fullName}</td>
+                           <td scope="row">{item.dateOfBirth}</td>
+                           <td scope="row">{item.email}</td>
+                           <td scope="row">{item.phone}</td>
+                           <td scope="row">{item.promotionLevel}</td>
+                           <th className="actions">
                               <button className="btn btn-primary ml-3">View</button>
                               <button
                                  className="btn btn-warning mx-3"
@@ -51,13 +52,42 @@ const TableAccountPaginate = (pros) => {
                         </tr>
                      );
                   })}
-               {listUser && listUser.length === 0 && (
+               {listStaff && listStaff.length === 0 && (
                   <tr>
                      <td colSpan={4}>No data found</td>
                   </tr>
                )}
             </tbody>
-         </table>
+         </Table>
+
+         {/* <Table striped bordered hover responsive className="user-table">
+            <thead>
+               <tr>
+                  <th>ID</th>
+                  <th>Email</th>
+                  <th>Name</th>
+                  <th>Role</th>
+                  <th>Phone</th>
+                  <th>Action</th>
+               </tr>
+            </thead>
+            <tbody>
+               {users.map((user) => (
+                  <tr key={user.id}>
+                     <td>{user.id}</td>
+                     <td>{user.email}</td>
+                     <td>{user.name}</td>
+                     <td>{user.role}</td>
+                     <td>{user.phone}</td>
+                     <td className="actions">
+                        <Button variant="primary">View</Button>
+                        <Button variant="danger">Disable</Button>
+                        <Button variant="warning">Edit</Button>
+                     </td>
+                  </tr>
+               ))}
+            </tbody>
+         </Table> */}
          <div className="mt-3 d-flex justify-content-center text-center">
             <ReactPaginate
                nextLabel="Next>"
@@ -85,4 +115,4 @@ const TableAccountPaginate = (pros) => {
    );
 };
 
-export default TableAccountPaginate;
+export default TableStaffPaginate;

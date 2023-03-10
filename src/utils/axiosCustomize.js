@@ -1,16 +1,21 @@
 import axios from "axios";
 import nProgress from "nprogress";
+import { useSelector } from "react-redux";
+import { AccessToken } from "../components/Auth/auth";
+
 nProgress.configure({
    showSpinner: false,
    trickleSpeed: 100,
    color: "#e34234",
 });
+// const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 const instance = axios.create({
    // baseURL: "http://192.168.1.13:8080/",//hunglocal
    baseURL: "https://cts-backend-v1.azurewebsites.net/", //SethLocal
    withCredentials: false,
    headers: {
       "Content-Type": "application/json",
+      // Authorization: AccessToken() ? `Bearer ${AccessToken()}` : "",
    },
 });
 

@@ -1,72 +1,14 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { Form } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { toast } from "react-toastify";
-import { postCreateUser } from "../../../services/apiService";
-const ModalAddAccount = (pros) => {
-   const { show, setShow, fetchListUser, PAGE_LIMIT } = pros;
+import React from "react";
+
+const ModalStaffInfo = (pros) => {
+   const { show, setShow, fetchListUser } = pros;
 
    const handleClose = () => {
       pros.setShow(false);
-      setEmail("");
-      setPassword("");
-      setUsername("");
-      setRoleId(1);
-      setSurName("");
-      setFirstName("");
-      setPhone("");
-      setdateOfBirth("");
    };
-   //    const handleShow = () => pros.setShow(true);
 
-   const [username, setUsername] = useState("");
-   const [password, setPassword] = useState("");
-   const [email, setEmail] = useState("");
-   const [roleId, setRoleId] = useState(1);
-   const [surName, setSurName] = useState("");
-   const [firstName, setFirstName] = useState("");
-   const [phone, setPhone] = useState("");
-   const [dateOfBirth, setdateOfBirth] = useState("");
-
-   const handleSubmit = async () => {
-      //validate
-      //api
-
-      let res = await postCreateUser(
-         username,
-         password,
-         roleId,
-         email,
-         firstName,
-         surName,
-         dateOfBirth,
-         phone,
-      );
-      console.log("res +", res);
-      if (res.status === 200) {
-         handleClose();
-         toast.success(`${res.data} `);
-      } else {
-         // let response = res.data.error.map((number, index) => {
-         // });
-         // var msgToast = "";
-         Object.values(res.data.error).map((item, index) => {
-            // msgToast += item + "\n";
-            toast.error(item);
-         });
-         // console.log(msgToast);
-      }
-      pros.setCurrentPage(1);
-      await pros.fetchListUser(1, PAGE_LIMIT, "", "");
-   };
    return (
       <>
-         {/* <Button variant='primary' onClick={handleShow}>
-            Launch demo modal
-         </Button> */}
-
          <Modal show={show} onHide={handleClose} size="xl">
             <Modal.Header closeButton>
                <Modal.Title>Add new user</Modal.Title>
@@ -164,4 +106,4 @@ const ModalAddAccount = (pros) => {
    );
 };
 
-export default ModalAddAccount;
+export default ModalStaffInfo;

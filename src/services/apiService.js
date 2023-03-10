@@ -58,7 +58,34 @@ const getCombineUser = (page, size, searchValue, filterMode) => {
    );
 };
 
+const getStaff = (page, size, searchValue, filterMode) => {
+   return axios.get(
+      `staffs/getAllStaff?page=${page}&size=${size}&name=${searchValue}&enable=${filterMode}`,
+   );
+};
+
+const getListLevel = () => {
+   return axios.get(`levels/getAllLevels`);
+};
+
+const putLevelStaff = (idStaff, levelUpdate) => {
+   return axios.put(`staffs/changePromotionLevel`, {
+      staffId: idStaff,
+      levelId: levelUpdate,
+   });
+};
+
+const putStatusAccount = (idAccount) => {
+   return axios.put(`/accounts/changeEnableAccount/${idAccount}`);
+};
+
+const getAllGroup = (page, size, groupName) => {
+   return axios.get(`/groups/getAllGroups?page=${page}&size=${size}&groupName=${groupName}`);
+};
+
 export {
+   putLevelStaff,
+   putStatusAccount,
    postCreateUser,
    getAllUser,
    updateUser,
@@ -67,4 +94,7 @@ export {
    postLogin,
    getTestAPI,
    getCombineUser,
+   getStaff,
+   getListLevel,
+   getAllGroup,
 };

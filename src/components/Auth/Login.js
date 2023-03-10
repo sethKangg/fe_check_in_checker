@@ -19,10 +19,10 @@ const Login = () => {
       setLoading(true);
 
       let data = await postLogin(username, password);
-      if (data) {
+      if (data.status === 200) {
          toast.success("login success");
          setLoading(false);
-         console.log("data ", data);
+         // console.log("data ", data);
          navigate("/");
          dispatch(doLogin(data));
       }

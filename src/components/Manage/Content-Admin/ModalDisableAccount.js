@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import { deleteUser } from "../../../services/apiService";
+import { putStatusAccount } from "../../../services/apiService";
 const ModalDisableAccount = (pros) => {
-   const { show, setShow, dataDelete } = pros;
+   const { show, setShow, dataDelete, PAGE_LIMIT } = pros;
 
    const handleClose = () => setShow(false);
 
    const handleComfirm = async (item) => {
-      // let res = await deleteUser(item.id);
+      let res = await putStatusAccount(item.id);
       // if (res) {
-      toast.success(`Deactive ${item.name} sucessfully`);
+      toast.success(`Change Status ${item.id} sucessfully`);
       handleClose();
       pros.setCurrentPage(1);
-      pros.fetchListUser(pros.currentPage, 1, "", "");
+      pros.fetchListUser(pros.currentPage, PAGE_LIMIT, "", "");
       // await pros.fetchListUser();
       // }
    };
@@ -27,7 +27,7 @@ const ModalDisableAccount = (pros) => {
             </Modal.Header>
             <Modal.Body>
                Are you sure to disable this user ?
-               <b>{dataDelete && dataDelete.name ? dataDelete.name : ``}</b>
+               <b>{dataDelete && dataDelete.username ? dataDelete.username : ``}</b>
             </Modal.Body>
             <Modal.Footer>
                <Button variant="secondary" onClick={handleClose}>

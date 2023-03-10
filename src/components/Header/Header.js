@@ -36,8 +36,8 @@ const Header = () => {
                   <NavLink className="nav-link" to={"/users"}>
                      User
                   </NavLink>
-                  <NavLink className="nav-link" to={"/admins"}>
-                     Admin
+                  <NavLink className="nav-link" to={"/manage"}>
+                     Manage
                   </NavLink>
                </Nav>
                <Nav>

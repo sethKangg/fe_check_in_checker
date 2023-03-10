@@ -68,8 +68,15 @@ const SideBar = (props) => {
                      <Link to={"/admins/dashboard"} />
                   </MenuItem>
                </SubMenu>
-               <SubMenu prefix={<span className="badge gray">3</span>} title={1} icon={<FaHeart />}>
-                  <MenuItem> 1</MenuItem>
+               <SubMenu
+                  prefix={<span className="badge gray"></span>}
+                  title="Staff Management"
+                  icon={<FaHeart />}
+               >
+                  <MenuItem>
+                     Manage
+                     <Link to={"/manage/manage-staff"} />
+                  </MenuItem>
                </SubMenu>
                <SubMenu title="XD" icon={<FaList />}>
                   <MenuItem> 1 </MenuItem>

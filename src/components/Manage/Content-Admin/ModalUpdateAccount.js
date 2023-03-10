@@ -14,11 +14,21 @@ const ModalUpdateAccount = (pros) => {
    //    const handleShow = () => pros.setShow(true);
 
    const [email, setEmail] = useState("");
+   const [id, setId] = useState("");
+   const [isEnable, setIsEnable] = useState();
+   const [staffName, setStaffName] = useState("");
+   const [roleName, setRoleName] = useState("");
 
+   const [username, setUsername] = useState("");
    useEffect(() => {
       // console.log('dataupdate', dataUpdate);
       if (!_.isEmpty(dataUpdate)) {
-         setEmail(dataUpdate.name);
+         setEmail(dataUpdate.email);
+         setId(dataUpdate.id);
+         setIsEnable(dataUpdate.isEnable);
+         setStaffName(dataUpdate.staffName);
+         setUsername(dataUpdate.username);
+         setRoleName(dataUpdate.roleName);
       }
    }, [dataUpdate]);
 
@@ -44,72 +54,59 @@ const ModalUpdateAccount = (pros) => {
             <Modal.Body>
                <form className="row g-3">
                   <div className="col-md-6">
-                     <label htmlFor="inputEmail4" className="form-label">
-                        Email
-                     </label>
-                     <input
-                        type="email"
-                        className="form-control"
-                        id="inputEmail4"
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
-                     />
-                  </div>
-                  <div className="col-md-6">
-                     <label htmlFor="inputPassword4" className="form-label">
-                        Password
-                     </label>
-                     <input type="password" className="form-control" id="inputPassword4" />
-                  </div>
-                  <div className="col-md-6">
-                     <label htmlFor="inputEmail4" className="form-label">
-                        First Name
-                     </label>
-                     <input type="email" className="form-control" id="inputEmail4" />
-                  </div>
-                  <div className="col-md-6">
-                     <label htmlFor="inputPassword4" className="form-label">
-                        Last Name
-                     </label>
-                     <input type="password" className="form-control" id="inputPassword4" />
-                  </div>
-
-                  <div className="col-12">
-                     <label htmlFor="inputAddress2" className="form-label">
-                        Address 2
-                     </label>
+                     <label className="form-label">ID</label>
                      <input
                         type="text"
                         className="form-control"
-                        id="inputAddress2"
-                        placeholder="Apartment, studio, or floor"
+                        value={id ? id : ""}
+                        onChange={(event) => setId(event.target.value)}
                      />
                   </div>
                   <div className="col-md-6">
-                     <label htmlFor="inputCity" className="form-label">
-                        City
-                     </label>
-                     <input type="text" className="form-control" id="inputCity" />
+                     <label className="form-label">Email</label>
+                     <input
+                        type="email"
+                        className="form-control"
+                        value={email ? email : ""}
+                        onChange={(event) => setEmail(event.target.value)}
+                     />
                   </div>
 
-                  <div className="col-md-2">
-                     <label htmlFor="inputZip" className="form-label">
-                        Zip
-                     </label>
-                     <input type="text" className="form-control" id="inputZip" />
+                  <div className="col-md-6">
+                     <label className="form-label">Username</label>
+                     <input
+                        type="text"
+                        className="form-control"
+                        value={username ? username : ""}
+                        onChange={(event) => setUsername(event.target.value)}
+                     />
                   </div>
-                  <div className="col-12">
-                     <div className="form-check">
-                        <input className="form-check-input" type="checkbox" id="gridCheck" />
-                        <label className="form-check-label" htmlFor="gridCheck">
-                           Check me out
-                        </label>
-                     </div>
+                  <div className="col-md-6">
+                     <label className="form-label">Staff Name</label>
+                     <input
+                        type="text"
+                        className="form-control"
+                        value={staffName ? staffName : ""}
+                        onChange={(event) => setStaffName(event.target.value)}
+                     />
                   </div>
-                  <div className="col-12">
-                     <button type="submit" className="btn btn-primary">
-                        Sign in
-                     </button>
+                  <div className="col-md-6">
+                     <label className="form-label">Role</label>
+                     <input
+                        type="text"
+                        className="form-control"
+                        value={roleName ? roleName : ""}
+                        onChange={(event) => setRoleName(event.target.value)}
+                     />
+                  </div>
+                  <div className="col-md-6">
+                     <label className="form-label">isEnable</label>
+                     <input
+                        type="text"
+                        className="form-control"
+                        value={isEnable ? isEnable : ""}
+                        onChange={(event) => setIsEnable(event.target.value)}
+                     />
                   </div>
                </form>
             </Modal.Body>
