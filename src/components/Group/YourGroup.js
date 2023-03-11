@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, ListGroup, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, ListGroup, Card, Button, InputGroup, Form } from "react-bootstrap";
 import "./Group.scss";
 import { getAllGroup } from "../../services/apiService";
 const YourGroup = () => {
@@ -30,6 +30,13 @@ const YourGroup = () => {
       fetchData();
    }, [currentPage, debouncedSearchTerm]);
 
+   const handleSearch = (e) => {
+      setSearchValue(e.target.value);
+      setCurrentPage(1);
+      // let res = await fetchListUser(1, PAGE_LIMIT, searchValue, filterIndex);
+      // console.log(res);
+   };
+
    // create an array of cards to display
    for (let i = 1; i <= numCards; i++) {
       cards.push(
@@ -47,7 +54,16 @@ const YourGroup = () => {
    }
 
    return (
-      <Container fluid className="p-0">
+      <Container fluid className="py-5">
+         <div>
+            <InputGroup className=" my-3">
+               <Form.Control
+                  placeholder="Tìm theo tên group"
+                  value={searchValue}
+                  onChange={(e) => handleSearch(e)}
+               />
+            </InputGroup>
+         </div>
          <Row className="justify-content-center">
             <Col xs={12} md={12} lg={12}>
                <ListGroup className="list-group-flush">

@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import storage from "redux-persist/es/storage";
 import localStorage from "redux-persist/es/storage";
 import videoHomePage from "../../assets/intro-home.mp4";
 import profile_1 from "../../assets/profile-1.jpg";
+
 import { AccessToken } from "../Auth/auth";
 const Home = () => {
    const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
    const account = useSelector((state) => state.user.account);
-   // console.log(isAuthenticated, account);
-   // const items = { ...localStorage };
-   console.log(AccessToken());
-   // console.log(JSON.stringify(localStorage));
+   const storedDataPromise = localStorage.getItem("persist:root");
+   console.log(storedDataPromise);
+
    return (
       <div className="home-container">
          <div className="d-flex w-100 ">

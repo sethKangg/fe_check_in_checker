@@ -2,7 +2,7 @@ import axios from "axios";
 import nProgress from "nprogress";
 import { useSelector } from "react-redux";
 import { AccessToken } from "../components/Auth/auth";
-
+import { store } from "../redux/store";
 nProgress.configure({
    showSpinner: false,
    trickleSpeed: 100,
@@ -22,6 +22,10 @@ const instance = axios.create({
 // Add a request interceptor
 instance.interceptors.request.use(
    function (config) {
+      //get token redux
+      const accessToken = store?.getState()?.user?.account?.accessToken;
+      //add header
+      config.headers["Authorization"] = "Bearer " + accessToken;
       nProgress.start();
       // Do something before request is sent
       return config;

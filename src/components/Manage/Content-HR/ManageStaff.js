@@ -81,6 +81,13 @@ const ManageStaff = () => {
       setCurrentPage(1);
    };
 
+   const handleSearch = (e) => {
+      setSearchValue(e.target.value);
+      setCurrentPage(1);
+      // let res = await fetchListUser(1, PAGE_LIMIT, searchValue, filterIndex);
+      // console.log(res);
+   };
+
    return (
       <div className="manage-container">
          <div className="title d-flex justify-content-center ">
@@ -92,7 +99,7 @@ const ManageStaff = () => {
                   <Form.Control
                      placeholder="Tìm theo tên tài khoản"
                      value={searchValue}
-                     onChange={(e) => setSearchValue(e.target.value)}
+                     onChange={(e) => handleSearch(e)}
                   />
                </InputGroup>
             </div>
