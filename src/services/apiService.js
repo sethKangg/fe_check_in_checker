@@ -76,11 +76,39 @@ const putLevelStaff = (idStaff, levelUpdate) => {
 };
 
 const putStatusAccount = (idAccount) => {
-   return axios.put(`/accounts/changeEnableAccount/${idAccount}`);
+   return axios.put(`accounts/changeEnableAccount/${idAccount}`);
 };
 
 const getAllGroup = (page, size, groupName) => {
-   return axios.get(`/groups/getAllGroups?page=${page}&size=${size}&groupName=${groupName}`);
+   return axios.get(`groups/getAllGroups?page=${page}&size=${size}&groupName=${groupName}`);
+};
+
+const postCreateGroup = (groupName, groupLeader) => {
+   let data = {
+      groupName: groupName,
+      groupLeader: groupLeader,
+   };
+   return axios.post(`groups/createGroup`, data);
+};
+
+const deleteGroup = (groupID) => {
+   return axios.delete(`groups/deleteGroup/${groupID}`);
+};
+
+const getAllProjects = (page, size, searchValue) => {
+   return axios.get(`projects/getAllProject?size=${size}&page=${page}&name=${searchValue}`);
+};
+
+const postAddProject = (staffId, projectId) => {
+   let data = {
+      staffId: staffId,
+      projectId: projectId,
+   };
+   return axios.post(`projects/addStaffToProject`, data);
+};
+
+const getAllMemberInProject = (projectID) => {
+   return axios.get(`projects/getAllStaffInProject?projectId=${projectID}`);
 };
 
 export {
@@ -97,4 +125,9 @@ export {
    getStaff,
    getListLevel,
    getAllGroup,
+   postCreateGroup,
+   deleteGroup,
+   getAllProjects,
+   postAddProject,
+   getAllMemberInProject,
 };

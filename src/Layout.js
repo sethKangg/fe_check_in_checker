@@ -11,7 +11,8 @@ import ManageAccount from "./components/Manage/Content-Admin/ManageAccount";
 import Manage from "./components/Manage/Manage";
 import ManageStaff from "./components/Manage/Content-HR/ManageStaff";
 import Profile from "./components/User/Profile";
-import YourGroup from "./components/Group/YourGroup";
+import Groups from "./components/Group/Groups";
+import Projects from "./components/Projects/Projects";
 // import AllCamera from "./components/Camera/AllCamera";
 // import Camera from "./components/Camera/Camera";
 const Layout = () => {
@@ -23,7 +24,8 @@ const Layout = () => {
                <Route path="/users" element={<User />} />
                <Route path="/check_in" element={<CheckIn />}></Route>
                <Route path="/profile" element={<Profile />}></Route>
-               <Route path="/group" element={<YourGroup />}></Route>
+               <Route path="/group" element={<Groups />}></Route>
+               <Route path="/project" element={<Projects />}></Route>
             </Route>
             <Route path="/manage" element={<Manage />}>
                <Route index path="manage-account" element={<ManageAccount />} />

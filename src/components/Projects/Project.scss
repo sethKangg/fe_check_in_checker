@@ -1,0 +1,49 @@
+.task-list {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 1rem;
+}
+
+.card {
+   width: calc(33.33% - 1rem);
+}
+
+.card-body {
+   padding: 1.25rem;
+}
+
+.card-title {
+   font-size: 1.25rem;
+}
+
+.card-text {
+   margin-bottom: 0.5rem;
+}
+
+.text-right button {
+   margin-left: 0.5rem;
+}
+
+.background-options {
+   /* padding: 5px; */
+   background-color: #c5ccee;
+   border-radius: 5px;
+}
+
+.hidden-title {
+   max-width: 94px;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   color: rgb(63, 63, 244);
+   font-weight: 700;
+}
+
+.normal-title {
+   max-width: 215px;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   color: rgb(63, 63, 244);
+   font-weight: 700;
+}
