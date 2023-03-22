@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { InputGroup, Form, ListGroup } from "react-bootstrap";
 import { getAllProjects } from "../../services/apiService";
-import "./Project.scss";
+import "./Project.css";
 import TableProjectPaginate from "./TableProjectPaginate";
 import ModalAddProject from "./ModalAddProject";
 import ModalViewProject from "./ModalViewProject";
@@ -35,7 +35,7 @@ const Projects = () => {
 
    const fetchListProject = async (page, searchValue) => {
       let res = await getAllProjects(page, PAGE_LIMIT, searchValue);
-      console.log("PROJECT DATA: ", res);
+      // console.log("PROJECT DATA: ", res);
       if (res.status == 200) {
          setListProject(res.data.list);
          setPageCount(res.data.allPages);
@@ -58,7 +58,7 @@ const Projects = () => {
    const handleClickUpdate = (value, item) => {
       setShowUpdate(value);
       setDataUpdate(item);
-      // console.log(item);
+      console.log(item);
    };
 
    const handleShowHideModal = (value) => {
@@ -74,7 +74,6 @@ const Projects = () => {
    const handleClickView = (value, item) => {
       setShowModalView(value);
       setDataView(item);
-      console.log(item);
    };
 
    const handleSearch = (e) => {
@@ -147,19 +146,21 @@ const Projects = () => {
             PAGE_LIMIT={PAGE_LIMIT}
             show={showModal}
             setShow={handleShowHideModal}
-            dataView={dataView}
+            fetchListProject={fetchListProject}
          />
          <ModalUpdateProject
             PAGE_LIMIT={PAGE_LIMIT}
             show={showUpdate}
             setShow={setShowUpdate}
             dataUpdate={dataUpdate}
+            fetchListProject={fetchListProject}
          />
          <ModalCancelProject
             show={showModalDelete}
             setShow={setShowModalDelete}
             dataDelete={dataDelete}
             PAGE_LIMIT={PAGE_LIMIT}
+            fetchListProject={fetchListProject}
          />
          <ModalViewProject show={showModalView} setShow={setShowModalView} dataView={dataView} />
          {/* <div>

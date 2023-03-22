@@ -2,38 +2,37 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import { putStatusProject } from "../../services/apiService";
-// import { putStatusAccount } from "../../../services/apiService";
+import { deleteMemberInProject } from "../../services/apiService";
 
-const ModalCancelProject = (pros) => {
-   const { show, setShow, dataDelete, PAGE_LIMIT, fetchListProject } = pros;
+const ModalRemoveStaff = (pros) => {
+   const { show, setShow, dataDelete, PAGE_LIMIT, projectId, fetchListMemberProject } = pros;
 
    const handleClose = () => setShow(false);
 
    const handleComfirm = async (item) => {
-      let res = await putStatusProject(item.id, 2);
+      console.log(dataDelete.staffId, projectId);
+      let res = await deleteMemberInProject(dataDelete.staffId, projectId);
+      console.log(res);
       if (res.status == 200) {
-         toast.success(`Change Status ${item.id} sucessfully`);
-         fetchListProject(1, "");
-         handleClose();
-         // pros.setCurrentPage(1);
-         //   pros.fetchListUser(pros.currentPage, PAGE_LIMIT, "", "");
-         // await pros.fetchListUser();
+         toast.success(`Xoá thành viên ${dataDelete.fullName} #${dataDelete.staffId} thành công`);
       }
+      // handleClose(projectId, 1, PAGE_LIMIT);
+      // pros.setCurrentPage(1);
+      // pros.fetchListUser(pros.currentPage, PAGE_LIMIT, "", "");
+      handleClose();
+      await fetchListMemberProject(projectId, 1, 10);
    };
 
    return (
       <>
          <Modal show={show} onHide={handleClose} backdrop="static">
             <Modal.Header closeButton>
-               <Modal.Title>Huỷ bỏ dự án </Modal.Title>
+               <Modal.Title>Xoá thành viên </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-               Bạn có chắc muốn huỷ bỏ dự án
+               Bạn có chắc muốn xóa thành viên
                <b>
-                  {" " + dataDelete && dataDelete.projectName
-                     ? " " + dataDelete.projectName + " "
-                     : ` `}
+                  {" " + dataDelete && dataDelete.fullName ? " " + dataDelete.fullName + " " : ` `}
                </b>
                hay không ?
             </Modal.Body>
@@ -55,4 +54,4 @@ const ModalCancelProject = (pros) => {
    );
 };
 
-export default ModalCancelProject;
+export default ModalRemoveStaff;

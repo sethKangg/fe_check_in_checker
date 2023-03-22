@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import Webcam from 'react-webcam';
+import React, { useCallback, useEffect, useState } from "react";
+import Webcam from "react-webcam";
 
 const AllCamera = () => {
    const [deviceId, setDeviceId] = useState({});
    const [devices, setDevices] = useState([]);
 
    const handleDevices = useCallback(
-      (mediaDevices) => setDevices(mediaDevices.filter(({ kind }) => kind === 'videoinput')),
+      (mediaDevices) => setDevices(mediaDevices.filter(({ kind }) => kind === "videoinput")),
       [setDevices],
    );
 
@@ -16,6 +16,7 @@ const AllCamera = () => {
 
    return (
       <>
+         <div>AVC</div>
          {devices.map((device, key) => (
             <div>
                <Webcam

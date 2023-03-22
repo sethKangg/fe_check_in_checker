@@ -5,7 +5,7 @@
 }
 
 .card {
-   width: calc(33.33% - 1rem);
+   /* width: calc(33.33% - 1rem); */
 }
 
 .card-body {
@@ -20,14 +20,12 @@
    margin-bottom: 0.5rem;
 }
 
-.text-right button {
-   margin-left: 0.5rem;
-}
-
 .background-options {
-   /* padding: 5px; */
+   padding: 5px 12px;
    background-color: #c5ccee;
    border-radius: 5px;
+   display: flex;
+   gap: 10px;
 }
 
 .hidden-title {

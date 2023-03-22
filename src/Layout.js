@@ -13,6 +13,8 @@ import ManageStaff from "./components/Manage/Content-HR/ManageStaff";
 import Profile from "./components/User/Profile";
 import Groups from "./components/Group/Groups";
 import Projects from "./components/Projects/Projects";
+import Calendar from "./components/Calendar/Calendar";
+import AllCamera from "./components/Camera/AllCamera";
 // import AllCamera from "./components/Camera/AllCamera";
 // import Camera from "./components/Camera/Camera";
 const Layout = () => {
@@ -23,9 +25,11 @@ const Layout = () => {
                <Route index element={<Home />} />
                <Route path="/users" element={<User />} />
                <Route path="/check_in" element={<CheckIn />}></Route>
-               <Route path="/profile" element={<Profile />}></Route>
+               <Route path="/profile/:username" element={<Profile />}></Route>
                <Route path="/group" element={<Groups />}></Route>
                <Route path="/project" element={<Projects />}></Route>
+               <Route path="/calendar" element={<Calendar />}></Route>
+               <Route path="/allCamera" element={<AllCamera />}></Route>
             </Route>
             <Route path="/manage" element={<Manage />}>
                <Route index path="manage-account" element={<ManageAccount />} />

@@ -49,14 +49,16 @@ const TableProjectPaginate = (pros) => {
                                  {showOptionsIndex === index ? (
                                     <>
                                        <div className="background-options ">
-                                          <Button
-                                             variant="danger"
-                                             size="sm"
-                                             className="me-2"
-                                             onClick={() => handleDelete(task)}
-                                          >
-                                             Huỷ
-                                          </Button>
+                                          {task.status != "Cancel" && (
+                                             <Button
+                                                variant="danger"
+                                                size="sm"
+                                                className=""
+                                                onClick={() => handleDelete(task)}
+                                             >
+                                                Huỷ
+                                             </Button>
+                                          )}
                                           <Button
                                              variant="primary"
                                              size="sm"

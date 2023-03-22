@@ -9,11 +9,13 @@ import {
    getAllMemberInProject,
    fetchListAvaiableStaff,
    postAddStaffProject,
+   getStaffGroup,
 } from "../../services/apiService";
-import ModalRemoveStaff from "./ModalRemoveStaff";
-import TableMemberProject from "./TableMemberProject";
+import TableMemberGroup from "./TableMemberGroup";
+// import ModalRemoveStaff from "./ModalRemoveStaff";
+// import TableMemberProject from "./TableMemberProject";
 
-const ModalViewProject = (pros) => {
+const ModalViewGroup = (pros) => {
    const { show, setShow, fetchListProject, PAGE_LIMIT, dataView } = pros;
 
    const handleClose = () => {
@@ -54,10 +56,10 @@ const ModalViewProject = (pros) => {
          toast.success("Thêm nhân viên thành công");
       }
    };
-   const fetchListMemberProject = async (projectId, page, size) => {
+   const fetchListMemberProject = async (groupId, page, size) => {
       setIsLoading(true);
       try {
-         const response = await getAllMemberInProject(projectId, page, size);
+         const response = await getStaffGroup(groupId, page, size);
          //   const data = await response.json();
          //console.log(data);
          if (response.status == 200) {
@@ -155,7 +157,7 @@ const ModalViewProject = (pros) => {
                         />
                      </div>
                      <div className="table-user mt-3">
-                        <TableMemberProject
+                        <TableMemberGroup
                            PAGE_LIMIT={LIMIT_MEMBER}
                            listMember={listMember}
                            pageCount={pageCount}
@@ -180,7 +182,7 @@ const ModalViewProject = (pros) => {
                   Thêm thành viên
                </Button>
             </Modal.Footer>
-            <ModalRemoveStaff
+            {/* <ModalRemoveStaff
                PAGE_LIMIT={LIMIT_MEMBER}
                fetchListMemberProject={fetchListMemberProject}
                show={showRemove}
@@ -189,10 +191,9 @@ const ModalViewProject = (pros) => {
                projectId={dataView.id}
                // setIsLoading={setIsLoading}
                // setListMember={setListMember}
-            />
+            /> */}
          </Modal>
       </>
    );
 };
-
-export default ModalViewProject;
+export default ModalViewGroup;

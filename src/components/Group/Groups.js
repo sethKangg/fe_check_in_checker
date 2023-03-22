@@ -3,14 +3,17 @@ import { Container, Row, Col, ListGroup, Card, Button, InputGroup, Form } from "
 import "./Group.scss";
 import { getAllGroup } from "../../services/apiService";
 import ModalAddGroup from "./ModalAddGroup";
+import ModalViewGroup from "./ModalViewGroup";
 const Groups = () => {
    const numCards = 35; // number of cards to display
    const cards = [];
 
    const [currentPage, setCurrentPage] = useState(1);
    const [searchValue, setSearchValue] = useState("");
+   const [showModalView, setShowModalView] = useState(false);
    const [showModal, setShowModal] = useState(false);
-   const PAGE_LIMIT = 99;
+   const [dataView, setDataView] = useState([]);
+   const PAGE_LIMIT = 10;
    const debouncedSearchTerm = useDebounce(searchValue, 800);
    const [listGroup, setListGroup] = useState([]);
    const fetchListGroup = async (page, size, searchValue) => {
@@ -55,7 +58,10 @@ const Groups = () => {
          </Col>,
       );
    }
-
+   const handleView = (item) => {
+      setShowModalView(true);
+      setDataView(item);
+   };
    return (
       <>
          <Container fluid className="py-5">
@@ -68,39 +74,45 @@ const Groups = () => {
                   />
                </InputGroup>
             </div>
-            <Row className="justify-content-center">
-               <Col xs={12} md={12} lg={12}>
-                  <ListGroup className="list-group-flush">
-                     <Row className="">
-                        <Col xs={12} sm={8} md={6} lg={4} className="mt-3  ">
-                           <Card className="card-add">
-                              <Card.Body className="d-flex align-items-center">
-                                 <div className="buttons" onClick={() => handleShowHideModal(true)}>
-                                    <div className="fill">Thêm nhóm mới </div>
+            {/* <Row className="justify-content-center"> */}
+            {/* <Col xs={12} md={12} lg={12}> */}
+            <ListGroup className="list-group-flush">
+               <Row className="">
+                  <Col xs={12} sm={8} md={6} lg={4} className="mt-3  ">
+                     <Card className="card-add">
+                        <Card.Body className="d-flex align-items-center">
+                           <div className="buttons" onClick={() => handleShowHideModal(true)}>
+                              <div className="fill">Thêm nhóm mới </div>
+                           </div>
+                        </Card.Body>
+                     </Card>
+                  </Col>
+                  {listGroup.map((group, index) => {
+                     return (
+                        <Col xs={12} sm={8} md={6} lg={4} key={group.id} className="mt-3  ">
+                           <Card>
+                              <Card.Body>
+                                 <Card.Title>
+                                    <b>{group.groupName}</b>
+                                 </Card.Title>
+                                 <Card.Subtitle className="mb-2 text-muted">
+                                    Trưởng nhóm: <b>{group.groupLeaderName}</b>
+                                 </Card.Subtitle>
+                                 {/* <Card.Text>Status</Card.Text> */}
+                                 <div className="d-flex justify-content-end w-100 ">
+                                    <Button variant="primary" onClick={() => handleView(group)}>
+                                       Chi tiết
+                                    </Button>
                                  </div>
                               </Card.Body>
                            </Card>
                         </Col>
-                        {listGroup.map((group, index) => {
-                           return (
-                              <Col xs={12} sm={8} md={6} lg={4} key={group.id} className="mt-3  ">
-                                 <Card>
-                                    <Card.Body>
-                                       <Card.Title>{group.groupName}</Card.Title>
-                                       <Card.Subtitle className="mb-2 text-muted">
-                                          {group.groupLeaderId}
-                                       </Card.Subtitle>
-                                       <Card.Text>Status</Card.Text>
-                                       <Button variant="primary">View</Button>
-                                    </Card.Body>
-                                 </Card>
-                              </Col>
-                           );
-                        })}
-                     </Row>
-                  </ListGroup>
-               </Col>
-            </Row>
+                     );
+                  })}
+               </Row>
+            </ListGroup>
+            {/* </Col> */}
+            {/* </Row> */}
          </Container>
          <ModalAddGroup
             PAGE_LIMIT={PAGE_LIMIT}
@@ -108,6 +120,7 @@ const Groups = () => {
             setShow={handleShowHideModal}
             fetchListGroup={fetchListGroup}
          />
+         <ModalViewGroup show={showModalView} setShow={setShowModalView} dataView={dataView} />
       </>
    );
 };

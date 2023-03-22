@@ -99,16 +99,96 @@ const getAllProjects = (page, size, searchValue) => {
    return axios.get(`projects/getAllProject?size=${size}&page=${page}&name=${searchValue}`);
 };
 
-const postAddProject = (staffId, projectId) => {
-   let data = {
-      staffId: staffId,
-      projectId: projectId,
-   };
-   return axios.post(`projects/addStaffToProject`, data);
+const postAddStaffProject = (staffObj, projectId) => {
+   // let data = {
+   //    staffId: staffId,
+   //    projectId: projectId,
+   // };
+   const newArray = staffObj.map((obj) => obj.value + "");
+   const resultObject = { staffId: newArray, projectId: projectId + "" };
+   return axios
+      .post(`projects/addStaffToProject`, resultObject)
+      .catch((error) => console.log(error));
 };
 
-const getAllMemberInProject = (projectID) => {
-   return axios.get(`projects/getAllStaffInProject?projectId=${projectID}`);
+const getAllMemberInProject = (projectID, page, size) => {
+   return axios.get(
+      `projects/getAllStaffInProject?projectId=${projectID}&page=${page}&size=${size}`,
+   );
+};
+
+const deleteMemberInProject = (memberId, projectId) => {
+   // let data = {
+   //    "staffId": memberId + "",
+   //    "projectId": projectId + "",
+   // };
+   // return axios.delete(`projects/removeStaffFromProject`, data);
+   var data = JSON.stringify({
+      staffId: "" + memberId,
+      projectId: "" + projectId,
+   });
+
+   var config = {
+      method: "delete",
+      maxBodyLength: Infinity,
+      url: "https://cts-backend-v1.azurewebsites.net/projects/removeStaffFromProject",
+      headers: {
+         "Content-Type": "application/json",
+      },
+      data: data,
+   };
+
+   axios(config).then(function (response) {
+      return response;
+   });
+};
+
+const fetchListAvaiableStaff = () => {
+   return axios.get(`staffs/getAvailableStaff`);
+};
+
+const putStatusProject = (projectId, statusNum) => {
+   return axios.put(`projects/changeProjectStatus/${projectId}/${statusNum}`);
+};
+
+const getListPMAvaiable = () => {
+   return axios.get(`staffs/getListPMAvailable`);
+};
+
+const postNewProject = (projectName, projectManagerId, groupId) => {
+   let data = {
+      projectName: projectName,
+      projectManagerId: projectManagerId,
+      groupId: groupId,
+      status: "In Progressing",
+   };
+   return axios.post(`projects/addProject`, data);
+};
+
+const putProject = (projectId, projectName, projectManagerId, groupId) => {
+   let data = {
+      projectName: projectName,
+      projectManagerId: projectManagerId,
+      groupId: groupId,
+   };
+   return axios.put(`projects/editProject/${projectId}`, data);
+};
+
+const getStaffGroup = (groupId, page, size) => {
+   return axios.get(`groups/getAllStaffInGroup?groupId=${groupId}&page=${page}&size=${size}`);
+};
+
+const getProfile = (username) => {
+   return axios.get(`profiles/${username}`);
+};
+
+const addRecognizeImg = (img) => {
+   let data = {
+      imageSetupVggDTO: {
+         imgs: [img],
+      },
+   };
+   return axios.post(`check-in/facial-recognition/verify`, data);
 };
 
 export {
@@ -128,6 +208,15 @@ export {
    postCreateGroup,
    deleteGroup,
    getAllProjects,
-   postAddProject,
+   postAddStaffProject,
    getAllMemberInProject,
+   deleteMemberInProject,
+   fetchListAvaiableStaff,
+   putStatusProject,
+   getListPMAvaiable,
+   postNewProject,
+   putProject,
+   getStaffGroup,
+   getProfile,
+   addRecognizeImg,
 };

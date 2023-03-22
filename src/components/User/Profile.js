@@ -1,75 +1,67 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { getProfile } from "../../services/apiService";
 import "./Profile.scss";
-const Profile = () => {
-   const nameRef = useRef(null);
-   const emailRef = useRef(null);
-   const dobRef = useRef(null);
-   const idRef = useRef(null);
-   const levelRef = useRef(null);
-   const roleRef = useRef(null);
-
-   const handleReset = () => {
-      nameRef.current.value = "";
-      emailRef.current.value = "";
-      dobRef.current.value = "";
-      idRef.current.value = "";
-      levelRef.current.value = "";
-      roleRef.current.value = "";
+import profile from "../../assets/profile-2.jpg";
+const Profile = (pros) => {
+   const params = useParams();
+   const usernameParam = params.username;
+   const fetchProfileInfor = async () => {
+      let res = await getProfile();
    };
 
-   const handleSubmit = (e) => {
-      e.preventDefault();
-      const formData = {
-         name: nameRef.current.value,
-         email: emailRef.current.value,
-         dob: dobRef.current.value,
-         id: idRef.current.value,
-         level: levelRef.current.value,
-         role: roleRef.current.value,
-      };
-      console.log(formData); // or send the data to server
-   };
-
+   useEffect(() => {}, [usernameParam]);
    return (
-      <Form className="profile-form" onSubmit={handleSubmit}>
-         <Form.Group controlId="formName">
-            <Form.Label>Name</Form.Label>
-            <Form.Control type="text" placeholder="Enter your name" ref={nameRef} />
-         </Form.Group>
+      <div className="wrapper">
+         <div className="left">
+            {/* <img src="https://i.imgur.com/cMy8V5j.png" alt="user" width="100"> */}
+            <img alt="user" width="240" src={profile} />
+            <h4>Alex William</h4>
+            <p>UI Developer</p>
+         </div>
+         <div className="right">
+            <div className="info">
+               <h3>Thông tin</h3>
+               <div className="info_data">
+                  <div className="data">
+                     <h4>Email</h4>
+                     <p>alex@gmail.com</p>
+                  </div>
+                  <div className="data">
+                     <h4>Phone</h4>
+                     <p>0001-213-998761</p>
+                  </div>
+               </div>
+            </div>
 
-         <Form.Group controlId="formEmail">
-            <Form.Label>Email</Form.Label>
-            <Form.Control type="email" placeholder="Enter your email" ref={emailRef} />
-         </Form.Group>
-
-         <Form.Group controlId="formDOB">
-            <Form.Label>Date of Birth</Form.Label>
-            <Form.Control type="date" placeholder="Enter your date of birth" ref={dobRef} />
-         </Form.Group>
-
-         <Form.Group controlId="formID">
-            <Form.Label>ID</Form.Label>
-            <Form.Control type="text" placeholder="Enter your ID" ref={idRef} />
-         </Form.Group>
-
-         <Form.Group controlId="formLevel">
-            <Form.Label>Level</Form.Label>
-            <Form.Control type="text" placeholder="Enter your level" ref={levelRef} />
-         </Form.Group>
-
-         <Form.Group controlId="formRole">
-            <Form.Label>Role</Form.Label>
-            <Form.Control type="text" placeholder="Enter your role" ref={roleRef} />
-         </Form.Group>
-
-         <Button className="mt-3 mx-5" variant="primary" type="submit">
-            Save
-         </Button>
-         <Button className="mt-3 " variant="secondary" onClick={handleReset}>
-            Reset
-         </Button>
-      </Form>
+            <div className="projects">
+               <h3>Dự án gần đây </h3>
+               <div className="projects_data">
+                  <div className="dat">
+                     <div className="d-flex gap-3 mb-3">
+                        <div>Tên dự án: lỏem ípma ínad ía dmgưo niwrng iởng iwnrg iởn </div>
+                        <div>Thời gian: 01/02/2001 - 03/04/2002 </div>
+                        <div>
+                           Trạng thái: <b>Hoàn thành</b>{" "}
+                        </div>
+                     </div>
+                     <div className="d-flex gap-3">
+                        <div>Tên dự án: lỏem ípma ínad ía dmgưo niwrng iởng iwnrg iởn </div>
+                        <div>Thời gian: 01/02/2001 - 03/04/2002 </div>
+                        <div>
+                           Trạng thái: <b>Hoàn thành</b>{" "}
+                        </div>
+                     </div>
+                  </div>
+                  {/* <div className="data">
+                     <h4>Most Viewed</h4>
+                     <p>dolor sit amet.</p>
+                  </div> */}
+               </div>
+            </div>
+         </div>
+      </div>
    );
 };
 

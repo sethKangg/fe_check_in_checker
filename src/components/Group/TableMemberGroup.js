@@ -1,7 +1,6 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
-
-const TableMemberProject = (pros) => {
+const TableMemberGroup = (pros) => {
    const {
       PAGE_LIMIT,
       listMember,
@@ -92,4 +91,4 @@ const TableMemberProject = (pros) => {
    );
 };
 
-export default TableMemberProject;
+export default TableMemberGroup;

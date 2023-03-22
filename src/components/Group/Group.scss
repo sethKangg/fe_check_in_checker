@@ -66,12 +66,12 @@
     cursor: pointer;
 }
 
-@media (min-width: 576px) {
-    .list-group-item {
-        flex: 1 1 calc(50% - 10px);
-        max-width: calc(50% - 10px);
-    }
-}
+// @media (min-width: 576px) {
+//     .list-group-item {
+//         flex: 1 1 calc(50% - 10px);
+//         max-width: calc(50% - 10px);
+//     }
+// }
 
 .fill:hover,
 .fill:focus {
@@ -93,18 +93,4 @@
     color: #a972cb;
     transition: 0.25s;
     font-weight: 640;
-}
-
-@media (min-width: 768px) {
-    .list-group-item {
-        flex: 1 1 calc(33.3333% - 10px);
-        max-width: calc(33.3333% - 10px);
-    }
-}
-
-@media (min-width: 1280) {
-    .list-group-item {
-        flex: 1 1 calc(12.3333% - 10px);
-        max-width: calc(12.3333% - 10px);
-    }
 }
