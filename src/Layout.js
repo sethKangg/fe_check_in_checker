@@ -15,6 +15,7 @@ import Groups from "./components/Group/Groups";
 import Projects from "./components/Projects/Projects";
 import Calendar from "./components/Calendar/Calendar";
 import AllCamera from "./components/Camera/AllCamera";
+import TestCamera from "./components/Camera/TestCamera";
 // import AllCamera from "./components/Camera/AllCamera";
 // import Camera from "./components/Camera/Camera";
 const Layout = () => {
@@ -30,6 +31,7 @@ const Layout = () => {
                <Route path="/project" element={<Projects />}></Route>
                <Route path="/calendar" element={<Calendar />}></Route>
                <Route path="/allCamera" element={<AllCamera />}></Route>
+               <Route path="/testCamera" element={<TestCamera />}></Route>
             </Route>
             <Route path="/manage" element={<Manage />}>
                <Route index path="manage-account" element={<ManageAccount />} />

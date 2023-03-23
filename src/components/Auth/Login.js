@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { doLogin } from "../../redux/action/userAction";
-import { getTestAPI, postLogin } from "../../services/apiService";
+import { postLogin } from "../../services/apiService";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import "./Login.scss";
 
@@ -32,7 +32,7 @@ const Login = () => {
    };
 
    const handleKeyDown = (e) => {
-      if (e && e.key == "Enter") {
+      if (e && e.key === "Enter") {
          handleSubmit();
       }
    };
@@ -66,7 +66,7 @@ const Login = () => {
             <div>
                <button className="btn-submit" onClick={() => handleSubmit()} disabled={loading}>
                   Login
-                  {loading == true ? <AiOutlineLoading3Quarters className="spin" /> : <></>}
+                  {loading === true ? <AiOutlineLoading3Quarters className="spin" /> : <></>}
                </button>
                <div className="text-center">
                   <span

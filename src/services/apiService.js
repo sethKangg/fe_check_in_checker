@@ -106,9 +106,7 @@ const postAddStaffProject = (staffObj, projectId) => {
    // };
    const newArray = staffObj.map((obj) => obj.value + "");
    const resultObject = { staffId: newArray, projectId: projectId + "" };
-   return axios
-      .post(`projects/addStaffToProject`, resultObject)
-      .catch((error) => console.log(error));
+   return axios.post(`projects/addStaffToProject`, resultObject);
 };
 
 const getAllMemberInProject = (projectID, page, size) => {
@@ -118,28 +116,30 @@ const getAllMemberInProject = (projectID, page, size) => {
 };
 
 const deleteMemberInProject = (memberId, projectId) => {
-   // let data = {
-   //    "staffId": memberId + "",
-   //    "projectId": projectId + "",
+   // var data = JSON.stringify({
+   //    staffId: [memberId],
+   //    projectId: "" + projectId,
+   // });
+
+   // var config = {
+   //    method: "delete",
+   //    maxBodyLength: Infinity,
+   //    url: "https://cts-backend.azurewebsites.net/projects/removeStaffFromProject",
+   //    headers: {
+   //       "Content-Type": "application/json",
+   //    },
+   //    data: data,
    // };
-   // return axios.delete(`projects/removeStaffFromProject`, data);
-   var data = JSON.stringify({
-      staffId: "" + memberId,
+
+   // axios(config).then(function (response) {
+   //    return response;
+   // });
+   let data = {
+      staffId: [memberId],
       projectId: "" + projectId,
-   });
-
-   var config = {
-      method: "delete",
-      maxBodyLength: Infinity,
-      url: "https://cts-backend-v1.azurewebsites.net/projects/removeStaffFromProject",
-      headers: {
-         "Content-Type": "application/json",
-      },
-      data: data,
    };
-
-   axios(config).then(function (response) {
-      return response;
+   return axios.delete(`projects/removeStaffFromProject`, {
+      data: { staffId: [memberId], projectId: "" + projectId },
    });
 };
 
@@ -191,6 +191,18 @@ const addRecognizeImg = (img) => {
    return axios.post(`check-in/facial-recognition/verify`, data);
 };
 
+const getStaffAvaiableGroup = () => {
+   return axios.get("staffs/getListStaffAvailableAddToGroup");
+};
+
+const postAddStaffGroup = (staffObj, groupId) => {
+   const newArray = staffObj.map((obj) => obj.value);
+   const resultObject = { staffId: newArray, projectId: groupId };
+   return axios.post(`groups/addStaffToGroup`, resultObject);
+};
+
+// const deleteStaffGroup = ()
+
 export {
    putLevelStaff,
    putStatusAccount,
@@ -219,4 +231,6 @@ export {
    getStaffGroup,
    getProfile,
    addRecognizeImg,
+   getStaffAvaiableGroup,
+   postAddStaffGroup,
 };

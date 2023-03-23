@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Calendar.css";
 const Calendar = () => {
    const today = new Date();
-   const [activeDay, setActiveDay] = useState("");
+   // const [activeDay, setActiveDay] = useState("");
    const [month, setMonth] = useState(today.getMonth());
    const [year, setYear] = useState(today.getFullYear());
    const [prev, setPrev] = useState();

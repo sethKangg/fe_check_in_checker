@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import Webcam from "react-webcam";
 
 const AllCamera = () => {
-   const [deviceId, setDeviceId] = useState({});
+   // const [deviceId, setDeviceId] = useState({});
    const [devices, setDevices] = useState([]);
 
    const handleDevices = useCallback(
@@ -24,7 +24,7 @@ const AllCamera = () => {
                   videoConstraints={{ deviceId: device.deviceId }}
                   mirrored={true}
                />
-               {device.label || `Device ${key + 1}`}
+               {device.label || `Device ${device.deviceId}`}
             </div>
          ))}
       </>

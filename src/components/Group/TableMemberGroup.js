@@ -35,7 +35,7 @@ const TableMemberGroup = (pros) => {
                   listMember.map((item, index) => {
                      return (
                         <tr key={index}>
-                           <th scope="row">{item.staffId}</th>
+                           <th scope="row">{item.id}</th>
                            <td>{item.fullName}</td>
                            <td>{item.phone}</td>
                            <td>{item.email}</td>

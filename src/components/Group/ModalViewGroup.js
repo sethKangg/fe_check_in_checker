@@ -6,10 +6,10 @@ import Modal from "react-bootstrap/Modal";
 import Select from "react-select";
 import { toast } from "react-toastify";
 import {
-   getAllMemberInProject,
-   fetchListAvaiableStaff,
    postAddStaffProject,
    getStaffGroup,
+   getStaffAvaiableGroup,
+   postAddStaffGroup,
 } from "../../services/apiService";
 import TableMemberGroup from "./TableMemberGroup";
 // import ModalRemoveStaff from "./ModalRemoveStaff";
@@ -51,7 +51,8 @@ const ModalViewGroup = (pros) => {
    //    }
    // };
    const postStaffToProject = async (staffId, projectId) => {
-      let res = await postAddStaffProject(staffId, projectId);
+      let res = await postAddStaffGroup(staffId, projectId);
+      console.log(res);
       if (res.status == 200) {
          toast.success("Thêm nhân viên thành công");
       }
@@ -77,11 +78,11 @@ const ModalViewGroup = (pros) => {
    const fetchListStaff = async () => {
       setIsLoading1(true);
       try {
-         const response = await fetchListAvaiableStaff();
+         const response = await getStaffAvaiableGroup();
          //   const data = await response.json();
          //console.log(data);
          if (response.status == 200) {
-            console.log("LIST Staff: ", response);
+            // console.log("LIST Staff to add in group: ", response);
             setListStaff(response.data.list);
             // listSelected.current.value = response?.data?.list[0]?.id;
          }
@@ -106,7 +107,8 @@ const ModalViewGroup = (pros) => {
    }, [show, currentPage]);
 
    const handleSubmit = async () => {
-      console.log(listSelected);
+      // console.log(listSelected);
+      // console.log("id", dataView.id);
       let res = await postStaffToProject(listSelected, dataView.id);
       // if (res.status === 200) {
       //    toast.success(`Thêm thành công ${listSelected.length} thành viên !`);
@@ -133,9 +135,9 @@ const ModalViewGroup = (pros) => {
          <Modal show={show} onHide={handleClose} size="xl">
             <Modal.Header closeButton>
                <Modal.Title>
-                  Dự án{" "}
+                  Nhóm{" "}
                   <b>
-                     {dataView.projectName} - {dataView.id}
+                     {dataView.groupName} - {dataView.id}
                   </b>
                </Modal.Title>
             </Modal.Header>
