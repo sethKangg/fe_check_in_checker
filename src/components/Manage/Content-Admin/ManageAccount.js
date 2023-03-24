@@ -126,7 +126,7 @@ const ManageAccount = (pros) => {
             />
             <ModalUpdateAccount
                show={showUpdate}
-               setShow={handleClickUpdate}
+               setShow={setShowUpdate}
                fetchListUser={fetchListUser}
                dataUpdate={dataUpdate}
                currentPage={currentPage}

@@ -45,7 +45,10 @@ const getUserPage = (page, limit) => {
 };
 
 const postLogin = (username, password) => {
-   return axios.post(`auth/login`, { username, password });
+   return axios.post(`auth/login`, {
+      username: username + "",
+      password: password + "",
+   });
 };
 
 const getTestAPI = () => {
@@ -143,8 +146,8 @@ const deleteMemberInProject = (memberId, projectId) => {
    });
 };
 
-const fetchListAvaiableStaff = () => {
-   return axios.get(`staffs/getAvailableStaff`);
+const fetchListAvaiableStaff = (groupId) => {
+   return axios.get(`staffs/getAvailableStaff/${groupId}`);
 };
 
 const putStatusProject = (projectId, statusNum) => {
@@ -171,6 +174,7 @@ const putProject = (projectId, projectName, projectManagerId, groupId) => {
       projectManagerId: projectManagerId,
       groupId: groupId,
    };
+   axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
    return axios.put(`projects/editProject/${projectId}`, data);
 };
 
@@ -179,7 +183,7 @@ const getStaffGroup = (groupId, page, size) => {
 };
 
 const getProfile = (username) => {
-   return axios.get(`profiles/${username}`);
+   return axios.get(`accounts/getProfile/${username}`);
 };
 
 const addRecognizeImg = (img) => {
@@ -201,7 +205,20 @@ const postAddStaffGroup = (staffObj, groupId) => {
    return axios.post(`groups/addStaffToGroup`, resultObject);
 };
 
-// const deleteStaffGroup = ()
+const putProfile = (accountId, surname, firstName, dateOfBirth, phone) => {
+   let data = {
+      firstName,
+      surname,
+      dateOfBirth,
+      phone,
+   };
+   return axios.put(`accounts/updateAccount/${accountId}`, {
+      firstName: firstName,
+      surname: surname,
+      dateOfBirth: dateOfBirth,
+      phone: phone,
+   });
+};
 
 export {
    putLevelStaff,
@@ -233,4 +250,5 @@ export {
    addRecognizeImg,
    getStaffAvaiableGroup,
    postAddStaffGroup,
+   putProfile,
 };

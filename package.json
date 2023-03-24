@@ -4,6 +4,8 @@
 
   "version": "0.1.0",
 
+  "proxy":"https://cts-backend.azurewebsites.net/",
+
   "private": true,
 
   "dependencies": {

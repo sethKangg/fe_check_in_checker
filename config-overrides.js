@@ -1,9 +1,8 @@
 module.exports = function override(config, env) {
-   // console.log("React app rewired works!");
-   // config.resolve.fallback = {
-   //    fs: false,
-   // };
-
+   console.log("React app rewired works!");
+   config.resolve.fallback = {
+      fs: false,
+   };
    addDevServerEntrypoints({
       entryPoints: ["face-api.js"],
    }),
@@ -12,7 +11,7 @@ module.exports = function override(config, env) {
          config.devtool = "eval-source-map";
          return config;
       };
-   // return config;
+   return config;
 };
 const path = require("path");
 

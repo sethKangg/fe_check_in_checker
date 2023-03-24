@@ -41,13 +41,6 @@ const ModalViewProject = (pros) => {
       console.log(item);
    };
 
-   // const fetchListMemberProject = async (projectID) => {
-   //    let res = await getAllMemberInProject(projectID);
-
-   //    if (res.status == 200) {
-   //       setListMember(res.data.list);
-   //    }
-   // };
    const postStaffToProject = async (staffId, projectId) => {
       let res = await postAddStaffProject(staffId, projectId);
       if (res.status == 200) {
@@ -75,7 +68,7 @@ const ModalViewProject = (pros) => {
    const fetchListStaff = async () => {
       setIsLoading1(true);
       try {
-         const response = await fetchListAvaiableStaff();
+         const response = await fetchListAvaiableStaff(dataView.groupId);
          //   const data = await response.json();
          //console.log(data);
          if (response.status == 200) {
@@ -121,7 +114,7 @@ const ModalViewProject = (pros) => {
       // console.log(listSelected.current.value);
    };
 
-   // console.log("dataView", dataView);
+   console.log("dataView", dataView);
    const newArray = listStaff.map((item) => {
       return { value: item.id, label: `${item.fullName} #${item.id}` };
    });

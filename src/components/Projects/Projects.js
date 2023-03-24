@@ -163,32 +163,6 @@ const Projects = () => {
             fetchListProject={fetchListProject}
          />
          <ModalViewProject show={showModalView} setShow={setShowModalView} dataView={dataView} />
-         {/* <div>
-            <ModalAddAccount
-               PAGE_LIMIT={PAGE_LIMIT}
-               show={showModal}
-               setShow={handleShowHideModal}
-               fetchListUser={fetchListUser}
-               currentPage={currentPage}
-               setCurrentPage={setCurrentPage}
-            />
-            <ModalUpdateAccount
-               show={showUpdate}
-               setShow={handleClickUpdate}
-               fetchListUser={fetchListUser}
-               dataUpdate={dataUpdate}
-               currentPage={currentPage}
-               setCurrentPage={setCurrentPage}
-            />
-            <ModalDisableAccount
-               show={showModalDelete}
-               setShow={setShowModalDelete}
-               dataDelete={dataDelete}
-               fetchListUser={fetchListUser}
-               currentPage={currentPage}
-               setCurrentPage={setCurrentPage}
-            />
-         </div> */}
       </div>
    );
 };

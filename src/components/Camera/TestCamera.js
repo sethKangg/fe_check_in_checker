@@ -68,7 +68,9 @@ function TestCamera() {
       let res = await addRecognizeImg(dataImg);
       console.log(res);
       if (res.status === 200) {
-         toast.success("Check - in thành công. Chào mừng ngày mới ");
+         toast.success(
+            `Check - in thành công. Chào mừng ${res.data.lastName} ${res.data.firstName} `,
+         );
       } else {
          toast.error("Không nhận diện được khuôn mặt vui lòng thử lại !!");
       }
