@@ -3,7 +3,7 @@ import { Table } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 
 const TableStaffPaginate = (pros) => {
-   const { listStaff, pageCount, searchValue, filterIndex, PAGE_LIMIT } = pros;
+   const { listStaff, pageCount, searchValue, filterIndex, PAGE_LIMIT, handleClickView } = pros;
    const handlePageClick = (event) => {
       pros.fetchListUser(event.selected + 1, PAGE_LIMIT, searchValue, filterIndex);
       pros.setCurrentPage(event.selected + 1);
@@ -35,7 +35,14 @@ const TableStaffPaginate = (pros) => {
                            <td scope="row">{item.phone}</td>
                            <td scope="row">{item.promotionLevel}</td>
                            <th className="actions">
-                              <button className="btn btn-primary ml-3">View</button>
+                              <button
+                                 className="btn btn-primary ml-3"
+                                 onClick={() => {
+                                    handleClickView(true, item);
+                                 }}
+                              >
+                                 View
+                              </button>
                               <button
                                  className="btn btn-warning mx-3"
                                  onClick={() => pros.handleClickUpdate(true, item)}

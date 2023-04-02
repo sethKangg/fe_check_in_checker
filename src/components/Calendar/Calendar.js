@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getCalendar } from "../../services/apiService";
 import "./Calendar.css";
-const Calendar = () => {
+import ViewCalendar from "./ViewCalendar";
+const Calendar = (pros) => {
+   const params = useParams();
+   const idParams = params.id;
+
+   const [show, setShow] = useState(false);
+   const [dataClick, setDataClick] = useState("");
+
    const today = new Date();
    // const [activeDay, setActiveDay] = useState("");
    const [month, setMonth] = useState(today.getMonth());
@@ -9,25 +18,25 @@ const Calendar = () => {
    const [after, setAfter] = useState();
    const [days, setDays] = useState();
    const [prevDays, setPrevDays] = useState();
+   const [listDay, setListDay] = useState([]);
    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
+      "Tháng 1",
+      "Tháng 2",
+      "Tháng 3",
+      "Tháng 4",
+      "Tháng 5",
+      "Tháng 6",
+      "Tháng 7",
+      "Tháng 8",
+      "Tháng 9",
+      "Tháng 10",
+      "Tháng 11",
+      "Tháng 12",
    ];
    const prevMonth = () => {
       const newMonth = month - 1;
       const newYear = year - (newMonth === -1 ? 1 : 0);
 
-      // Set the new month and year values to the state
       setMonth(newMonth === -1 ? 11 : newMonth);
       setYear(newMonth === -1 ? year - 1 : newYear);
    };
@@ -36,7 +45,6 @@ const Calendar = () => {
       const newMonth = month + 1;
       const newYear = year + (newMonth === 12 ? 1 : 0);
 
-      // Set the new month and year values to the state
       setMonth(newMonth === 12 ? 0 : newMonth);
       setYear(newYear);
    };
@@ -49,118 +57,130 @@ const Calendar = () => {
       const day = firstDay.getDay();
       const nextDays = 7 - lastDay.getDay() - 1;
 
-      console.log("console.log(month, year);", month, year);
+      // console.log("console.log(month, year);", month, year);
 
       setPrev(day);
       setPrevDays(prevDays);
       setDays(lastDate);
       setAfter(nextDays);
+   };
 
-      // console.log("prev day >>>", day);
-      // console.log("days >>>", lastDate);
-      // console.log("next days >>>", nextDays);
+   const handleClickDay = (day) => {
+      setShow(true);
+      setDataClick(day);
+   };
+
+   const fetchDataCalendar = async () => {
+      let monthApi = month + 1;
+      if (monthApi < 10) monthApi = "0" + monthApi;
+      let res = await getCalendar(idParams, year, monthApi);
+      console.log("res>>>", res.data);
+      if (res.status === 200) {
+         setListDay(res.data.dto.dayCheck);
+      }
    };
    useEffect(() => {
+      fetchDataCalendar();
       initCalendar();
    }, [month, year]);
    return (
-      <div className="container-2">
-         <div className="left">
-            <div className="calendar">
-               <div className="month">
-                  <i className="fas fa-angle-left prev" onClick={() => prevMonth()}>
-                     Tháng trước
-                  </i>
-                  <div className="date">{months[month] + " " + year} </div>
-                  <i className="fas fa-angle-right next" onClick={() => nextMonth()}>
-                     Tháng sau
-                  </i>
-               </div>
-               <div className="weekdays">
-                  <div>CN</div>
-                  <div>T2</div>
-                  <div>T3</div>
-                  <div>T4</div>
-                  <div>T5</div>
-                  <div>T6</div>
-                  <div>T7</div>
-               </div>
-               <div className="days">
-                  {/* prev */}
-                  {[...Array(prev)].map((e, i) => (
-                     <div key={i} className="day prev-date">
-                        {prevDays - i + 1}
+      <>
+         <div className="container-2">
+            <div className="left">
+               <div className="calendar">
+                  <div className="month">
+                     <i className="fas fa-angle-left prev" onClick={() => prevMonth()}>
+                        Tháng trước
+                     </i>
+                     <div className="date" onClick={() => console.log(listDay)}>
+                        <b>{months[month] + " Năm " + year}</b>
                      </div>
-                  ))}
-                  {/* days */}
-                  {[...Array(days)].map((e, i) => (
-                     <div
-                        key={i}
-                        className={`day ${
-                           i === new Date().getDate() &&
-                           year === new Date().getFullYear() &&
-                           month === new Date().getMonth() &&
-                           `today active`
-                        }`}
-                     >
-                        {i + 1}
-                     </div>
-                  ))}
-                  {/* days after */}
-                  {[...Array(after)].map((e, i) => (
-                     <div key={i} className="day next-date ">
-                        {i + 1}
-                     </div>
-                  ))}
-
-                  {/* <div key={i} className="day prev-date">
-                        26
-                     </div> */}
-
-                  {/* <div className="day ">1</div>
-                  <div className="day today active">21</div>
-                  <div className="day next-date">1</div> */}
-               </div>
-               <div className="goto-today">
-                  <div className="goto">
-                     <input type="text" placeholder="mm/yyyy" className="date-input" />
-                     <button className="goto-btn">Go</button>
+                     <i className="fas fa-angle-right next" onClick={() => nextMonth()}>
+                        Tháng sau
+                     </i>
                   </div>
-                  <button className="today-btn">Today</button>
+                  <div className="weekdays">
+                     <div>CN</div>
+                     <div>T2</div>
+                     <div>T3</div>
+                     <div>T4</div>
+                     <div>T5</div>
+                     <div>T6</div>
+                     <div>T7</div>
+                  </div>
+                  <div className="days">
+                     {/* prev */}
+                     {[...Array(prev)].map((e, i) => (
+                        <div key={i} className="day prev-date">
+                           {prevDays - i + 1}
+                        </div>
+                     ))}
+                     {/* days */}
+                     {/* {[...Array(days)].map((e, i) => ( */}
+                     {listDay.map((e, i) => (
+                        <div
+                           key={i}
+                           className={`
+                     day 
+                     ${
+                        i === new Date().getDate() &&
+                        year === new Date().getFullYear() &&
+                        month === new Date().getMonth() &&
+                        `today `
+                        // `right_time`
+                        // `late`
+                     }
+                     
+                     ${e === 1 ? `right_time ` : e === 2 ? `late ` : e === 3 ? `not_go` : `not_yet`}
+
+                     `}
+                           onClick={() => {
+                              handleClickDay(i);
+                           }}
+                        >
+                           {i + 1}
+                        </div>
+                     ))}
+                     {/* days after */}
+                     {[...Array(after)].map((e, i) => (
+                        <div key={i} className="day next-date ">
+                           {i + 1}
+                        </div>
+                     ))}
+                  </div>
+                  <div className="goto-today">
+                     <div className="goto">
+                        <input type="text" placeholder="mm/yyyy" className="date-input" />
+                        <button className="goto-btn">Go</button>
+                     </div>
+                     <button className="today-btn">Today</button>
+                  </div>
                </div>
             </div>
+            <div className="right">
+               <div className="d-flex align-items-center mt-3 ">
+                  <div className="box right_time"></div>
+                  <div className=""> : Đi đúng giờ</div>
+               </div>
+               <div className="d-flex align-items-center mt-3">
+                  <div className="box late"></div>
+                  <div className=""> : Đi muộn </div>
+               </div>
+               <div className="d-flex align-items-center mt-3">
+                  <div className="box off"></div>
+                  <div className=""> : Không đi làm </div>
+               </div>
+               <div className="d-flex align-items-center mt-3">
+                  <div className="box holiday   "></div>
+                  <div className=""> : Ngày lễ </div>
+               </div>
+            </div>
+            <button className="add-event">
+               <i className="fas fa-plus"></i>
+            </button>
          </div>
-         {/* <div className="right">
-            <div className="today-date">
-               <div className="event-day">wed</div>
-               <div className="event-date">12th december 2022</div>
-            </div>
-            <div className="events"></div>
-            <div className="add-event-wrapper">
-               <div className="add-event-header">
-                  <div className="title">Add Event</div>
-                  <i className="fas fa-times close"></i>
-               </div>
-               <div className="add-event-body">
-                  <div className="add-event-input">
-                     <input type="text" placeholder="Event Name" className="event-name" />
-                  </div>
-                  <div className="add-event-input">
-                     <input type="text" placeholder="Event Time From" className="event-time-from" />
-                  </div>
-                  <div className="add-event-input">
-                     <input type="text" placeholder="Event Time To" className="event-time-to" />
-                  </div>
-               </div>
-               <div className="add-event-footer">
-                  <button className="add-event-btn">Add Event</button>
-               </div>
-            </div>
-         </div> */}
-         <button className="add-event">
-            <i className="fas fa-plus"></i>
-         </button>
-      </div>
+         <ViewCalendar show={show} setShow={setShow} day={dataClick} month={month} year={year} />
+      </>
    );
 };
 

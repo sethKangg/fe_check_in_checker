@@ -78,14 +78,11 @@ const SideBar = (props) => {
                      <Link to={"/manage/manage-staff"} />
                   </MenuItem>
                </SubMenu>
-               <SubMenu title="XD" icon={<FaList />}>
-                  <MenuItem> 1 </MenuItem>
-                  <SubMenu title="EHE">
-                     <MenuItem> 3.1 </MenuItem>
-                     <SubMenu title="OHO">
-                        <MenuItem> 3.3.1 </MenuItem>
-                     </SubMenu>
-                  </SubMenu>
+               <SubMenu title="Check-In" icon={<FaList />}>
+                  <MenuItem>
+                     Tình trạng Check In
+                     <Link to={"/view-capture"} />
+                  </MenuItem>
                </SubMenu>
             </Menu>
          </SidebarContent>

@@ -16,6 +16,7 @@ import Projects from "./components/Projects/Projects";
 import Calendar from "./components/Calendar/Calendar";
 import AllCamera from "./components/Camera/AllCamera";
 import TestCamera from "./components/Camera/TestCamera";
+import ViewCaptured from "./components/Manage/Content-ViewCapture/ViewCaptured";
 // import AllCamera from "./components/Camera/AllCamera";
 // import Camera from "./components/Camera/Camera";
 const Layout = () => {
@@ -25,17 +26,18 @@ const Layout = () => {
             <Route path="/" element={<App />}>
                <Route index element={<Home />} />
                <Route path="/users" element={<User />} />
-               <Route path="/check_in" element={<CheckIn />}></Route>
+               <Route path="/check_in" element={<TestCamera />}></Route>
                <Route path="/profile/:username" element={<Profile />}></Route>
                <Route path="/group" element={<Groups />}></Route>
                <Route path="/project" element={<Projects />}></Route>
-               <Route path="/calendar" element={<Calendar />}></Route>
+               <Route path="/calendar/:id" element={<Calendar />}></Route>
                <Route path="/allCamera" element={<AllCamera />}></Route>
-               <Route path="/testCamera" element={<TestCamera />}></Route>
+               {/* <Route path="/testCamera" element={<TestCamera />}></Route> */}
             </Route>
-            <Route path="/manage" element={<Manage />}>
-               <Route index path="manage-account" element={<ManageAccount />} />
-               <Route index path="manage-staff" element={<ManageStaff />} />
+            <Route path="/manage/" element={<Manage />}>
+               <Route path="manage-account" element={<ManageAccount />} />
+               <Route path="manage-staff" element={<ManageStaff />} />
+               <Route path="view-capture" element={<ViewCaptured />} />
                {/* <Route path="dashboard" element={<Admin />} /> */}
             </Route>
             <Route path="/login" element={<Login />}></Route>

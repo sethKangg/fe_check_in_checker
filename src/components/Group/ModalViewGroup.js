@@ -1,19 +1,11 @@
 import _, { values } from "lodash";
 import React, { useEffect, useRef, useState } from "react";
-import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Select from "react-select";
 import { toast } from "react-toastify";
-import {
-   postAddStaffProject,
-   getStaffGroup,
-   getStaffAvaiableGroup,
-   postAddStaffGroup,
-} from "../../services/apiService";
+import { getStaffGroup, getStaffAvaiableGroup, postAddStaffGroup } from "../../services/apiService";
 import TableMemberGroup from "./TableMemberGroup";
-// import ModalRemoveStaff from "./ModalRemoveStaff";
-// import TableMemberProject from "./TableMemberProject";
 
 const ModalViewGroup = (pros) => {
    const { show, setShow, fetchListProject, PAGE_LIMIT, dataView } = pros;
@@ -43,13 +35,6 @@ const ModalViewGroup = (pros) => {
       console.log(item);
    };
 
-   // const fetchListMemberProject = async (projectID) => {
-   //    let res = await getAllMemberInProject(projectID);
-
-   //    if (res.status == 200) {
-   //       setListMember(res.data.list);
-   //    }
-   // };
    const postStaffToProject = async (staffId, projectId) => {
       let res = await postAddStaffGroup(staffId, projectId);
       console.log(res);

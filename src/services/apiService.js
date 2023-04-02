@@ -220,6 +220,27 @@ const putProfile = (accountId, surname, firstName, dateOfBirth, phone) => {
    });
 };
 
+const getViewCaptured = (staffId, onlyMe, isError, startTime, endTime, name, page, size) => {
+   return axios.get(
+      `image/image-verify?staffId=${staffId}&onlyMe=${onlyMe}&isError=${isError}&startTime=${startTime}&endTime=${endTime}&name=${name}&page=${page}&size=${size}`,
+   );
+};
+
+const getCalendar = (staffId, year, month) => {
+   return axios.get(`timesheets/getTimesheet/${staffId}?yearMonth=${year}-${month}`);
+};
+
+const postImgTraining = (staffId, img) => {
+   let data = {
+      imgs: [img],
+   };
+   return axios.post(`check-in/${staffId}/facial-recognition/setup`, data);
+};
+
+const getImgTrainStaff = (staffId) => {
+   return axios.get(`staffs/${staffId}/get-image-setup`);
+};
+
 export {
    putLevelStaff,
    putStatusAccount,
@@ -251,4 +272,8 @@ export {
    getStaffAvaiableGroup,
    postAddStaffGroup,
    putProfile,
+   getViewCaptured,
+   getCalendar,
+   postImgTraining,
+   getImgTrainStaff,
 };

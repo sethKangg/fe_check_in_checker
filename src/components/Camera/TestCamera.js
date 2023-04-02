@@ -64,7 +64,8 @@ function TestCamera() {
 
    const handleCheckIn = async () => {
       let dataImg = dataUri.substring(23);
-
+      // console.log(dataUri);
+      // console.log(dataUri.substring(23));
       let res = await addRecognizeImg(dataImg);
       console.log(res);
       if (res.status === 200) {

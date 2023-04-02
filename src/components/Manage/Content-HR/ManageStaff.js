@@ -3,6 +3,7 @@ import { Button, Card, Dropdown, DropdownButton, Form, InputGroup, Table } from 
 import { getListLevel, getStaff } from "../../../services/apiService";
 import "./HRManager.scss";
 import ModalUpdateStaff from "./ModalUpdateStaff";
+import ModalViewStaff from "./ModalViewStaff";
 import TableStaffPaginate from "./TableStaffPaginate";
 const ManageStaff = () => {
    const PAGE_LIMIT = 4;
@@ -19,7 +20,7 @@ const ManageStaff = () => {
    const [listLevel, setListLevel] = useState([]);
    const [dataUpdate, setDataUpdate] = useState({});
    const [dataDelete, setDataDelete] = useState({});
-
+   const [dataView, setDataView] = useState([]);
    const debouncedSearchTerm = useDebounce(searchValue, 800);
 
    const fetchListUser = async (page, size, searchValue, filterIndex) => {
@@ -32,7 +33,7 @@ const ManageStaff = () => {
    };
    const fetchListLevel = async () => {
       let res = await getListLevel();
-      console.log("List Level: ", res);
+      // console.log("List Level: ", res);
       if (res.status == 200) {
          setListLevel(res.data);
          // setPageCount(res.data.allPages);
@@ -51,9 +52,6 @@ const ManageStaff = () => {
    useEffect(() => {
       const fetchLevel = async () => {
          let res = await fetchListLevel();
-         // console.log(res);
-         // console.log("Fetch level");
-         // Process the response here
       };
 
       fetchLevel();
@@ -64,8 +62,9 @@ const ManageStaff = () => {
       // console.log(item);
    };
 
-   const handleShowHideModal = (value) => {
-      setShowModal(value);
+   const handleClickView = (value, item) => {
+      setShowModal(true);
+      setDataView(item);
    };
 
    const handleDelete = (value) => {
@@ -133,6 +132,7 @@ const ManageStaff = () => {
                   searchValue={searchValue}
                   filterIndex={filterIndex}
                   setCurrentPage={setCurrentPage}
+                  handleClickView={handleClickView}
                />
             </div>
          </div>
@@ -163,6 +163,7 @@ const ManageStaff = () => {
                currentPage={currentPage}
                setCurrentPage={setCurrentPage}
             /> */}
+            <ModalViewStaff show={showModal} setShow={setShowModal} dataView={dataView} />
          </div>
       </div>
    );

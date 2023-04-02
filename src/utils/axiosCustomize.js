@@ -11,8 +11,8 @@ nProgress.configure({
 // const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 const instance = axios.create({
    // baseURL: "http://192.168.1.13:8080/",//hunglocal
-   baseURL: "https://cts-backend.azurewebsites.net/", //SethLocal
-   // baseURL: "http://192.168.1.3:8080/", //BaoLocal
+   // baseURL: "https://cts-backend.azurewebsites.net/", //SethLocal
+   baseURL: "http://192.168.198.16:8080/", //BaoLocal
    // baseURL: "http://172.20.10.4:8080/", //BaoLocalFPT
    withCredentials: false,
    headers: {
@@ -30,7 +30,7 @@ instance.interceptors.request.use(
       //get token redux
       const accessToken = store?.getState()?.user?.account?.accessToken;
       //add header
-      console.log(accessToken.length);
+      // console.log(accessToken.length);
       if (accessToken.length > 0) {
          config.headers["Authorization"] = "Bearer " + accessToken;
       }
@@ -55,6 +55,7 @@ instance.interceptors.response.use(
    function (error) {
       // Any status codes that falls outside the range of 2xx cause this function to trigger
       // Do something with response error
+      nProgress.done();
       return error && error.response;
    },
 );

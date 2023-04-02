@@ -14,9 +14,9 @@ const Manage = () => {
             <div className="admin-header">
                <FaBars onClick={() => setCollapsed(!collapsed)} /> lorem
             </div>
-            <div className="admin-main p-3">
-               <Outlet />
-            </div>
+            {/* <div className="admin-main p-3"> */}
+            <Outlet />
+            {/* </div> */}
          </div>
       </div>
    );
