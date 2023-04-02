@@ -17,6 +17,7 @@ import Calendar from "./components/Calendar/Calendar";
 import AllCamera from "./components/Camera/AllCamera";
 import TestCamera from "./components/Camera/TestCamera";
 import ViewCaptured from "./components/Manage/Content-ViewCapture/ViewCaptured";
+import Report from "./components/Report/Report";
 // import AllCamera from "./components/Camera/AllCamera";
 // import Camera from "./components/Camera/Camera";
 const Layout = () => {
@@ -32,6 +33,7 @@ const Layout = () => {
                <Route path="/project" element={<Projects />}></Route>
                <Route path="/calendar/:id" element={<Calendar />}></Route>
                <Route path="/allCamera" element={<AllCamera />}></Route>
+               <Route path="/report" element={<Report />}></Route>
                {/* <Route path="/testCamera" element={<TestCamera />}></Route> */}
             </Route>
             <Route path="/manage/" element={<Manage />}>

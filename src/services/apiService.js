@@ -241,6 +241,19 @@ const getImgTrainStaff = (staffId) => {
    return axios.get(`staffs/${staffId}/get-image-setup`);
 };
 
+const postComplain = (content, typeId) => {
+   let data = {
+      content: content,
+      complaintTypeId: typeId,
+   };
+   return axios.post(`complaints/sendComplaint`, data);
+};
+const fetchComplaint = (page, size, statusC) => {
+   return axios.get(`complaints/getAllComplaints?page=${page}&size=${size}`);
+};
+const putComplain = (complainId, complainStatus) => {
+   return axios.put(`complaints/updateComplaint/${complainId}/${complainStatus}`);
+};
 export {
    putLevelStaff,
    putStatusAccount,
@@ -276,4 +289,7 @@ export {
    getCalendar,
    postImgTraining,
    getImgTrainStaff,
+   postComplain,
+   fetchComplaint,
+   putComplain,
 };

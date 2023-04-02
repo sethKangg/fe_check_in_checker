@@ -25,8 +25,8 @@ const Login = () => {
          // console.log("data ", data);
          navigate("/");
          dispatch(doLogin(data));
-      }
-      if (!data) {
+      } else {
+         setLoading(false);
          toast.error("fail");
       }
    };
