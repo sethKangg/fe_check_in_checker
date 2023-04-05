@@ -4,19 +4,24 @@ import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import { postComplain } from "../../services/apiService";
+import { getListOptionComplaints, postComplain } from "../../services/apiService";
 
 const ModalAddReport = (pros) => {
    const [value, setValue] = useState("");
    const inputRef = useRef(null);
-
+   const [listOp, setListOp] = useState([]);
+   const [compType, setCompType] = useState("1");
    const handleChange = (event) => {
       setValue(event.target.value);
       inputRef.current.style.height = "auto";
       inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
    };
-   const postReport = async () => {
-      let res = await postComplain(value, "2");
+   const fetchListOption = async () => {
+      let res = await getListOptionComplaints();
+      console.log(res);
+      if (res.status === 200) {
+         setListOp(res.data.list);
+      }
    };
    const { show, setShow, fetchApi, setCurrentPage } = pros;
    const handleClose = () => {
@@ -27,6 +32,7 @@ const ModalAddReport = (pros) => {
    useEffect(() => {
       const fetchData = async () => {
          if (show === true) {
+            fetchListOption();
          }
          // Process the response here
       };
@@ -34,19 +40,22 @@ const ModalAddReport = (pros) => {
       fetchData();
    }, [show]);
    const postApi = async () => {
-      let res = await postComplain(value, "2");
+      let res = await postComplain(value, compType);
       console.log(res);
       if (res.status === 200) {
          toast.success("Thêm yêu cầu mới thành công!");
          setCurrentPage(1);
-         await fetchApi(1);
          handleClose();
+         fetchApi(1, "");
+      } else {
+         toast.error("Thêm yêu cầu gặp sự cố");
       }
    };
    const handleSubmit = async () => {
       //validate
-      if (!value) return toast.error("Tên nhóm không được để trống");
+      if (!value) return toast.error("Nội dung không được trống");
       postApi();
+      // console.log(compType);
       //api
       //   let res = await postNewProject(newGroupName, assignPM, assignGroup);
       // console.log(newGroupName, assignPM, assignGroup);
@@ -80,12 +89,17 @@ const ModalAddReport = (pros) => {
                   <div className="col-md-4">
                      <label className="form-label">Họ</label>
                      <Form.Select
-                     // value={roleId}
-                     // onChange={(event) => setRoleId(event.target.value)}
+                        // value={roleId}
+                        onChange={(event) => setCompType(event.target.value + "")}
                      >
-                        <option value="1">Admin</option>
-                        <option value="2">HR</option>
-                        <option value="5">Staff</option>
+                        {listOp &&
+                           listOp.map((e, i) => (
+                              <option key={i} value={e.id}>
+                                 {e.name}
+                              </option>
+                           ))}
+                        {/* <option value="2">HR</option>
+                        <option value="5">Staff</option> */}
                      </Form.Select>
                   </div>
                   <label className="form-label">Nội dung</label>

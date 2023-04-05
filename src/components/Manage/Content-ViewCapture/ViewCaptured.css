@@ -44,19 +44,18 @@
    padding: 8px 12px;
    border-radius: 8px;
 }
-.captured-card div {
-   /* max-height: 270px;
-   max-width: 200px; */
-}
+
 .captured-card img {
-   max-width: 160px;
-   height: auto;
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
 }
 .img-captured {
    margin: auto;
    display: flex;
    justify-content: center;
-   min-height: 213px;
+   width: 200px;
+   height: 200px;
 }
 .captured-name {
    flex-direction: column;

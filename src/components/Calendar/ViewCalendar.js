@@ -3,11 +3,21 @@ import { useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import profile_1 from "../../assets/profile-1.jpg";
 import profile_2 from "../../assets/profile-2.jpg";
+import { getViewCaptured } from "../../services/apiService";
+import { useSelector } from "react-redux";
 const ViewCalendar = (pros) => {
    const { show, setShow, day, month, year } = pros;
+   const [listImg, setListImg] = useState([]);
    const [showImage, setShowImage] = useState(false);
    const [imageSrc, setImageSrc] = useState("");
-
+   const account = useSelector((state) => state.user.account);
+   const fetchImg = async (day) => {
+      let res = await getViewCaptured(account.id, 1, 0, day, day, "", 1, 20);
+      console.log(res);
+      if (res.status === 200) {
+         setListImg(res.data.content);
+      }
+   };
    function togglePreview(src) {
       setImageSrc(src);
       setShowImage(true);
@@ -17,9 +27,22 @@ const ViewCalendar = (pros) => {
    };
    useEffect(() => {
       if (show === true) {
-         console.log(day + 1 + "/" + (month + 1) + "/" + year);
+         const trueMonth = month + 1 < 10 ? "0" + (month + 1) : month + 1;
+         const time = year + "-" + trueMonth + "-" + (day + 1);
+         fetchImg(time);
+         // console.log(time);
       }
    }, [show]);
+
+   const handleSrcImg = (img) => {
+      let src = null;
+      try {
+         src = require(`../../assets/Images${img}`);
+      } catch {
+         src = require(`../../assets/error.jpg`);
+      }
+      return src;
+   };
    const handleSubmit = () => {};
 
    return (
@@ -46,18 +69,20 @@ const ViewCalendar = (pros) => {
                <div className="info mt-3">
                   <div className="h3 info-title">Ảnh Check-In </div>
                   <div className="info-img d-flex align-items-center justify-align-content-start gap-3 flex-wrap  ">
-                     <div className="container-img">
-                        <img src={profile_1} width={250} onClick={() => togglePreview(profile_1)} />
-                        <p>Lorem ispum</p>
-                     </div>
-                     <div className="container-img">
-                        <img src={profile_1} width={250} onClick={() => togglePreview(profile_1)} />
-                        <p>Lorem ispum</p>
-                     </div>
-                     <div className="container-img">
-                        <img src={profile_1} width={250} onClick={() => togglePreview(profile_1)} />
-                        <p>Lorem ispum</p>
-                     </div>
+                     {listImg &&
+                        listImg.map((i, e) => (
+                           <div className="container-img" key={e}>
+                              <img
+                                 src={handleSrcImg(i.imagePath)}
+                                 width={220}
+                                 onClick={() => togglePreview(profile_1)}
+                              />
+                              <p>Ảnh thứ #{i.imageVerifyId}</p>
+                              <p>{i.status}</p>
+                              <p>Chụp lúc {i.verifyTime}</p>
+                           </div>
+                        ))}
+
                      {/* <img src={profile_2} width={250} onClick={() => togglePreview(profile_2)} /> */}
                      {/* <img src={profile_1} /> */}
                   </div>

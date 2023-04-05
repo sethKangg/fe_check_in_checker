@@ -7,18 +7,22 @@ import { fetchComplaint, putComplain } from "../../services/apiService";
 import { useEffect } from "react";
 import TablePageReport from "./TablePageReport";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 const Report = () => {
    const [show, setShow] = useState(false);
    const [listComplaints, setListComplaints] = useState([]);
    const [currentPage, setCurrentPage] = useState(1);
    const [pageCount, setPageCount] = useState(1);
-   const [status, setStatus] = useState();
-   const LIMIT_PAGE = 1;
+   const [status, setStatus] = useState("");
+   const LIMIT_PAGE = 5;
    const [isLoading, setIsLoading] = useState(false);
-   const fetchApi = async (page) => {
+   const account = useSelector((state) => state.user.account);
+   const staffId = account.roleName === "HUMAN RESOURCE" ? "0" : account.id;
+
+   const fetchApi = async (page, statusC) => {
       setIsLoading(true);
       try {
-         let res = await fetchComplaint(page, LIMIT_PAGE);
+         let res = await fetchComplaint(page, LIMIT_PAGE, statusC, staffId);
          console.log(res);
          if (res.status === 200) {
             setListComplaints(res.data.list);
@@ -38,24 +42,49 @@ const Report = () => {
       }
    };
    useEffect(() => {
-      fetchApi(currentPage);
-   }, [currentPage]);
-
+      fetchApi(currentPage, status);
+   }, [currentPage, status]);
+   const clickFilterButton = (filter) => {
+      setCurrentPage(1);
+      setStatus(filter);
+   };
    return (
       <div className="p-3">
          <div className="d-flex justify-content-center">Yêu cầu</div>
          <div className="d-flex justify-content-between ">
             <div className="d-flex gap-3">
-               <button className="btn btn-secondary">Tất cả</button>
-               <button className="btn btn-secondary">Chờ duyệt</button>
-               <button className="btn btn-secondary">Được duyệt</button>
-               <button className="btn btn-secondary ">Từ chối</button>
-            </div>
-            <div>
-               <button className="btn btn-primary" onClick={() => setShow(true)}>
-                  Gửi yêu cầu mới
+               <button
+                  className={`btn ${status === "" ? "btn-primary" : "btn-secondary"}`}
+                  onClick={() => clickFilterButton("")}
+               >
+                  Tất cả
+               </button>
+               <button
+                  className={`btn ${status === "pending" ? "btn-primary" : "btn-secondary"}`}
+                  onClick={() => clickFilterButton("pending")}
+               >
+                  Chờ duyệt
+               </button>
+               <button
+                  className={`btn ${status === "accept" ? "btn-primary" : "btn-secondary"}`}
+                  onClick={() => clickFilterButton("accept")}
+               >
+                  Được duyệt
+               </button>
+               <button
+                  className={`btn ${status === "reject" ? "btn-primary" : "btn-secondary"}`}
+                  onClick={() => clickFilterButton("reject")}
+               >
+                  Từ chối
                </button>
             </div>
+            {account && account.roleName !== "HUMAN RESOURCE" && (
+               <div>
+                  <button className="btn btn-primary" onClick={() => setShow(true)}>
+                     Gửi yêu cầu mới
+                  </button>
+               </div>
+            )}
          </div>
          <div>
             {/* <div class="card-2 mt-3">

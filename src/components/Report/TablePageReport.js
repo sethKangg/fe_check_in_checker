@@ -29,12 +29,16 @@ const TablePageReport = (pros) => {
                         </div>
                         <div className="user-position d-flex justify-content-between">
                            <div className="d-flex">
-                              <p className="position">Người gửi: {e.staffName}</p>
+                              <p className="position">
+                                 Người gửi: {e.staffName} #{e.staffId}
+                              </p>
                               {/* <p className="role mx-2"> Admin </p> */}
                            </div>
                            <div className="d-flex">
-                              <p className="position">Người duyệt: </p>
-                              <p className="role mx-2"> Admin </p>
+                              <p className="position">
+                                 Người duyệt: {e.approveName} #{e.approveId}
+                              </p>
+                              {/* <p className="role mx-2"> Admin </p> */}
                            </div>
                         </div>
                         <div className="content">Nội dung: {e.content}</div>

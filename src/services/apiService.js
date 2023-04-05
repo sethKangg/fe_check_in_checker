@@ -248,12 +248,19 @@ const postComplain = (content, typeId) => {
    };
    return axios.post(`complaints/sendComplaint`, data);
 };
-const fetchComplaint = (page, size, statusC) => {
-   return axios.get(`complaints/getAllComplaints?page=${page}&size=${size}`);
+const fetchComplaint = (page, size, statusC, staff) => {
+   return axios.get(
+      `complaints/getAllComplaints?page=${page}&size=${size}&status=${statusC}&staffId=${staff}`,
+   );
 };
 const putComplain = (complainId, complainStatus) => {
    return axios.put(`complaints/updateComplaint/${complainId}/${complainStatus}`);
 };
+
+const getListOptionComplaints = () => {
+   return axios.get(`complaints/getAllComplaintTypes`);
+};
+
 export {
    putLevelStaff,
    putStatusAccount,
@@ -292,4 +299,5 @@ export {
    postComplain,
    fetchComplaint,
    putComplain,
+   getListOptionComplaints,
 };
