@@ -9,11 +9,15 @@ import {
    fetchListAvaiableStaff,
    getAllGroup,
    getListPMAvaiable,
+   getStaffByRole,
    postAddProject,
    postNewProject,
 } from "../../services/apiService";
+import { useSelector } from "react-redux";
 
 const ModalAddProject = (pros) => {
+   const account = useSelector((state) => state.user.account);
+
    const { show, setShow, fetchListProject, PAGE_LIMIT } = pros;
    const [isLoading, setIsLoading] = useState(false);
    const [isLoading1, setIsLoading1] = useState(false);
@@ -29,7 +33,7 @@ const ModalAddProject = (pros) => {
    const fetchListProjectLeader = async () => {
       setIsLoading(true);
       try {
-         const response = await getListPMAvaiable();
+         const response = await getStaffByRole(3);
          //   const data = await response.json();
          //console.log(data);
          if (response.status == 200) {
@@ -46,7 +50,7 @@ const ModalAddProject = (pros) => {
    const fetchListGroup = async () => {
       setIsLoading1(true);
       try {
-         const response = await getAllGroup(1, 99, "");
+         const response = await getAllGroup(1, 99, "", 0);
          //   const data = await response.json();
          //console.log(data);
          if (response.status == 200) {
@@ -69,8 +73,9 @@ const ModalAddProject = (pros) => {
          }
          // Process the response here
       };
-
-      fetchData();
+      if (show === true) {
+         fetchData();
+      }
    }, [show]);
 
    const handleSubmit = async () => {
@@ -105,12 +110,26 @@ const ModalAddProject = (pros) => {
       // console.log(assignPM.current.value);
    };
 
-   const newArray = listStaff.map((item) => {
-      return { value: item.id, label: `${item.fullName} #${item.id}` };
-   });
-   const newGroupArray = listGroup.map((item) => {
-      return { value: item.id, label: `${item.groupName} #${item.id}` };
-   });
+   let newArray = { value: account.id, label: `${account.staffName} #${account.id}` };
+   let newGroupArray = {
+      value: account.groupId,
+      label: `${account.groupName} #${account.groupId}`,
+   };
+   if (!account.roleName === "PROJECT MANAGER") {
+      newArray = listStaff.map((item) => {
+         return { value: item.id, label: `${item.fullName} #${item.id}` };
+      });
+      newGroupArray = listGroup.map((item) => {
+         return { value: item.id, label: `${item.groupName} #${item.id}` };
+      });
+      // console.log("List State", newArray, newGroupArray);
+   } else {
+      newArray = [{ value: account.id, label: `${account.staffName} #${account.id}` }];
+      newGroupArray = [
+         { value: account.groupId, label: `${account.groupName} #${account.groupId}` },
+      ];
+      // console.log("List redux", newArray, newGroupArray);
+   }
    return (
       <>
          <Modal show={show} onHide={handleClose} size="xl">

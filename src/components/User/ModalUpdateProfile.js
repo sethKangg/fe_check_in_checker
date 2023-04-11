@@ -30,35 +30,6 @@ const ModalUpdateProfile = (pros) => {
    }, [dataUpdate]);
 
    const updateProfile = async () => {
-      // let res = await putProfile(dataUpdate.id, surname, firstName, dob, phone);
-      // var myHeaders = new Headers();
-      // myHeaders.append("Content-Type", "application/json");
-      // // myHeaders.append("Access-Control-Allow-Origin", "*");
-      // // myHeaders.append("Authorization", `Bearer ${account.accessToken}`);
-      // var raw = JSON.stringify({
-      //    firstName: firstName,
-      //    surname: surname,
-      //    dateOfBirth: dob,
-      //    phone: phone,
-      // });
-      // var requestOptions = {
-      //    method: "PUT",
-      //    headers: myHeaders,
-      //    body: raw,
-      //    redirect: "follow",
-      // };
-      // let res = await fetch(
-      //    "https://cts-backend.azurewebsites.net/accounts/updateAccount/" + dataUpdate.id,
-      //    requestOptions,
-      // )
-      //    .then((response) => response.text())
-      //    .then((result) => {
-      //       toast.success("Cập nhật hồ sơ thành công");
-      //       handleClose();
-      //    })
-      //    .catch((error) => {
-      //       toast.error("Có lỗi xảy ra ");
-      //    });
       var myHeaders = new Headers();
       myHeaders.append("Authorization", `Bearer ${account.accessToken}`);
       myHeaders.append("access-control-request-headers", "*");

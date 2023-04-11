@@ -4,6 +4,7 @@ import "./Group.scss";
 import { getAllGroup } from "../../services/apiService";
 import ModalAddGroup from "./ModalAddGroup";
 import ModalViewGroup from "./ModalViewGroup";
+import { useSelector } from "react-redux";
 const Groups = () => {
    const numCards = 35; // number of cards to display
    const cards = [];
@@ -16,9 +17,13 @@ const Groups = () => {
    const PAGE_LIMIT = 10;
    const debouncedSearchTerm = useDebounce(searchValue, 800);
    const [listGroup, setListGroup] = useState([]);
+
+   const account = useSelector((state) => state.user.account);
+   const staffId = account.roleName === "HUMAN RESOURCE" ? "0" : account.id;
+
    const fetchListGroup = async (page, size, searchValue) => {
-      let res = await getAllGroup(page, size, searchValue);
-      console.log("groupData : ", res);
+      let res = await getAllGroup(page, size, searchValue, staffId);
+      // console.log("groupData : ", res);
       if (res.status == 200) {
          setListGroup(res.data.list);
          // setPageCount(res.data.allPages);
@@ -74,19 +79,22 @@ const Groups = () => {
                   />
                </InputGroup>
             </div>
+
             {/* <Row className="justify-content-center"> */}
             {/* <Col xs={12} md={12} lg={12}> */}
             <ListGroup className="list-group-flush">
                <Row className="">
-                  <Col xs={12} sm={8} md={6} lg={4} className="mt-3  ">
-                     <Card className="card-add">
-                        <Card.Body className="d-flex align-items-center">
-                           <div className="buttons" onClick={() => handleShowHideModal(true)}>
-                              <div className="fill">Thêm nhóm mới </div>
-                           </div>
-                        </Card.Body>
-                     </Card>
-                  </Col>
+                  {account.roleName === "HUMAN RESOURCE" && (
+                     <Col xs={12} sm={8} md={6} lg={4} className="mt-3  ">
+                        <Card className="card-add">
+                           <Card.Body className="d-flex align-items-center">
+                              <div className="buttons" onClick={() => handleShowHideModal(true)}>
+                                 <div className="fill">Thêm nhóm mới </div>
+                              </div>
+                           </Card.Body>
+                        </Card>
+                     </Col>
+                  )}
                   {listGroup.map((group, index) => {
                      return (
                         <Col xs={12} sm={8} md={6} lg={4} key={group.id} className="mt-3  ">
@@ -114,12 +122,14 @@ const Groups = () => {
             {/* </Col> */}
             {/* </Row> */}
          </Container>
-         <ModalAddGroup
-            PAGE_LIMIT={PAGE_LIMIT}
-            show={showModal}
-            setShow={handleShowHideModal}
-            fetchListGroup={fetchListGroup}
-         />
+         {account.roleName === "HUMAN RESOURCE" && (
+            <ModalAddGroup
+               PAGE_LIMIT={PAGE_LIMIT}
+               show={showModal}
+               setShow={handleShowHideModal}
+               fetchListGroup={fetchListGroup}
+            />
+         )}
          <ModalViewGroup show={showModalView} setShow={setShowModalView} dataView={dataView} />
       </>
    );

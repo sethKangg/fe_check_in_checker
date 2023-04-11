@@ -75,7 +75,7 @@ const ViewCalendar = (pros) => {
                               <img
                                  src={handleSrcImg(i.imagePath)}
                                  width={220}
-                                 onClick={() => togglePreview(profile_1)}
+                                 onClick={() => togglePreview(handleSrcImg(i.imagePath))}
                               />
                               <p>Ảnh thứ #{i.imageVerifyId}</p>
                               <p>{i.status}</p>

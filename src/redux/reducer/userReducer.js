@@ -8,6 +8,8 @@ const INITIAL_STATE = {
       staffName: "",
       roleName: "",
       accessToken: "",
+      groupName: "",
+      groupId: "",
    },
    isAuthenticated: false,
 };
@@ -25,6 +27,8 @@ const userReducer = (state = INITIAL_STATE, action) => {
                staffName: action?.payload?.data?.accountDTO?.staffName,
                roleName: action?.payload?.data?.accountDTO?.roleName,
                accessToken: action?.payload?.data?.accessToken,
+               groupName: action?.payload?.data?.accountDTO?.groupName,
+               groupId: action?.payload?.data?.accountDTO?.groupId,
             },
             isAuthenticated: true,
          };

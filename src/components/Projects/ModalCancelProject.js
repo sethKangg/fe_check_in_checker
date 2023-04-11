@@ -11,14 +11,11 @@ const ModalCancelProject = (pros) => {
    const handleClose = () => setShow(false);
 
    const handleComfirm = async (item) => {
-      let res = await putStatusProject(item.id, 2);
+      let res = await putStatusProject(item.id, 3);
       if (res.status == 200) {
          toast.success(`Change Status ${item.id} sucessfully`);
          fetchListProject(1, "");
          handleClose();
-         // pros.setCurrentPage(1);
-         //   pros.fetchListUser(pros.currentPage, PAGE_LIMIT, "", "");
-         // await pros.fetchListUser();
       }
    };
 

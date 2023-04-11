@@ -41,19 +41,19 @@ const TableMemberGroup = (pros) => {
                            <td>{item.email}</td>
                            <td>{item.roleName}</td>
                            <td>{item.promotionLevel}</td>
-                           {item.roleName != "PROJECT MANAGER" ? (
-                              <th className="d-flex ">
-                                 <button className="btn btn-primary ml-3">View</button>
+                           <th className="d-flex ">
+                              <button className="btn btn-primary ml-3">View</button>
+                              {item.roleName != "GROUP LEADER" ? (
                                  <button
                                     className="btn btn-danger mx-3"
                                     onClick={() => handleRemove(item)}
                                  >
-                                    Xoá khỏi dự án
+                                    Xoá khỏi nhóm
                                  </button>
-                              </th>
-                           ) : (
-                              <td></td>
-                           )}
+                              ) : (
+                                 <></>
+                              )}
+                           </th>
                         </tr>
                      );
                   })}

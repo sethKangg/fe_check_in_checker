@@ -18,6 +18,7 @@ import AllCamera from "./components/Camera/AllCamera";
 import TestCamera from "./components/Camera/TestCamera";
 import ViewCaptured from "./components/Manage/Content-ViewCapture/ViewCaptured";
 import Report from "./components/Report/Report";
+import ForgotPassword from "./components/Auth/ForgotPassword";
 // import AllCamera from "./components/Camera/AllCamera";
 // import Camera from "./components/Camera/Camera";
 const Layout = () => {
@@ -43,6 +44,7 @@ const Layout = () => {
                {/* <Route path="dashboard" element={<Admin />} /> */}
             </Route>
             <Route path="/login" element={<Login />}></Route>
+            <Route path="/forgot-password" element={<ForgotPassword />}></Route>
          </Routes>
          <ToastContainer
             position="top-right"

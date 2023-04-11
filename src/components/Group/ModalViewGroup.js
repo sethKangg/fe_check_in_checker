@@ -6,6 +6,7 @@ import Select from "react-select";
 import { toast } from "react-toastify";
 import { getStaffGroup, getStaffAvaiableGroup, postAddStaffGroup } from "../../services/apiService";
 import TableMemberGroup from "./TableMemberGroup";
+import ModalRemoveStaffGroup from "./ModalRemoveStaffGroup";
 
 const ModalViewGroup = (pros) => {
    const { show, setShow, fetchListProject, PAGE_LIMIT, dataView } = pros;
@@ -169,7 +170,7 @@ const ModalViewGroup = (pros) => {
                   Thêm thành viên
                </Button>
             </Modal.Footer>
-            {/* <ModalRemoveStaff
+            <ModalRemoveStaffGroup
                PAGE_LIMIT={LIMIT_MEMBER}
                fetchListMemberProject={fetchListMemberProject}
                show={showRemove}
@@ -178,7 +179,7 @@ const ModalViewGroup = (pros) => {
                projectId={dataView.id}
                // setIsLoading={setIsLoading}
                // setListMember={setListMember}
-            /> */}
+            />
          </Modal>
       </>
    );

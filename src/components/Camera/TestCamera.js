@@ -63,7 +63,8 @@ function TestCamera() {
    }
 
    const handleCheckIn = async () => {
-      let dataImg = dataUri.substring(23);
+      const dataImg = dataUri.substring("data:image/webp;base64,".length);
+      // let dataImg = dataUri.substring(23);
       // console.log(dataUri);
       // console.log(dataUri.substring(23));
       let res = await addRecognizeImg(dataImg);

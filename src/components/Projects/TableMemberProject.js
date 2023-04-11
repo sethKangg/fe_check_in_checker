@@ -10,6 +10,7 @@ const TableMemberProject = (pros) => {
       handleRemove,
       fetchListMember,
       projectId,
+      data,
    } = pros;
    const handlePageClick = (event) => {
       fetchListMember(projectId, event.selected + 1, PAGE_LIMIT);
@@ -42,7 +43,7 @@ const TableMemberProject = (pros) => {
                            <td>{item.email}</td>
                            <td>{item.roleName}</td>
                            <td>{item.promotionLevel}</td>
-                           {item.roleName != "PROJECT MANAGER" ? (
+                           {item.roleName != "PROJECT MANAGER" && data.status === "Processing" ? (
                               <th className="d-flex ">
                                  <button className="btn btn-primary ml-3">View</button>
                                  <button

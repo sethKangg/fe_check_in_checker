@@ -12,7 +12,7 @@ const ModalRemoveStaff = (pros) => {
    const handleComfirm = async (item) => {
       console.log(dataDelete.staffId, projectId);
       let res = await deleteMemberInProject(dataDelete.staffId, projectId);
-      console.log(res);
+      // console.log(res);
       if (res.status == 200) {
          toast.success(`Xoá thành viên ${dataDelete.fullName} #${dataDelete.staffId} thành công`);
       }

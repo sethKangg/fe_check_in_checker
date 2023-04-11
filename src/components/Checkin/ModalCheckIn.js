@@ -9,8 +9,9 @@ const ModalCheckIn = (props) => {
    };
    // console.log(imgPreview);
    const sendAPI = async () => {
-      const imgData = imgPreview.substring(22);
-      console.log(imgData);
+      // const imgData = imgPreview.substring(22);
+      const imgData = imgPreview.substring("data:image/webp;base64,".length);
+      // console.log(imgData);
       // let data = { img: { imgPreview } };
       let res = await addRecognizeImg(imgData);
       console.log(res);

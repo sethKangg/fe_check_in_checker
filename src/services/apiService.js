@@ -82,8 +82,10 @@ const putStatusAccount = (idAccount) => {
    return axios.put(`accounts/changeEnableAccount/${idAccount}`);
 };
 
-const getAllGroup = (page, size, groupName) => {
-   return axios.get(`groups/getAllGroups?page=${page}&size=${size}&groupName=${groupName}`);
+const getAllGroup = (page, size, groupName, staff) => {
+   return axios.get(
+      `groups/getAllGroups?page=${page}&size=${size}&groupName=${groupName}&staffId=${staff}`,
+   );
 };
 
 const postCreateGroup = (groupName, groupLeader) => {
@@ -98,8 +100,10 @@ const deleteGroup = (groupID) => {
    return axios.delete(`groups/deleteGroup/${groupID}`);
 };
 
-const getAllProjects = (page, size, searchValue) => {
-   return axios.get(`projects/getAllProject?size=${size}&page=${page}&name=${searchValue}`);
+const getAllProjects = (page, size, searchValue, staff) => {
+   return axios.get(
+      `projects/getAllProject?size=${size}&page=${page}&name=${searchValue}&staffId=${staff}`,
+   );
 };
 
 const postAddStaffProject = (staffObj, projectId) => {
@@ -119,24 +123,6 @@ const getAllMemberInProject = (projectID, page, size) => {
 };
 
 const deleteMemberInProject = (memberId, projectId) => {
-   // var data = JSON.stringify({
-   //    staffId: [memberId],
-   //    projectId: "" + projectId,
-   // });
-
-   // var config = {
-   //    method: "delete",
-   //    maxBodyLength: Infinity,
-   //    url: "https://cts-backend.azurewebsites.net/projects/removeStaffFromProject",
-   //    headers: {
-   //       "Content-Type": "application/json",
-   //    },
-   //    data: data,
-   // };
-
-   // axios(config).then(function (response) {
-   //    return response;
-   // });
    let data = {
       staffId: [memberId],
       projectId: "" + projectId,
@@ -234,11 +220,12 @@ const postImgTraining = (staffId, img) => {
    let data = {
       imgs: [img],
    };
-   return axios.post(`check-in/${staffId}/facial-recognition/setup`, data);
+   // return axios.post(`check-in/${staffId}/facial-recognition/setup`, data);
+   return axios.post(`image-setup/setup/${staffId}`, data);
 };
 
 const getImgTrainStaff = (staffId) => {
-   return axios.get(`staffs/${staffId}/get-image-setup`);
+   return axios.get(`staffs/${staffId}/get-image-setup?size=10`);
 };
 
 const postComplain = (content, typeId) => {
@@ -261,6 +248,34 @@ const getListOptionComplaints = () => {
    return axios.get(`complaints/getAllComplaintTypes`);
 };
 
+const getListGL = () => {
+   return axios.get(`staffs/getListGLAvailable`);
+};
+const deleteImgTraining = (staffId) => {
+   return axios.put(`image-setup/remove-staff-setup/${staffId}`);
+};
+const forgotPass = (email) => {
+   return axios.post(`accounts/sendForgotPassword?email=${email}`);
+};
+const changePassword = (staffId, pass, newPass, comfirmPass) => {
+   let data = {
+      password: pass,
+      newPassword: newPass,
+      confirmNewPassword: comfirmPass,
+   };
+   return axios.put(`accounts/changePassword/${staffId}`, data);
+};
+const getStaffByRole = (role) => {
+   return axios.get(`staffs/getStaffByRole?role=${role}`);
+};
+const deleteMemberInGroup = (member) => {
+   let data = {
+      staffId: [member],
+   };
+   return axios.delete(`groups/removeStaffFromGroup`, {
+      data: { staffId: [member] },
+   });
+};
 export {
    putLevelStaff,
    putStatusAccount,
@@ -300,4 +315,10 @@ export {
    fetchComplaint,
    putComplain,
    getListOptionComplaints,
+   getListGL,
+   deleteImgTraining,
+   forgotPass,
+   changePassword,
+   getStaffByRole,
+   deleteMemberInGroup,
 };

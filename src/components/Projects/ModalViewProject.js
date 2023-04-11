@@ -38,7 +38,7 @@ const ModalViewProject = (pros) => {
    const handleRemove = (item) => {
       setDataRemove(item);
       setShowRemove(true);
-      console.log(item);
+      // console.log(item);
    };
 
    const postStaffToProject = async (staffId, projectId) => {
@@ -72,7 +72,7 @@ const ModalViewProject = (pros) => {
          //   const data = await response.json();
          //console.log(data);
          if (response.status == 200) {
-            console.log("LIST Staff: ", response);
+            // console.log("LIST Staff: ", response);
             setListStaff(response.data.list);
             // listSelected.current.value = response?.data?.list[0]?.id;
          }
@@ -102,9 +102,9 @@ const ModalViewProject = (pros) => {
       // if (res.status === 200) {
       //    toast.success(`Thêm thành công ${listSelected.length} thành viên !`);
       // }
-      // handleClose();
       await fetchListMemberProject(dataView.id, 1, LIMIT_MEMBER);
       await fetchListStaff();
+      handleClose();
       //   pros.setCurrentPage(1);
       //   return fetchListProject(1, "");
    };
@@ -114,7 +114,7 @@ const ModalViewProject = (pros) => {
       // console.log(listSelected.current.value);
    };
 
-   console.log("dataView", dataView);
+   // console.log("dataView", dataView);
    const newArray = listStaff.map((item) => {
       return { value: item.id, label: `${item.fullName} #${item.id}` };
    });
@@ -134,18 +134,22 @@ const ModalViewProject = (pros) => {
                {!isLoading && !isLoading1 ? (
                   <div className="row g-3">
                      <div className=" col-md-12  ">
-                        <label className="form-label">Thêm nhân viên mới</label>
-                        <Select
-                           onChange={(event) => setListSelected(event)}
-                           className="basic-single"
-                           classNamePrefix="select"
-                           // defaultValue={newArray[0]}
-                           isClearable={true}
-                           isSearchable={true}
-                           isMulti={true}
-                           // name="color"
-                           options={newArray}
-                        />
+                        {dataView.status === "Processing" && (
+                           <>
+                              <label className="form-label">Thêm nhân viên mới</label>
+                              <Select
+                                 onChange={(event) => setListSelected(event)}
+                                 className="basic-single"
+                                 classNamePrefix="select"
+                                 // defaultValue={newArray[0]}
+                                 isClearable={true}
+                                 isSearchable={true}
+                                 isMulti={true}
+                                 // name="color"
+                                 options={newArray}
+                              />
+                           </>
+                        )}
                      </div>
                      <div className="table-user mt-3">
                         <TableMemberProject
@@ -158,6 +162,7 @@ const ModalViewProject = (pros) => {
                            handleRemove={handleRemove}
                            fetchListMember={fetchListMemberProject}
                            projectId={dataView.id}
+                           data={dataView}
                         />
                      </div>
                   </div>

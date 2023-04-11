@@ -7,6 +7,7 @@ import profile from "../../assets/profile-2.jpg";
 import LetterAvatar from "./LetterAvatar";
 import ModalUpdateProfile from "./ModalUpdateProfile";
 import { useSelector } from "react-redux";
+import ModalChangePass from "./ModalChangePass";
 
 const Profile = (pros) => {
    const account = useSelector((state) => state.user.account);
@@ -14,6 +15,8 @@ const Profile = (pros) => {
    const [userData, setUserData] = useState([]);
    const [showUpdate, setShowUpdate] = useState(false);
    const [dataUpdate, setDataUpdate] = useState({});
+   const [dataCP, setDataCP] = useState({});
+   const [showCP, setShowCP] = useState(false);
    const params = useParams();
    const usernameParam = params.username;
    const navigate = useNavigate();
@@ -32,10 +35,30 @@ const Profile = (pros) => {
       setDataUpdate(item);
       // console.log(item);
    };
-
+   const handleClickCP = (value, item) => {
+      setShowCP(value);
+      setDataCP(item);
+   };
    useEffect(() => {
       fetchProfileInfor();
    }, [usernameParam]);
+   const convertTime = (time) => {
+      const date = new Date(time);
+
+      const options = {
+         timeZone: "Asia/Ho_Chi_Minh",
+         // weekday: "long",
+         year: "numeric",
+         month: "long",
+         day: "numeric",
+         // hour: "numeric",
+         // minute: "numeric",
+         // second: "numeric",
+      };
+
+      const localTime = date.toLocaleString("vi-VN", options);
+      return localTime;
+   };
    return (
       <div className="wrapper">
          <div className="left">
@@ -53,12 +76,15 @@ const Profile = (pros) => {
          </div>
          <div className="right">
             {account.username === userData.username && (
-               <div className="btn-edit d-flex justify-content-end">
+               <div className="btn-edit d-flex justify-content-end gap-3">
                   <button
                      className="btn btn-warning"
                      onClick={() => handleClickUpdate(true, userData)}
                   >
                      Cập nhật tài khoản
+                  </button>
+                  <button className="btn btn-warning" onClick={() => handleClickCP(true, userData)}>
+                     Đặt lại mật khẩu
                   </button>
                </div>
             )}
@@ -77,12 +103,15 @@ const Profile = (pros) => {
                <div className="info_data">
                   <div className="data">
                      <h3>Ngày sinh</h3>
-                     <p>{!userData.dateOfBirth ? "" : userData.dateOfBirth}</p>
+                     <p>{!userData.dateOfBirth ? "" : convertTime(userData.dateOfBirth)}</p>
                   </div>
                   <div className="data">
-                     <h3>Cấp bậc</h3>
-                     {/* <p>{userData.promotionLevel}</p> */}
-                     <p>{userData.dateOfBirth}</p>
+                     <h3>Nhóm hiện tại</h3>
+                     <p>
+                        {account.groupName
+                           ? `${account.groupName} #${account.groupId}`
+                           : "Đang không thuộc nhóm nào"}
+                     </p>
                   </div>
                </div>
             </div>
@@ -110,6 +139,7 @@ const Profile = (pros) => {
                </div>
             </div>
          </div>
+         <ModalChangePass show={showCP} setShow={setShowCP} data={dataCP} />
          <ModalUpdateProfile show={showUpdate} setShow={setShowUpdate} dataUpdate={dataUpdate} />
       </div>
    );

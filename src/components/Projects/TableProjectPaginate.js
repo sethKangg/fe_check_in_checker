@@ -28,11 +28,7 @@ const TableProjectPaginate = (pros) => {
                listProject.length > 0 &&
                listProject.map((task, index) => {
                   return (
-                     <Card
-                        key={index}
-                        className="mb-3"
-                        style={{ width: "280px", maxHeight: "200px" }}
-                     >
+                     <Card key={index} className="mb-3" style={{ width: "24%" }}>
                         <Card.Body>
                            <div className="d-flex justify-content-between align-items-center">
                               <div>
@@ -49,7 +45,7 @@ const TableProjectPaginate = (pros) => {
                                  {showOptionsIndex === index ? (
                                     <>
                                        <div className="background-options ">
-                                          {task.status != "Cancel" && (
+                                          {task.status != "Cancel" && task.status != "Done" && (
                                              <Button
                                                 variant="danger"
                                                 size="sm"
@@ -85,7 +81,14 @@ const TableProjectPaginate = (pros) => {
                            </Card.Text>
                            <Card.Text>Time: {new Date(task.time).toLocaleString()}</Card.Text>
                            <Card.Text>Nhóm: {task.group}</Card.Text>
-                           <Card.Text>Status: {task.status}</Card.Text>
+                           <Card.Text>
+                              Status:{" "}
+                              {task.status === "Done"
+                                 ? "Hoàn thành"
+                                 : task.status === "Cancel"
+                                 ? "Hủy bỏ"
+                                 : "Đang tiến hành"}
+                           </Card.Text>
                         </Card.Body>
                      </Card>
                   );

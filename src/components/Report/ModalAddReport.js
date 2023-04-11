@@ -76,7 +76,7 @@ const ModalAddReport = (pros) => {
             </Modal.Header>
             <Modal.Body>
                <form className="row g-3" encType="multipart/form-data">
-                  <div className="col-md-8">
+                  {/* <div className="col-md-8">
                      <label className="form-label">Tiêu đề </label>
                      <input
                         type="text"
@@ -85,9 +85,9 @@ const ModalAddReport = (pros) => {
                            setTitle(e.target.value);
                         }}
                      />
-                  </div>
+                  </div> */}
                   <div className="col-md-4">
-                     <label className="form-label">Họ</label>
+                     <label className="form-label">Loại yêu cầu</label>
                      <Form.Select
                         // value={roleId}
                         onChange={(event) => setCompType(event.target.value + "")}

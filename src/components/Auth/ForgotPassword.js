@@ -3,31 +3,29 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { doLogin } from "../../redux/action/userAction";
-import { postLogin } from "../../services/apiService";
+import { forgotPass, postLogin } from "../../services/apiService";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import "./Login.scss";
 
-const Login = () => {
-   const [username, setUsername] = useState("");
-   const [password, setPassword] = useState("");
+const ForgotPassword = () => {
+   const [email, setEmail] = useState("");
    const [loading, setLoading] = useState(false);
    const navigate = useNavigate();
    const dispatch = useDispatch();
 
    const handleSubmit = async () => {
+      if (!email) return toast.error("Email không được để trống");
       //api
-      setLoading(true);
 
-      let data = await postLogin(username, password);
+      setLoading(true);
+      let data = await forgotPass(email);
       if (data.status === 200) {
-         toast.success("login success");
+         toast.success("Đã gửi gửi mật khẩu mới đến mail của bạn vui lòng kiểm tra thư");
          setLoading(false);
          // console.log("data ", data);
-         navigate("/");
-         dispatch(doLogin(data));
       } else {
          setLoading(false);
-         toast.error("fail");
+         toast.error("Email không có trong hệ thống");
       }
    };
 
@@ -39,35 +37,26 @@ const Login = () => {
 
    return (
       <div className="login-container">
-         <div className="login-header">Welcome to Checkin Checker</div>
+         <div className="login-header">Chào mừng đến với hệ thống Checkin-checker</div>
          <div className="login-title ">Checkin Checker</div>
-         <div className="login-welcome ">Hello, who is this ?</div>
+         {/* <div className="login-welcome ">Hello, who is this ?</div> */}
          <div className="login-content col-4 mx-auto d-flex flex-column gap-3 ">
             <div className="login-form form-group ">
-               <label>Username</label>
+               <label>Email</label>
                <input
                   type={"email"}
-                  className="form-control"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  className="form-control mt-2"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                />
             </div>
-            <div className="form-group ">
-               <label>Password</label>
-               <input
-                  type={"password"}
-                  className="form-control"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  onKeyDown={(e) => handleKeyDown((e) => handleKeyDown(e))}
-               />
-            </div>
-            <span className="forgot-password" onClick={() => navigate("/forgot-password")}>
-               Quên mật khẩu ?
+
+            <span className="forgot-password" onClick={() => navigate("/login")}>
+               Quay về đăng nhập
             </span>
             <div>
                <button className="btn-submit" onClick={() => handleSubmit()} disabled={loading}>
-                  Login
+                  Gửi
                   {loading === true ? <AiOutlineLoading3Quarters className="spin" /> : <></>}
                </button>
                <div className="text-center">
@@ -77,7 +66,7 @@ const Login = () => {
                         navigate("/");
                      }}
                   >
-                     &#60;&#60; Homepage
+                     &#60;&#60; Trang chủ
                   </span>
                </div>
             </div>
@@ -85,5 +74,4 @@ const Login = () => {
       </div>
    );
 };
-
-export default Login;
+export default ForgotPassword;

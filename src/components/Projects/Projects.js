@@ -7,6 +7,7 @@ import ModalAddProject from "./ModalAddProject";
 import ModalViewProject from "./ModalViewProject";
 import ModalUpdateProject from "./ModalUpdateProject";
 import ModalCancelProject from "./ModalCancelProject";
+import { useSelector } from "react-redux";
 
 const Projects = () => {
    const [showOptionsIndex, setShowOptionsIndex] = useState(-1);
@@ -28,13 +29,11 @@ const Projects = () => {
    const [dataView, setDataView] = useState({});
 
    const debouncedSearchTerm = useDebounce(searchValue, 800);
-   //    function handleDelete(index) {
-   //       setTasks([...tasks.slice(0, index), ...tasks.slice(index + 1)]);
-   //       setShowOptionsIndex(-1);
-   //    }
+   const account = useSelector((state) => state.user.account);
+   const staffId = account.roleName === "HUMAN RESOURCE" ? "0" : account.id;
 
    const fetchListProject = async (page, searchValue) => {
-      let res = await getAllProjects(page, PAGE_LIMIT, searchValue);
+      let res = await getAllProjects(page, PAGE_LIMIT, searchValue, staffId);
       // console.log("PROJECT DATA: ", res);
       if (res.status == 200) {
          setListProject(res.data.list);
@@ -95,7 +94,7 @@ const Projects = () => {
    return (
       <div className="pt-3">
          <div className="title d-flex justify-content-center ">
-            <h1>Manage User</h1>
+            <h1>Quản lý dự án</h1>
          </div>
          <div className="user-content mt-3">
             <div>
@@ -113,7 +112,7 @@ const Projects = () => {
                      Thêm dự án mới
                   </button>
                </div>
-               <div className="">
+               {/* <div className="">
                   <Form.Select
                      aria-label="Default select example"
                      value={filterIndex}
@@ -123,7 +122,7 @@ const Projects = () => {
                      <option value="1">Active</option>
                      <option value="0">Inactive</option>
                   </Form.Select>
-               </div>
+               </div> */}
             </div>
             <div className="  mt-3">
                <TableProjectPaginate

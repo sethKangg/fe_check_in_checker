@@ -4,11 +4,12 @@ import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Select from "react-select";
+import { components } from "react-select";
 import { toast } from "react-toastify";
-import { postCreateGroup, postCreateUser } from "../../services/apiService";
+import { getListGL, postCreateGroup } from "../../services/apiService";
 const ModalAddGroup = (pros) => {
    const { show, setShow, fetchListGroup, PAGE_LIMIT } = pros;
-
+   const [listGL, setListGL] = useState([]);
    const handleClose = () => {
       setShow(false);
    };
@@ -17,21 +18,30 @@ const ModalAddGroup = (pros) => {
    const newGroupName = useRef("");
    const assignGroupLeader = useRef(null);
 
-   const fetchListGroupLeader = () => {
-      // let res = await getCombineUser(page, size, searchValue, filterIndex);
-      // console.log("Userdata: ", res);
-      // if (res.status == 200) {
-      // }
+   const fetchListGroupLeader = async () => {
+      let res = await getListGL();
+      console.log("listGL: ", res);
+      if (res.status == 200) {
+         setListGL(res.data.list);
+      }
    };
-
+   const NoOptionsMessage = (props) => {
+      return (
+         <components.NoOptionsMessage {...props}>
+            Không có trưởng nhóm khả dụng
+         </components.NoOptionsMessage>
+      );
+   };
    useEffect(() => {
       const fetchData = async () => {
          // let res = await fetchListUser(currentPage, PAGE_LIMIT, searchValue, filterIndex);
          // Process the response here
+         fetchListGroupLeader();
       };
-
-      fetchData();
-   }, []);
+      if (show === true) {
+         fetchData();
+      }
+   }, [show]);
 
    const handleSubmit = async () => {
       //validate
@@ -59,19 +69,9 @@ const ModalAddGroup = (pros) => {
       console.log(assignGroupLeader.current.value);
    };
 
-   const options = [
-      { value: "ocean", label: "Ocean" },
-      { value: "blue", label: "Blue" },
-      { value: "purple", label: "Purple" },
-      { value: "red", label: "Red" },
-      { value: "orange", label: "Orange" },
-      { value: "yellow", label: "Yellow" },
-      { value: "green", label: "Green" },
-      { value: "forest", label: "Forest" },
-      { value: "slate", label: "Slate" },
-      { value: "silver", label: "Silver" },
-   ];
-
+   const newArray = listGL.map((item) => {
+      return { value: item.id, label: `${item.fullName} #${item.id}` };
+   });
    return (
       <>
          <Modal show={show} onHide={handleClose} size="xl">
@@ -86,27 +86,20 @@ const ModalAddGroup = (pros) => {
                   </div>
                   <div className=" col-md-4  ">
                      <label className="form-label">Họ</label>
-                     {/* <Form.Select
-                        // value={roleId}
-                        ref={assignGroupLeader}
-                        onChange={(event) => handleSelectGroupLeader(event)}
-                     >
-                        <option value="1">Admin</option>
-                        <option value="2">HR</option>
-                        <option value="5">Staff</option>
-                     </Form.Select> */}
 
-                     <Select
-                        ref={assignGroupLeader}
-                        onChange={(event) => handleSelectGroupLeader(event)}
-                        className="basic-single"
-                        classNamePrefix="select"
-                        defaultValue={options[0]}
-                        isClearable={true}
-                        isSearchable={true}
-                        // name="color"
-                        options={options}
-                     />
+                     {listGL && (
+                        <Select
+                           ref={assignGroupLeader}
+                           onChange={(event) => handleSelectGroupLeader(event)}
+                           className="basic-single"
+                           classNamePrefix="Chojn"
+                           defaultValue={newArray[0]}
+                           options={newArray}
+                           isSearchable={true}
+                           placeholder={<div>Chọn trưởng nhóm</div>}
+                           components={{ NoOptionsMessage }}
+                        />
+                     )}
                   </div>
                </form>
             </Modal.Body>

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import profile_1 from "../../../assets/profile-1.jpg";
-import { getImgTrainStaff, postImgTraining } from "../../../services/apiService";
+import { deleteImgTraining, getImgTrainStaff, postImgTraining } from "../../../services/apiService";
 // import postImgTraining from "../../../services/apiService";
 // import profile_2 from "../../assets/profile-2.jpg";
 
@@ -13,11 +13,13 @@ const ModalViewStaff = (pros) => {
    const [imageSrc, setImageSrc] = useState("");
    const [base64String, setBase64String] = useState("");
    const [listImg, setListImg] = useState([]);
+   const [isLoading, setIsLoading] = useState(false);
    function togglePreview(src) {
       setImageSrc(src);
       setShowImage(true);
    }
    const handleClose = () => {
+      setBase64String("");
       setShow(false);
    };
    useEffect(() => {
@@ -28,10 +30,17 @@ const ModalViewStaff = (pros) => {
    }, [show]);
 
    const fetchImgUser = async () => {
-      let res = await getImgTrainStaff(dataView.id);
-      if (res.status === 200) {
-         console.log(res.data);
-         setListImg(res.data.content);
+      try {
+         setListImg([]);
+         setIsLoading(true);
+         let res = await getImgTrainStaff(dataView.id);
+         if (res.status === 200) {
+            // console.log(res.data);
+            setListImg(res.data.content);
+         }
+      } catch (error) {
+      } finally {
+         setIsLoading(false);
       }
    };
    const handleSrcImg = (img) => {
@@ -43,11 +52,11 @@ const ModalViewStaff = (pros) => {
       }
       return src;
    };
-   const handleSubmit = () => {
+   const handleSubmit = async () => {
       if (base64String === null || base64String === "") return toast.error("Vui lòng chọn ảnh");
-      console.log(base64String);
-      console.log(base64String.substring(23));
-      postApiTraining(base64String.substring(23));
+      const imgSub = base64String.substring("data:image/webp;base64,".length);
+      await postApiTraining(imgSub);
+      await fetchImgUser();
    };
    const handleFileInputChange = (event) => {
       const file = event.target.files[0];
@@ -60,7 +69,7 @@ const ModalViewStaff = (pros) => {
 
    const postApiTraining = async (img) => {
       let res = await postImgTraining(dataView.id, img);
-      console.log(res);
+      // console.log(res);
       if (res.status === 200) {
          toast.success("Thêm ảnh nhận diện thành công");
       }
@@ -83,15 +92,37 @@ const ModalViewStaff = (pros) => {
       const localTime = date.toLocaleString("vi-VN", options);
       return localTime;
    };
+   const clickDelete = async () => {
+      await deleteImg();
+      await fetchImgUser();
+   };
+   const deleteImg = async () => {
+      let res = await deleteImgTraining(dataView.id);
+      // console.log(res);
+      if (res.status === 200) {
+         toast.success("Xóa ảnh training thành công");
+      } else {
+         toast.error("Có lỗi xảy ra");
+      }
+   };
    return (
       <div>
          <Modal className="modal-view-check-in" show={show} onHide={handleClose} size="xl">
-            <Modal.Header closeButton>
-               <Modal.Title>
-                  Thông tin nhận diện khuôn mặt{" "}
-                  <b>
-                     {dataView.fullName} #{dataView.id}
-                  </b>
+            <Modal.Header>
+               <Modal.Title className="w-100">
+                  <div className="d-flex justify-content-between">
+                     <div>
+                        Thông tin nhận diện khuôn mặt{" "}
+                        <b>
+                           {dataView.fullName} #{dataView.id}
+                        </b>
+                     </div>
+                     <div>
+                        <button className="btn btn-danger" onClick={() => clickDelete()}>
+                           Xóa ảnh training
+                        </button>
+                     </div>
+                  </div>
                </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -119,37 +150,35 @@ const ModalViewStaff = (pros) => {
                         )}
                      </div>
                   </div>
-                  <div className="h3 info-title mt-3">Thông tin người dùng</div>
+                  {/* <div className="h3 info-title mt-3">Thông tin người dùng</div>
                   <div className="info-content d-flex align-items-center ">
                      <div className=" col-md-6">Tên tài khoản: </div>
                      <div className="col-md-6">Trạng thái khuôn mặt: </div>
-                  </div>
+                  </div> */}
                </div>
                <div className="info mt-3">
-                  <div
-                     className="h3 info-title"
-                     onClick={() => {
-                        console.log(listImg);
-                     }}
-                  >
-                     Ảnh nhận diện{" "}
-                  </div>
-                  <div className="info-img d-flex align-items-center justify-align-content-start gap-3 flex-wrap  ">
-                     {listImg &&
-                        listImg.map((e, i) => (
-                           <div className="container-img" key={i}>
-                              <img
-                                 src={handleSrcImg(e.image)}
-                                 width={250}
-                                 onClick={() => togglePreview(profile_1)}
-                              />
-                              <p className="mt-2"> {convertTime(e.timeSetup)}</p>
-                           </div>
-                        ))}
+                  <div className="h3 info-title">Ảnh nhận diện </div>
+                  {isLoading ? (
+                     <div> Loading ...</div>
+                  ) : (
+                     <div className="info-img d-flex align-items-center justify-align-content-start gap-3 flex-wrap  ">
+                        {listImg &&
+                           listImg.map((e, i) => (
+                              <div className="container-img" key={i}>
+                                 <img
+                                    src={handleSrcImg(e.image)}
+                                    width={250}
+                                    onClick={() => togglePreview(profile_1)}
+                                 />
+                                 <p className="mt-2"> {convertTime(e.timeSetup)}</p>
+                              </div>
+                           ))}
+                        {listImg && listImg.length === 0 && <div>Nhân viên đang không có ảnh</div>}
 
-                     {/* <img src={profile_2} width={250} onClick={() => togglePreview(profile_2)} /> */}
-                     {/* <img src={profile_1} /> */}
-                  </div>
+                        {/* <img src={profile_2} width={250} onClick={() => togglePreview(profile_2)} /> */}
+                        {/* <img src={profile_1} /> */}
+                     </div>
+                  )}
                </div>
             </Modal.Body>
             <Modal.Footer>
@@ -157,7 +186,7 @@ const ModalViewStaff = (pros) => {
                   Đóng
                </Button>
                <Button variant="primary" onClick={handleSubmit}>
-                  Thêm thành viên
+                  Thêm ảnh
                </Button>
             </Modal.Footer>
          </Modal>
