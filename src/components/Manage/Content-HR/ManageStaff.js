@@ -24,7 +24,7 @@ const ManageStaff = () => {
    const debouncedSearchTerm = useDebounce(searchValue, 800);
 
    const fetchListUser = async (page, size, searchValue, filterIndex) => {
-      let res = await getStaff(page, size, searchValue, filterIndex);
+      let res = await getStaff(page, 10, searchValue, filterIndex);
       // console.log("Userdata: ", res);
       if (res.status == 200) {
          setListStaff(res.data.list);

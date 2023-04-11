@@ -23,7 +23,7 @@ const ManageAccount = (pros) => {
    const debouncedSearchTerm = useDebounce(searchValue, 800);
 
    const fetchListUser = async (page, size, searchValue, filterIndex) => {
-      let res = await getCombineUser(page, size, searchValue, filterIndex);
+      let res = await getCombineUser(page, 10, searchValue, filterIndex);
       console.log("Userdata: ", res);
       if (res.status == 200) {
          setListUser(res.data.list);
@@ -69,7 +69,7 @@ const ManageAccount = (pros) => {
    };
 
    return (
-      <div className="manage-container">
+      <div className="manage-container p-3">
          <div className="title d-flex justify-content-center ">
             <h1>Manage User</h1>
          </div>

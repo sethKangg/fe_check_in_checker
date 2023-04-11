@@ -140,7 +140,12 @@ const Profile = (pros) => {
             </div>
          </div>
          <ModalChangePass show={showCP} setShow={setShowCP} data={dataCP} />
-         <ModalUpdateProfile show={showUpdate} setShow={setShowUpdate} dataUpdate={dataUpdate} />
+         <ModalUpdateProfile
+            show={showUpdate}
+            setShow={setShowUpdate}
+            dataUpdate={dataUpdate}
+            fetchProfileInfor={fetchProfileInfor}
+         />
       </div>
    );
 };

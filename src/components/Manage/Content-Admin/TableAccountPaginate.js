@@ -3,6 +3,7 @@ import ReactPaginate from "react-paginate";
 
 const TableAccountPaginate = (pros) => {
    const { listUser, pageCount, searchValue, filterIndex } = pros;
+   const dis = false;
    const handlePageClick = (event) => {
       pros.fetchListUser(event.selected + 1, 1, searchValue, filterIndex);
       pros.setCurrentPage(event.selected + 1);
@@ -32,20 +33,23 @@ const TableAccountPaginate = (pros) => {
                            <td>{item.staffName}</td>
                            <td>{item.email}</td>
                            <td>{item.roleName}</td>
-                           <td>{item.enable ? "TRUE" : "FALSE"}</td>
+                           <td>
+                              <input type="checkbox" disabled={dis} checked={item.enable} />
+                              {/* {item.enable ? "TRUE" : "FALSE"} */}
+                           </td>
                            <th className="d-flex ">
-                              <button className="btn btn-primary ml-3">View</button>
-                              <button
+                              {/* <button className="btn btn-primary mx-3">View</button> */}
+                              {/* <button
                                  className="btn btn-warning mx-3"
                                  onClick={() => pros.handleClickUpdate(true, item)}
                               >
-                                 Update
-                              </button>
+                                 Cập nhật
+                              </button> */}
                               <button
                                  className="btn btn-danger mr-3"
                                  onClick={() => pros.handleDelete(item)}
                               >
-                                 Disable
+                                 {item.enable ? "Khóa tài khoản" : "Mở lại tài khoản"}
                               </button>
                            </th>
                         </tr>

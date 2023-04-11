@@ -7,7 +7,7 @@ import { putProfile } from "../../services/apiService";
 import axios from "axios";
 import { useSelector } from "react-redux";
 const ModalUpdateProfile = (pros) => {
-   const { show, setShow, dataUpdate } = pros;
+   const { show, setShow, dataUpdate, fetchProfileInfor } = pros;
    const account = useSelector((state) => state.user.account);
    const handleClose = () => {
       setShow(false);
@@ -20,6 +20,7 @@ const ModalUpdateProfile = (pros) => {
    const [dob, setDOB] = useState("");
    const [phone, setPhone] = useState("");
    useEffect(() => {
+      if (show !== true) return;
       console.log("dataupdate", dataUpdate);
       if (!_.isEmpty(dataUpdate)) {
          setSurname(dataUpdate.surname);
@@ -30,42 +31,21 @@ const ModalUpdateProfile = (pros) => {
    }, [dataUpdate]);
 
    const updateProfile = async () => {
-      var myHeaders = new Headers();
-      myHeaders.append("Authorization", `Bearer ${account.accessToken}`);
-      myHeaders.append("access-control-request-headers", "*");
-      myHeaders.append("access-control-request-method", "GET, POST, PUT, PATCH, OPTIONS, DELETE");
-      myHeaders.append("Content-Type", "application/json");
-      myHeaders.append(
-         "Cookie",
-         "ARRAffinity=92ca53ad8db4fbb93d4d3b7d8ab54dcf8ffecb2d731f25b0e91ad575d7534c3f; ARRAffinitySameSite=92ca53ad8db4fbb93d4d3b7d8ab54dcf8ffecb2d731f25b0e91ad575d7534c3f",
-      );
-
-      var raw = JSON.stringify({
-         firstName: "hung ehe",
-         surname: "le manh",
-         dateOfBirth: "2001-05-02",
-         phone: "0912312312",
-      });
-
-      var requestOptions = {
-         method: "PUT",
-         headers: myHeaders,
-         body: raw,
-         redirect: "follow",
-      };
-      const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-      const apiUrl = "https://cts-backend.azurewebsites.net/accounts/updateAccount/1";
-      fetch(`${apiUrl}`, requestOptions)
-         .then((response) => response.text())
-         .then((result) => console.log(result))
-         .catch((error) => console.log("error", error));
+      let res = await putProfile(dataUpdate.id, surname, firstName, dob, phone);
+      if (res.status === 200) {
+         toast.success("Cập nhật thông tin tài khoản thành công");
+      } else {
+         toast.error("Có lỗi xảy ra");
+      }
    };
 
-   const handleSubmit = () => {
+   const handleSubmit = async () => {
       //validate
 
       //api
-      updateProfile();
+      await updateProfile();
+      await fetchProfileInfor();
+      handleClose();
       // let res = await postCreateUser(email);
       // pros.fetchListUser();
 

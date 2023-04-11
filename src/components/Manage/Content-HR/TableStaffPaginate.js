@@ -15,11 +15,11 @@ const TableStaffPaginate = (pros) => {
             <thead>
                <tr>
                   <th scope="col">Mã ID</th>
-                  <th scope="col">Tên tài khoản</th>
-                  <th scope="col">Tên</th>
+                  <th scope="col">Tên </th>
+                  <th scope="col">Ngày sinh</th>
                   <th scope="col">Email</th>
-                  <th scope="col">Chức vụ</th>
-                  <th scope="col">Khả dụng</th>
+                  <th scope="col">Số điện thoại</th>
+                  <th scope="col">Cấp bậc</th>
                </tr>
             </thead>
             <tbody>
@@ -41,27 +41,23 @@ const TableStaffPaginate = (pros) => {
                                     handleClickView(true, item);
                                  }}
                               >
-                                 View
+                                 Xem thông tin
                               </button>
-                              <button
-                                 className="btn btn-warning mx-3"
-                                 onClick={() => pros.handleClickUpdate(true, item)}
-                              >
-                                 Update
-                              </button>
-                              <button
-                                 className="btn btn-danger mr-3"
-                                 onClick={() => pros.handleDelete(item)}
-                              >
-                                 Disable
-                              </button>
+                              {item.roleName !== "HUMAN RESOURCE" && (
+                                 <button
+                                    className="btn btn-warning mx-3"
+                                    onClick={() => pros.handleClickUpdate(true, item)}
+                                 >
+                                    Cập nhật
+                                 </button>
+                              )}
                            </th>
                         </tr>
                      );
                   })}
                {listStaff && listStaff.length === 0 && (
                   <tr>
-                     <td colSpan={4}>No data found</td>
+                     <td colSpan={4}>Không có dữ liệu</td>
                   </tr>
                )}
             </tbody>
