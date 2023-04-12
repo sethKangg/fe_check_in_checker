@@ -3,9 +3,12 @@ import { useParams } from "react-router-dom";
 import { getCalendar } from "../../services/apiService";
 import "./Calendar.css";
 import ViewCalendar from "./ViewCalendar";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 const Calendar = (pros) => {
    const params = useParams();
    const idParams = params.id;
+   const account = useSelector((state) => state.user.account);
 
    const [show, setShow] = useState(false);
    const [dataClick, setDataClick] = useState("");
@@ -66,8 +69,17 @@ const Calendar = (pros) => {
    };
 
    const handleClickDay = (day) => {
-      setShow(true);
-      setDataClick(day);
+      // console.log(month + 1, month === today.getMonth(), year === today.getFullYear());
+      if (
+         day + 1 <= today.getDate() &&
+         month === today.getMonth() &&
+         year === today.getFullYear()
+      ) {
+         setShow(true);
+         setDataClick(day);
+      } else {
+         toast.error("Chỉ xem được thông tin đến ngày hôm nay");
+      }
    };
 
    const fetchDataCalendar = async () => {
@@ -123,7 +135,7 @@ const Calendar = (pros) => {
                            className={`
                      day 
                      ${
-                        i === new Date().getDate() &&
+                        i + 1 === new Date().getDate() &&
                         year === new Date().getFullYear() &&
                         month === new Date().getMonth() &&
                         `today `
@@ -167,7 +179,7 @@ const Calendar = (pros) => {
                   <div className=""> : Đi muộn </div>
                </div>
                <div className="d-flex align-items-center mt-3">
-                  <div className="box off"></div>
+                  <div className="box not_go"></div>
                   <div className=""> : Không đi làm </div>
                </div>
                <div className="d-flex align-items-center mt-3">
@@ -179,7 +191,15 @@ const Calendar = (pros) => {
                <i className="fas fa-plus"></i>
             </button>
          </div>
-         <ViewCalendar show={show} setShow={setShow} day={dataClick} month={month} year={year} />
+         {/* {month === todaynth() && year === today.getFullYear() && ( */}
+         <ViewCalendar
+            show={show}
+            setShow={setShow}
+            day={dataClick}
+            month={month}
+            year={year}
+            idParams={idParams}
+         />
       </>
    );
 };

@@ -3,19 +3,34 @@ import { useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import profile_1 from "../../assets/profile-1.jpg";
 import profile_2 from "../../assets/profile-2.jpg";
-import { getViewCaptured } from "../../services/apiService";
+import { getInfoTS, getViewCaptured } from "../../services/apiService";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import ModalUpdateCalendar from "./ModalUpdateCalendar";
 const ViewCalendar = (pros) => {
-   const { show, setShow, day, month, year } = pros;
+   const { show, setShow, day, month, year, idParams } = pros;
    const [listImg, setListImg] = useState([]);
    const [showImage, setShowImage] = useState(false);
    const [imageSrc, setImageSrc] = useState("");
+   const [dataDay, setDataDay] = useState([]);
+   const [showUp, setShowUp] = useState(false);
    const account = useSelector((state) => state.user.account);
    const fetchImg = async (day) => {
-      let res = await getViewCaptured(account.id, 1, 0, day, day, "", 1, 20);
-      console.log(res);
+      let res = await getViewCaptured(idParams, 1, 0, day, day, "", 1, 20);
+      // console.log(res);
       if (res.status === 200) {
          setListImg(res.data.content);
+      } else {
+         toast.error("Hiện không có ảnh hoặc ảnh bị lỗi");
+      }
+   };
+   const fetchInfo = async (day) => {
+      let res = await getInfoTS(idParams, day);
+      console.log("data day: ", res);
+      if (res.status === 200) {
+         setDataDay(res.data);
+      } else {
+         toast.error("Chạy api lỗi");
       }
    };
    function togglePreview(src) {
@@ -28,8 +43,10 @@ const ViewCalendar = (pros) => {
    useEffect(() => {
       if (show === true) {
          const trueMonth = month + 1 < 10 ? "0" + (month + 1) : month + 1;
-         const time = year + "-" + trueMonth + "-" + (day + 1);
+         const trueDay = day + 1 < 10 ? "0" + (day + 1) : day + 1;
+         const time = year + "-" + trueMonth + "-" + trueDay;
          fetchImg(time);
+         fetchInfo(time);
          // console.log(time);
       }
    }, [show]);
@@ -48,21 +65,61 @@ const ViewCalendar = (pros) => {
    return (
       <div>
          <Modal className="modal-view-check-in" show={show} onHide={handleClose} size="xl">
-            <Modal.Header closeButton>
-               <Modal.Title>
-                  Check-In{" "}
-                  <b>
-                     {day + 1} / {month + 1} / {year}
-                  </b>
+            <Modal.Header>
+               <Modal.Title className="w-100 d-flex justify-content-between">
+                  <div>
+                     Check-In{" "}
+                     <b>
+                        {day + 1} / {month + 1} / {year}{" "}
+                     </b>
+                  </div>
+                  {dataDay && dataDay.note && <div>Ghi chú: {dataDay.note}</div>}
                </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                {/* {!isLoading && !isLoading1 ? <div className="row g-3"></div> : <div>LOADING ....</div>} */}
                <div className="info">
-                  <div className="h3 info-title">Thông tin người dùng</div>
+                  <div className="d-flex justify-content-between">
+                     <div className="h3 info-title">Thông tin người dùng</div>
+                     <div>
+                        <button className="btn btn-warning" onClick={() => setShowUp(true)}>
+                           Chỉnh sửa
+                        </button>
+                     </div>
+                  </div>
                   <div className="info-content d-flex align-items-center ">
-                     <div className=" col-md-6">Tên: </div>
-                     <div className="col-md-6">Trạng thái Check-In: </div>
+                     <div className=" col-md-6">
+                        Tên:
+                        {dataDay && dataDay.length > 0
+                           ? dataDay.lastName + " " + dataDay.firstName
+                           : " chưa có thông tin"}
+                     </div>
+                     <div className="col-md-6 d-flex mx-1 align-items-center gap-2">
+                        Trạng thái Check-In:
+                        <div
+                           className={`
+                           d-flex align-items-center gap-2
+                              ${
+                                 dataDay?.dateStatus === "OK"
+                                    ? "c_right_time"
+                                    : dataDay?.dateStatus === "LATE"
+                                    ? "c_late"
+                                    : dataDay?.dateStatus === "ABSENT"
+                                    ? "c_not_go"
+                                    : ""
+                              }`}
+                        >
+                           <b>
+                              {dataDay?.dateStatus === "OK"
+                                 ? " Đúng giờ"
+                                 : dataDay?.dateStatus === "LATE"
+                                 ? "Đến muộn"
+                                 : dataDay?.dateStatus === "ABSENT"
+                                 ? " Không đi"
+                                 : "Chưa có thông tin"}
+                           </b>
+                        </div>
+                     </div>
                   </div>
                </div>
 
@@ -92,10 +149,18 @@ const ViewCalendar = (pros) => {
                <Button variant="secondary" onClick={handleClose}>
                   Đóng
                </Button>
-               <Button variant="primary" onClick={handleSubmit}>
-                  Thêm thành viên
-               </Button>
             </Modal.Footer>
+            <ModalUpdateCalendar
+               show={showUp}
+               setShow={setShowUp}
+               day={day}
+               month={month}
+               year={year}
+               idParams={idParams}
+               data={dataDay}
+               fetchImg={fetchImg}
+               fetchInfo={fetchInfo}
+            />
          </Modal>
          {showImage && (
             <div className="modal-preview" onClick={() => setShowImage(false)}>

@@ -276,6 +276,17 @@ const deleteMemberInGroup = (member) => {
       data: { staffId: [member] },
    });
 };
+const getInfoTS = (staffId, time) => {
+   return axios.get(`timesheets/get-timesheet/${staffId}?date=${time}`);
+};
+const putTS = (staffId, date, dateStatus, note) => {
+   let data = {
+      date: date,
+      dateStatus: dateStatus,
+      note: note,
+   };
+   return axios.put(`timesheets/update-timesheet-status/${staffId}`, data);
+};
 export {
    putLevelStaff,
    putStatusAccount,
@@ -321,4 +332,6 @@ export {
    changePassword,
    getStaffByRole,
    deleteMemberInGroup,
+   getInfoTS,
+   putTS,
 };
