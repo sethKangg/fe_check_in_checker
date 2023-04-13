@@ -81,7 +81,7 @@ const SideBar = (props) => {
                <SubMenu title="Check-In" icon={<FaList />}>
                   <MenuItem>
                      Tình trạng Check In
-                     <Link to={"/view-capture"} />
+                     <Link to={"/manage/view-capture"} />
                   </MenuItem>
                </SubMenu>
             </Menu>
@@ -104,7 +104,7 @@ const SideBar = (props) => {
                   <span
                      style={{ whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" }}
                   >
-                     Source
+                     Trang chủ
                   </span>
                </a>
             </div>

@@ -21,6 +21,7 @@ const Header = () => {
       toast.success("Đăng xuất thành công");
       navigate("/login");
    };
+
    return (
       <Navbar bg="light" expand="lg">
          <Container>
@@ -31,13 +32,16 @@ const Header = () => {
             <Navbar.Collapse id="basic-navbar-nav">
                <Nav className="me-auto">
                   <NavLink className="nav-link" to={"/"}>
-                     Home
-                  </NavLink>
-                  <NavLink className="nav-link" to={"/users"}>
-                     User
+                     Trang chủ
                   </NavLink>
                   <NavLink className="nav-link" to={"/manage"}>
-                     Manage
+                     Quản lý
+                  </NavLink>
+                  <NavLink className="nav-link" to={"/project"}>
+                     Dự án
+                  </NavLink>
+                  <NavLink className="nav-link" to={"/group"}>
+                     Nhóm
                   </NavLink>
                </Nav>
                <Nav>
@@ -55,8 +59,13 @@ const Header = () => {
                         </button>
                      </>
                   ) : (
-                     <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                        <NavDropdown.Item onClick={() => handleLogOut()}>Log out</NavDropdown.Item>
+                     <NavDropdown title={account.staffName} id="basic-nav-dropdown">
+                        <NavDropdown.Item onClick={() => navigate(`/profile/${account.username}`)}>
+                           Thông tin tài khoản
+                        </NavDropdown.Item>
+                        <NavDropdown.Item onClick={() => handleLogOut()}>
+                           Đăng xuất
+                        </NavDropdown.Item>
                      </NavDropdown>
                   )}
                </Nav>

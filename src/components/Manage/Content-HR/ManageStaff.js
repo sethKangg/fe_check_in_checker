@@ -88,7 +88,7 @@ const ManageStaff = () => {
    };
 
    return (
-      <div className="manage-container">
+      <div className="manage-container p-3">
          <div className="title d-flex justify-content-center ">
             <h1>Manage User</h1>
          </div>

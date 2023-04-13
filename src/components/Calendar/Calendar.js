@@ -70,16 +70,15 @@ const Calendar = (pros) => {
 
    const handleClickDay = (day) => {
       // console.log(month + 1, month === today.getMonth(), year === today.getFullYear());
-      if (
-         day + 1 <= today.getDate() &&
-         month === today.getMonth() &&
-         year === today.getFullYear()
-      ) {
-         setShow(true);
-         setDataClick(day);
-      } else {
-         toast.error("Chỉ xem được thông tin đến ngày hôm nay");
-      }
+      // const date = new Date(
+      //    `${year}-${month + 1 < 10 ? "0" + (month + 1) : month + 1}-${
+      //       day + 1 < 10 ? "0" + (day + 1) : day + 1
+      //    }`,
+      // );
+      const date = new Date(`${year}-${month + 1}-${day + 1}`);
+      if (date > today.getTime()) return toast.error("Chỉ xem được thông tin đến ngày hôm nay");
+      setShow(true);
+      setDataClick(day);
    };
 
    const fetchDataCalendar = async () => {

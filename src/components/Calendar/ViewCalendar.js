@@ -73,19 +73,23 @@ const ViewCalendar = (pros) => {
                         {day + 1} / {month + 1} / {year}{" "}
                      </b>
                   </div>
-                  {dataDay && dataDay.note && <div>Ghi chú: {dataDay.note}</div>}
                </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                {/* {!isLoading && !isLoading1 ? <div className="row g-3"></div> : <div>LOADING ....</div>} */}
                <div className="info">
+                  <div>{dataDay && dataDay.note && <div>Ghi chú: {dataDay.note}</div>}</div>
                   <div className="d-flex justify-content-between">
                      <div className="h3 info-title">Thông tin người dùng</div>
-                     <div>
-                        <button className="btn btn-warning" onClick={() => setShowUp(true)}>
-                           Chỉnh sửa
-                        </button>
-                     </div>
+                     {month === new Date().getMonth() &&
+                        year === new Date().getFullYear() &&
+                        account.roleName === "HUMAN RESOURCE" && (
+                           <div>
+                              <button className="btn btn-warning" onClick={() => setShowUp(true)}>
+                                 Chỉnh sửa
+                              </button>
+                           </div>
+                        )}
                   </div>
                   <div className="info-content d-flex align-items-center ">
                      <div className=" col-md-6">

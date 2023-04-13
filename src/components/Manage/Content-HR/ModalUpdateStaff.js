@@ -60,7 +60,7 @@ const ModalUpdateStaff = (pros) => {
             </Modal.Header>
             <Modal.Body>
                <form className="row g-3">
-                  <div className="col-md-6">
+                  {/* <div className="col-md-6">
                      <label className="form-label">Level</label>
                      <input
                         type="text"
@@ -68,8 +68,8 @@ const ModalUpdateStaff = (pros) => {
                         value={dataUpdate.promotionLevel ? dataUpdate.promotionLevel : ""}
                         onChange={(event) => setCurrentLevel(event.target.value)}
                      />
-                  </div>
-                  <div className="col-md-6">
+                  </div> */}
+                  <div className="col-md-12">
                      <label className="form-label">Level</label>
                      <Form.Select
                         aria-label="Default select example"

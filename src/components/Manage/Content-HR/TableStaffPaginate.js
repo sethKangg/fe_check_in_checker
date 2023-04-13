@@ -20,6 +20,7 @@ const TableStaffPaginate = (pros) => {
                   <th scope="col">Email</th>
                   <th scope="col">Số điện thoại</th>
                   <th scope="col">Cấp bậc</th>
+                  <th scope="col">Chức vụ</th>
                </tr>
             </thead>
             <tbody>
@@ -34,6 +35,7 @@ const TableStaffPaginate = (pros) => {
                            <td scope="row">{item.email}</td>
                            <td scope="row">{item.phone}</td>
                            <td scope="row">{item.promotionLevel}</td>
+                           <td scope="row">{item.roleName}</td>
                            <th className="actions">
                               <button
                                  className="btn btn-primary ml-3"
