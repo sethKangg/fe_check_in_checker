@@ -33,7 +33,7 @@ const ModalAddAccount = (pros) => {
    const handleSubmit = async () => {
       //validate
       //api
-
+      // console.log(username, password, roleId, email, firstName, surName, dateOfBirth, phone);
       let res = await postCreateUser(
          username,
          password,
@@ -44,7 +44,8 @@ const ModalAddAccount = (pros) => {
          dateOfBirth,
          phone,
       );
-      console.log("res +", res);
+      // console.log("res +", res);
+
       if (res.status === 200) {
          handleClose();
          toast.success(`${res.data} `);
@@ -101,7 +102,7 @@ const ModalAddAccount = (pros) => {
                      />
                   </div>
                   <div className="col-md-4">
-                     <label className="form-label">Họ</label>
+                     <label className="form-label">Chức vụ</label>
                      <Form.Select
                         value={roleId}
                         onChange={(event) => setRoleId(event.target.value)}

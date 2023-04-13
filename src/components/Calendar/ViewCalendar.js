@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import ModalUpdateCalendar from "./ModalUpdateCalendar";
 const ViewCalendar = (pros) => {
-   const { show, setShow, day, month, year, idParams } = pros;
+   const { show, setShow, day, month, year, idParams, initCalendar, fetchDataCalendar } = pros;
    const [listImg, setListImg] = useState([]);
    const [showImage, setShowImage] = useState(false);
    const [imageSrc, setImageSrc] = useState("");
@@ -164,6 +164,8 @@ const ViewCalendar = (pros) => {
                data={dataDay}
                fetchImg={fetchImg}
                fetchInfo={fetchInfo}
+               initCalendar={initCalendar}
+               fetchDataCalendar={fetchDataCalendar}
             />
          </Modal>
          {showImage && (

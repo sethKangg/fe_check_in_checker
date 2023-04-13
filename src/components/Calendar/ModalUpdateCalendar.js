@@ -6,7 +6,19 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 const ModalUpdateCalendar = (pros) => {
-   const { show, setShow, day, month, year, idParams, data, fetchImg, fetchInfo } = pros;
+   const {
+      show,
+      setShow,
+      day,
+      month,
+      year,
+      idParams,
+      data,
+      fetchImg,
+      fetchInfo,
+      initCalendar,
+      fetchDataCalendar,
+   } = pros;
 
    const account = useSelector((state) => state.user.account);
    const [value, setValue] = useState("");
@@ -43,13 +55,15 @@ const ModalUpdateCalendar = (pros) => {
    };
    const handleSubmit = async () => {
       if (vSelect === "0") return toast.error("Vui lòng chọn trạng thái");
-      toast.success(vSelect, value);
+      // toast.success(vSelect, value);
       const trueMonth = month + 1 < 10 ? "0" + (month + 1) : month + 1;
       const trueDay = day + 1 < 10 ? "0" + (day + 1) : day + 1;
       const time = year + "-" + trueMonth + "-" + trueDay;
       await putApi(time);
       await fetchImg(time);
       await fetchInfo(time);
+      await initCalendar();
+      await fetchDataCalendar();
       handleClose();
    };
 

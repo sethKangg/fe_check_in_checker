@@ -121,9 +121,9 @@ const Calendar = (pros) => {
                   </div>
                   <div className="days">
                      {/* prev */}
-                     {[...Array(prev)].map((e, i) => (
+                     {[...Array(prev)].reverse().map((e, i) => (
                         <div key={i} className="day prev-date">
-                           {prevDays - i + 1}
+                           {prevDays - prev + i + 1}
                         </div>
                      ))}
                      {/* days */}
@@ -142,7 +142,17 @@ const Calendar = (pros) => {
                         // `late`
                      }
                      
-                     ${e === 1 ? `right_time ` : e === 2 ? `late ` : e === 3 ? `not_go` : `not_yet`}
+                     ${
+                        e === 1
+                           ? `right_time `
+                           : e === 2
+                           ? `late `
+                           : e === 3
+                           ? `not_go`
+                           : e === 4
+                           ? `holiday`
+                           : `not_yet`
+                     }
 
                      `}
                            onClick={() => {
@@ -198,6 +208,8 @@ const Calendar = (pros) => {
             month={month}
             year={year}
             idParams={idParams}
+            initCalendar={initCalendar}
+            fetchDataCalendar={fetchDataCalendar}
          />
       </>
    );

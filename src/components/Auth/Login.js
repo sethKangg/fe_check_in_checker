@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { doLogin } from "../../redux/action/userAction";
 import { postLogin } from "../../services/apiService";
@@ -13,7 +13,11 @@ const Login = () => {
    const [loading, setLoading] = useState(false);
    const navigate = useNavigate();
    const dispatch = useDispatch();
-
+   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+   const toMain = () => {
+      navigate("/");
+   };
+   if (isAuthenticated) return <Navigate to="/"></Navigate>;
    const handleSubmit = async () => {
       //api
       setLoading(true);

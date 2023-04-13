@@ -13,7 +13,7 @@ const postCreateUser = (
       username: username,
       password: password,
       roleId: +roleId,
-      staffDTO: {
+      staffAddDTO: {
          email: email,
          firstName: firstName,
          surname: surname,
