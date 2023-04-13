@@ -287,6 +287,12 @@ const putTS = (staffId, date, dateStatus, note) => {
    };
    return axios.put(`timesheets/update-timesheet-status/${staffId}`, data);
 };
+const getMonthlyReport = (date) => {
+   return axios.get(`timesheets/showListTimeSheet?monthYear=${date}`);
+};
+const exportData = (date) => {
+   return axios.get(`reports/export?monthYear=${date}`);
+};
 export {
    putLevelStaff,
    putStatusAccount,
@@ -334,4 +340,6 @@ export {
    deleteMemberInGroup,
    getInfoTS,
    putTS,
+   getMonthlyReport,
+   exportData,
 };

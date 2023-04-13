@@ -121,7 +121,7 @@ const Calendar = (pros) => {
                   </div>
                   <div className="days">
                      {/* prev */}
-                     {[...Array(prev)].reverse().map((e, i) => (
+                     {[...Array(prev)].map((e, i) => (
                         <div key={i} className="day prev-date">
                            {prevDays - prev + i + 1}
                         </div>

@@ -26,7 +26,7 @@ const Header = () => {
       <Navbar bg="light" expand="lg">
          <Container>
             <NavLink className="navbar-brand" to={"/"}>
-               Công ty X
+               Checkin Checker
             </NavLink>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -34,15 +34,37 @@ const Header = () => {
                   <NavLink className="nav-link" to={"/"}>
                      Trang chủ
                   </NavLink>
-                  <NavLink className="nav-link" to={"/manage"}>
-                     Quản lý
-                  </NavLink>
-                  <NavLink className="nav-link" to={"/project"}>
-                     Dự án
-                  </NavLink>
-                  <NavLink className="nav-link" to={"/group"}>
-                     Nhóm
-                  </NavLink>
+                  {account.roleName === "HUMAN RESOURCE" || account.roleName === "ADMIN" ? (
+                     <NavLink className="nav-link" to={"/manage"}>
+                        Quản lý
+                     </NavLink>
+                  ) : null}
+                  {isAuthenticated && (
+                     <NavLink className="nav-link" to={`/calendar/${account.id}`}>
+                        Lịch
+                     </NavLink>
+                  )}
+                  {account.roleName === "HUMAN RESOURCE" ||
+                  account.roleName === "PROJECT MANAGER" ? (
+                     <NavLink className="nav-link" to={"/project"}>
+                        Dự án
+                     </NavLink>
+                  ) : null}
+                  {account.roleName === "HUMAN RESOURCE" || account.roleName === "GROUP LEADER" ? (
+                     <NavLink className="nav-link" to={"/group"}>
+                        Nhóm
+                     </NavLink>
+                  ) : null}
+                  {isAuthenticated && (
+                     <NavLink className="nav-link" to={"/report"}>
+                        Yêu cầu
+                     </NavLink>
+                  )}
+                  {account.roleName === "HUMAN RESOURCE" && (
+                     <NavLink className="nav-link" to={"/monthly-report"}>
+                        Báo cáo tháng
+                     </NavLink>
+                  )}
                </Nav>
                <Nav>
                   {isAuthenticated == false ? (

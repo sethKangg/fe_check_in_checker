@@ -118,3 +118,7 @@
    cursor: pointer;
    background-color: #f19f9f;
 }
+.w-days {
+   min-width: 20px;
+   text-align: center;
+}

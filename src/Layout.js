@@ -22,6 +22,7 @@ import ForgotPassword from "./components/Auth/ForgotPassword";
 import PrivateRoute from "./routes/PrivateRoute";
 import ErrorAuth from "./components/Auth/ErrorAuth";
 import ErrorPage from "./components/Auth/ErrorPage";
+import MonthlyReport from "./components/Report/MonthlyReport";
 // import AllCamera from "./components/Camera/AllCamera";
 // import Camera from "./components/Camera/Camera";
 const Layout = () => {
@@ -52,6 +53,7 @@ const Layout = () => {
                <Route path="/calendar/:id" element={<Calendar />}></Route>
                <Route path="/allCamera" element={<AllCamera />}></Route>
                <Route path="/report" element={<Report />}></Route>
+               <Route path="/monthly-report" element={<MonthlyReport />}></Route>
                {/* <Route path="/testCamera" element={<TestCamera />}></Route> */}
             </Route>
             <Route
