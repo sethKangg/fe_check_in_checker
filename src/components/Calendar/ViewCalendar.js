@@ -83,7 +83,7 @@ const ViewCalendar = (pros) => {
                      <div className="h3 info-title">Thông tin người dùng</div>
                      {month === new Date().getMonth() &&
                         year === new Date().getFullYear() &&
-                        account.roleName === "HUMAN RESOURCE" && (
+                        account.roleName === "Human resource" && (
                            <div>
                               <button className="btn btn-warning" onClick={() => setShowUp(true)}>
                                  Chỉnh sửa

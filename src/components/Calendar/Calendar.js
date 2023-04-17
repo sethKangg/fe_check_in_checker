@@ -224,11 +224,15 @@ const Calendar = (pros) => {
                      ))}
                   </div>
                   <div className="goto-today">
-                     <div className="goto">
-                        <input type="text" placeholder="mm/yyyy" className="date-input" />
-                        <button className="goto-btn">Go</button>
-                     </div>
-                     <button className="today-btn">Today</button>
+                     <button
+                        className="today-btn"
+                        onClick={() => {
+                           setMonth(today.getMonth());
+                           setYear(today.getFullYear());
+                        }}
+                     >
+                        Trở về tháng hiện nay
+                     </button>
                   </div>
                </div>
             </div>

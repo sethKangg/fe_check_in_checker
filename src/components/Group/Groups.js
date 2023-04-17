@@ -19,7 +19,7 @@ const Groups = () => {
    const [listGroup, setListGroup] = useState([]);
 
    const account = useSelector((state) => state.user.account);
-   const staffId = account.roleName === "HUMAN RESOURCE" ? "0" : account.id;
+   const staffId = account.roleName === "Human resource" ? "0" : account.id;
 
    const fetchListGroup = async (page, size, searchValue) => {
       let res = await getAllGroup(page, size, searchValue, staffId);
@@ -84,7 +84,7 @@ const Groups = () => {
             {/* <Col xs={12} md={12} lg={12}> */}
             <ListGroup className="list-group-flush">
                <Row className="">
-                  {account.roleName === "HUMAN RESOURCE" && (
+                  {account.roleName === "Human resource" && (
                      <Col xs={12} sm={8} md={6} lg={4} className="mt-3  ">
                         <Card className="card-add">
                            <Card.Body className="d-flex align-items-center">
@@ -122,7 +122,7 @@ const Groups = () => {
             {/* </Col> */}
             {/* </Row> */}
          </Container>
-         {account.roleName === "HUMAN RESOURCE" && (
+         {account.roleName === "Human resource" && (
             <ModalAddGroup
                PAGE_LIMIT={PAGE_LIMIT}
                show={showModal}

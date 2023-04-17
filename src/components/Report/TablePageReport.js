@@ -74,7 +74,7 @@ const TablePageReport = (pros) => {
                      </div>
                      {/* </div> */}
                   </div>
-                  {e.status === "Pending" && account.roleName === "HUMAN RESOURCE" && (
+                  {e.status === "Pending" && account.roleName === "Human resource" && (
                      <div className="card-2-bottom-part ">
                         <div className="bottom-part click-yeah py-3">
                            <div

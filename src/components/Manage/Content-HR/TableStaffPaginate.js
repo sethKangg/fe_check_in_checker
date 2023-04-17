@@ -45,7 +45,7 @@ const TableStaffPaginate = (pros) => {
                               >
                                  Xem thông tin
                               </button>
-                              {item.roleName !== "HUMAN RESOURCE" && (
+                              {item.roleName !== "Human resource" && (
                                  <button
                                     className="btn btn-warning mx-3"
                                     onClick={() => pros.handleClickUpdate(true, item)}

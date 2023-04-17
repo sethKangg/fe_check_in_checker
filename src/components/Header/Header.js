@@ -40,7 +40,7 @@ const Header = () => {
                      </NavLink>
                   ) : null}
                   {isAuthenticated && (
-                     <NavLink className="nav-link" to={`/calendar/${account.id}`}>
+                     <NavLink className="nav-link" to={`/calendar`}>
                         Lịch
                      </NavLink>
                   )}
@@ -73,15 +73,18 @@ const Header = () => {
                            className="btn border-dark mx-2 p-2 border-2"
                            onClick={() => handleLogin()}
                         >
-                           Log in
+                           Đăng nhập
                         </button>
 
                         <button className="btn border-dark btn-info mx-2 p-2 border-2">
-                           Check in
+                           Điểm danh
                         </button>
                      </>
                   ) : (
-                     <NavDropdown title={account.staffName} id="basic-nav-dropdown">
+                     <NavDropdown
+                        title={account.staffName + " - " + account.roleName}
+                        id="basic-nav-dropdown"
+                     >
                         <NavDropdown.Item onClick={() => navigate(`/profile/${account.username}`)}>
                            Thông tin tài khoản
                         </NavDropdown.Item>

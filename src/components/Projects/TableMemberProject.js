@@ -43,7 +43,7 @@ const TableMemberProject = (pros) => {
                            <td>{item.email}</td>
                            <td>{item.roleName}</td>
                            <td>{item.promotionLevel}</td>
-                           {item.roleName != "PROJECT MANAGER" && data.status === "Processing" ? (
+                           {item.roleName != "Project manager" && data.status === "Processing" ? (
                               <th className="d-flex ">
                                  <button className="btn btn-primary ml-3">View</button>
                                  <button

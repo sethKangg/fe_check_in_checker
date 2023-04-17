@@ -30,7 +30,7 @@ const Projects = () => {
 
    const debouncedSearchTerm = useDebounce(searchValue, 800);
    const account = useSelector((state) => state.user.account);
-   const staffId = account.roleName === "HUMAN RESOURCE" ? "0" : account.id;
+   const staffId = account.roleName === "Human resource" ? "0" : account.id;
 
    const fetchListProject = async (page, searchValue) => {
       let res = await getAllProjects(page, PAGE_LIMIT, searchValue, staffId);

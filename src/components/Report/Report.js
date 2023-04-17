@@ -17,7 +17,7 @@ const Report = () => {
    const LIMIT_PAGE = 5;
    const [isLoading, setIsLoading] = useState(false);
    const account = useSelector((state) => state.user.account);
-   const staffId = account.roleName === "HUMAN RESOURCE" ? "0" : account.id;
+   const staffId = account.roleName === "Human resource" ? "0" : account.id;
 
    const fetchApi = async (page, statusC) => {
       setIsLoading(true);
@@ -78,7 +78,7 @@ const Report = () => {
                   Từ chối
                </button>
             </div>
-            {account && account.roleName !== "HUMAN RESOURCE" && (
+            {account && account.roleName !== "Human resource" && (
                <div>
                   <button className="btn btn-primary" onClick={() => setShow(true)}>
                      Gửi yêu cầu mới

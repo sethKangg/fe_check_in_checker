@@ -43,12 +43,15 @@ const Login = () => {
 
    return (
       <div className="login-container">
-         <div className="login-header">Welcome to Checkin Checker</div>
-         <div className="login-title ">Checkin Checker</div>
-         <div className="login-welcome ">Hello, who is this ?</div>
+         <div className="login-header">Chào mừng đến với hệ thống CTS </div>
+         <div className="login-title ">CTS</div>
+         <div className="login-welcome ">
+            Trang đăng nhập dành cho các loại tài khoản: Admin, Human resources, Group leader,
+            Project manager, Staff
+         </div>
          <div className="login-content col-4 mx-auto d-flex flex-column gap-3 ">
             <div className="login-form form-group ">
-               <label>Username</label>
+               <label>Tên tài khoản</label>
                <input
                   type={"email"}
                   className="form-control"
@@ -57,7 +60,7 @@ const Login = () => {
                />
             </div>
             <div className="form-group ">
-               <label>Password</label>
+               <label>Mật khẩu</label>
                <input
                   type={"password"}
                   className="form-control"
@@ -71,7 +74,7 @@ const Login = () => {
             </span>
             <div>
                <button className="btn-submit" onClick={() => handleSubmit()} disabled={loading}>
-                  Login
+                  Đăng nhập
                   {loading === true ? <AiOutlineLoading3Quarters className="spin" /> : <></>}
                </button>
                <div className="text-center">
@@ -81,7 +84,7 @@ const Login = () => {
                         navigate("/");
                      }}
                   >
-                     &#60;&#60; Homepage
+                     &#60;&#60; Quay về trang chủ
                   </span>
                </div>
             </div>
