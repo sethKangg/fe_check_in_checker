@@ -34,7 +34,7 @@ const Header = () => {
                   <NavLink className="nav-link" to={"/"}>
                      Trang chủ
                   </NavLink>
-                  {account.roleName === "HUMAN RESOURCE" || account.roleName === "ADMIN" ? (
+                  {account.roleName === "Human resource" || account.roleName === "Admin" ? (
                      <NavLink className="nav-link" to={"/manage"}>
                         Quản lý
                      </NavLink>
@@ -44,13 +44,13 @@ const Header = () => {
                         Lịch
                      </NavLink>
                   )}
-                  {account.roleName === "HUMAN RESOURCE" ||
-                  account.roleName === "PROJECT MANAGER" ? (
+                  {account.roleName === "Human resource" ||
+                  account.roleName === "Project manager" ? (
                      <NavLink className="nav-link" to={"/project"}>
                         Dự án
                      </NavLink>
                   ) : null}
-                  {account.roleName === "HUMAN RESOURCE" || account.roleName === "GROUP LEADER" ? (
+                  {account.roleName === "Human resource" || account.roleName === "Group Leader" ? (
                      <NavLink className="nav-link" to={"/group"}>
                         Nhóm
                      </NavLink>
@@ -60,7 +60,7 @@ const Header = () => {
                         Yêu cầu
                      </NavLink>
                   )}
-                  {account.roleName === "HUMAN RESOURCE" && (
+                  {account.roleName === "Human resource" && (
                      <NavLink className="nav-link" to={"/monthly-report"}>
                         Báo cáo tháng
                      </NavLink>

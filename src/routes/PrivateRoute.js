@@ -6,11 +6,11 @@ const PrivateRoute = (pros) => {
    const account = useSelector((state) => state.user.account);
    const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
    const roles = {
-      ADMIN: 1,
-      "HUMAN RESOURCE": 2,
-      "PROJECT MANAGER": 3,
-      "GROUP LEADER": 4,
-      STAFF: 5,
+      Admin: 1,
+      "Human resource": 2,
+      "Project manager": 3,
+      "Group Leader": 4,
+      Staff: 5,
    };
 
    function getRoleId(roleName) {

@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getCalendar } from "../../services/apiService";
+import { getCalendar, getStaff } from "../../services/apiService";
 import "./Calendar.css";
 import ViewCalendar from "./ViewCalendar";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import Select from "react-select";
+import { components } from "react-select";
 const Calendar = (pros) => {
    const params = useParams();
-   const idParams = params.id;
    const account = useSelector((state) => state.user.account);
-
+   const [idParams, setIdParams] = useState(account.id);
+   const [nameTitle, setNameTitle] = useState(`${account.staffName} #${account.id}`);
    const [show, setShow] = useState(false);
    const [dataClick, setDataClick] = useState("");
-
+   const [dataList, setDataList] = useState([]);
+   const [selectValue, setSelectValue] = useState([]);
    const today = new Date();
    // const [activeDay, setActiveDay] = useState("");
    const [month, setMonth] = useState(today.getMonth());
@@ -22,6 +25,8 @@ const Calendar = (pros) => {
    const [days, setDays] = useState();
    const [prevDays, setPrevDays] = useState();
    const [listDay, setListDay] = useState([]);
+   const [isLoading, setIsLoading] = useState(false);
+   const [isLoading1, setIsLoading1] = useState(false);
    const months = [
       "Tháng 1",
       "Tháng 2",
@@ -85,19 +90,68 @@ const Calendar = (pros) => {
       let monthApi = month + 1;
       if (monthApi < 10) monthApi = "0" + monthApi;
       let res = await getCalendar(idParams, year, monthApi);
-      console.log("res>>>", res.data);
+      // console.log("res>>>", res.data);
       if (res.status === 200) {
          setListDay(res.data.dto.dayCheck);
       }
    };
+
+   const fetchListStaff = async () => {
+      try {
+         setIsLoading1(true);
+         let res = await getStaff(1, 99, "", 2);
+         if (res.status === 200) {
+            setDataList(res.data.list);
+            setSelectValue(account.id);
+            // console.log(res.data);
+         } else {
+            toast.error("Có lỗi khi load danh sách lịch của nhân viên khác");
+         }
+      } catch (error) {
+      } finally {
+         setIsLoading1(false);
+      }
+   };
+   useEffect(() => {
+      fetchListStaff();
+   }, []);
    useEffect(() => {
       fetchDataCalendar();
       initCalendar();
-   }, [month, year]);
+   }, [month, year, idParams]);
+   const NoOptionsMessage = (props) => {
+      return (
+         <components.NoOptionsMessage {...props}>
+            Không có tùy chọn khả dụng
+         </components.NoOptionsMessage>
+      );
+   };
+   const newArray = dataList.map((item) => {
+      return { value: item.id, label: `${item.fullName} #${item.id}` };
+   });
+   const handleSelect = (e) => {
+      setIdParams(e.value);
+      setNameTitle(e.label);
+   };
    return (
       <>
          <div className="container-2">
             <div className="left">
+               <div className="my-3">
+                  <h1 onClick={() => console.log(idParams === selectValue)}>
+                     Lịch chấm công
+                     <b> {months[month]} </b>
+                     của
+                     <b
+                        style={{
+                           color: "#ffeb4b",
+                        }}
+                     >
+                        {" "}
+                        {nameTitle}
+                     </b>
+                  </h1>
+               </div>
                <div className="calendar">
                   <div className="month">
                      <i className="fas fa-angle-left prev" onClick={() => prevMonth()}>
@@ -179,6 +233,25 @@ const Calendar = (pros) => {
                </div>
             </div>
             <div className="right">
+               <div>
+                  {isLoading1 ? (
+                     "Đang tải dữ liệu"
+                  ) : (
+                     <Select
+                        // ref={assignGroupLeader}
+                        onChange={(event) => handleSelect(event)}
+                        className="basic-single"
+                        classNamePrefix="rt_sl_option"
+                        value={selectValue}
+                        options={newArray}
+                        isSearchable={true}
+                        closeMenuOnSelect={false}
+                        placeholder={<div>Chọn lịch theo nhân viên</div>}
+                        components={{ NoOptionsMessage }}
+                     />
+                  )}
+               </div>
+
                <div className="d-flex align-items-center mt-3 ">
                   <div className="box right_time"></div>
                   <div className=""> : Đi đúng giờ</div>

@@ -50,7 +50,7 @@ const Layout = () => {
                      </PrivateRoute>
                   }
                ></Route>
-               <Route path="/calendar/:id" element={<Calendar />}></Route>
+               <Route path="/calendar" element={<Calendar />}></Route>
                <Route path="/allCamera" element={<AllCamera />}></Route>
                <Route path="/report" element={<Report />}></Route>
                <Route path="/monthly-report" element={<MonthlyReport />}></Route>
