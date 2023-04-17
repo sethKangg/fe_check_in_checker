@@ -42,7 +42,7 @@ const TableMemberGroup = (pros) => {
                            <td>{item.roleName}</td>
                            <td>{item.promotionLevel}</td>
                            <th className="d-flex ">
-                              <button className="btn btn-primary ml-3">View</button>
+                              {/* <button className="btn btn-primary ml-3">Xem</button> */}
                               {item.roleName != "Group Leader" ? (
                                  <button
                                     className="btn btn-danger mx-3"

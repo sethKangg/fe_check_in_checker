@@ -31,7 +31,7 @@ const Login = () => {
          dispatch(doLogin(data));
       } else {
          setLoading(false);
-         toast.error("fail");
+         toast.error("Có lỗi xảy ra");
       }
    };
 

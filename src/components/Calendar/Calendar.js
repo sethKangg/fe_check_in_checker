@@ -105,7 +105,7 @@ const Calendar = (pros) => {
             setSelectValue(account.id);
             // console.log(res.data);
          } else {
-            toast.error("Có lỗi khi load danh sách lịch của nhân viên khác");
+            toast.error("Có lỗi trong quá trình tải danh sách lịch của nhân viên khác");
          }
       } catch (error) {
       } finally {

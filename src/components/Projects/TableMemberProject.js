@@ -45,7 +45,7 @@ const TableMemberProject = (pros) => {
                            <td>{item.promotionLevel}</td>
                            {item.roleName != "Project manager" && data.status === "Processing" ? (
                               <th className="d-flex ">
-                                 <button className="btn btn-primary ml-3">View</button>
+                                 {/* <button className="btn btn-primary ml-3">Xem</button> */}
                                  <button
                                     className="btn btn-danger mx-3"
                                     onClick={() => handleRemove(item)}

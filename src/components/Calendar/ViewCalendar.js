@@ -26,11 +26,11 @@ const ViewCalendar = (pros) => {
    };
    const fetchInfo = async (day) => {
       let res = await getInfoTS(idParams, day);
-      console.log("data day: ", res);
+      // console.log("data day: ", res);
       if (res.status === 200) {
          setDataDay(res.data);
       } else {
-         toast.error("Chạy api lỗi");
+         toast.error("Có lỗi trong quá trình tải dữ liệu");
       }
    };
    function togglePreview(src) {

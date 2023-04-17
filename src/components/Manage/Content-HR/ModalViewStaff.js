@@ -72,6 +72,7 @@ const ModalViewStaff = (pros) => {
       // console.log(res);
       if (res.status === 200) {
          toast.success("Thêm ảnh nhận diện thành công");
+         setBase64String("");
       }
    };
 
@@ -168,7 +169,7 @@ const ModalViewStaff = (pros) => {
                                  <img
                                     src={handleSrcImg(e.image)}
                                     width={250}
-                                    onClick={() => togglePreview(profile_1)}
+                                    onClick={() => togglePreview(handleSrcImg(e.image))}
                                  />
                                  <p className="mt-2"> {convertTime(e.timeSetup)}</p>
                               </div>

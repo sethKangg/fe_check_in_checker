@@ -42,7 +42,7 @@ const ModalUpdateAccount = (pros) => {
 
       await pros.fetchListUser(pros.currentPage, 1, "", "   ");
       handleClose();
-      toast.error("ehe");
+      // toast.error("ehe");
    };
 
    return (

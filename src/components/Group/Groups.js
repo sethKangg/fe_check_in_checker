@@ -60,7 +60,7 @@ const Groups = () => {
          <Col xs={12} sm={8} md={6} lg={4} key={i} className="mt-3 ">
             <Card>
                <Card.Body>
-                  <Card.Title>Group {i}</Card.Title>
+                  <Card.Title>Nhóm {i}</Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">Group Leader</Card.Subtitle>
                   <Card.Text>Status</Card.Text>
                   <Button variant="primary">View</Button>

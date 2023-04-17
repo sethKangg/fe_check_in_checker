@@ -9,6 +9,7 @@ import {
    getAllMemberInProject,
    fetchListAvaiableStaff,
    postAddStaffProject,
+   putStatusProject,
 } from "../../services/apiService";
 import ModalRemoveStaff from "./ModalRemoveStaff";
 import TableMemberProject from "./TableMemberProject";
@@ -110,9 +111,13 @@ const ModalViewProject = (pros) => {
       //   return fetchListProject(1, "");
    };
 
-   const handleSelectGroupLeader = (e) => {
-      // listSelected.current.value = e.value;
-      // console.log(listSelected.current.value);
+   const handleDone = async () => {
+      let res = await putStatusProject(dataView.id, 2);
+      if (res.status == 200) {
+         toast.success(`Cập nhật dự án ${dataView.projectName} thành công`);
+         handleClose();
+         await fetchListProject(1, "");
+      }
    };
 
    // console.log("dataView", dataView);
@@ -139,7 +144,11 @@ const ModalViewProject = (pros) => {
                         </b>
                      </div>
                      <div>
-                        <button className="btn btn-warning">Hoàn thành</button>
+                        {dataView.status === "Processing" && (
+                           <button className="btn btn-warning" onClick={() => handleDone()}>
+                              Hoàn thành
+                           </button>
+                        )}
                      </div>
                   </div>
                </Modal.Title>
@@ -148,6 +157,26 @@ const ModalViewProject = (pros) => {
                {!isLoading && !isLoading1 ? (
                   <div className="row g-3">
                      <div className=" col-md-12  ">
+                        <div className="d-flex justify-content-between">
+                           <div>
+                              <label>
+                                 Người phụ trách: {dataView.projectManagerName} #{dataView.id}
+                              </label>
+                           </div>
+                           <div>
+                              <label>Thuộc nhóm: {dataView.projectName}</label>
+                           </div>
+                           <div>
+                              <label>
+                                 Trạng thái dự án:{" "}
+                                 {dataView.status === "Done"
+                                    ? "Hoàn thành"
+                                    : dataView.status === "Cancel"
+                                    ? "Hủy bỏ"
+                                    : "Đang trong tiến trình"}
+                              </label>
+                           </div>
+                        </div>
                         {dataView.status === "Processing" && (
                            <>
                               <label className="form-label">Thêm nhân viên mới</label>

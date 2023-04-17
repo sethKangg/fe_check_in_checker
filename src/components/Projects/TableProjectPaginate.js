@@ -23,7 +23,7 @@ const TableProjectPaginate = (pros) => {
    //    console.log(ListGroup);
    return (
       <>
-         <div className="task-list ">
+         <div className="task-list">
             {listProject &&
                listProject.length > 0 &&
                listProject.map((task, index) => {
@@ -41,10 +41,10 @@ const TableProjectPaginate = (pros) => {
                                     {task.projectName}
                                  </Card.Title>
                               </div>
-                              <div className="text-right">
+                              <div className="text-right ">
                                  {showOptionsIndex === index ? (
                                     <>
-                                       <div className="background-options ">
+                                       <div className="background-options d-flex align-items-center ">
                                           {task.status != "Cancel" && task.status != "Done" && (
                                              <Button
                                                 variant="danger"
@@ -62,6 +62,7 @@ const TableProjectPaginate = (pros) => {
                                           >
                                              Sửa
                                           </Button>
+                                          <div onClick={() => setShowOptionsIndex(-1)}>X</div>
                                        </div>
                                     </>
                                  ) : (

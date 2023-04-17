@@ -90,7 +90,7 @@ const ModalUpdateProject = (pros) => {
       return { value: item.id, label: `${item.fullName} #${item.id}` };
    });
    let newGroupArray = null;
-   if (!account.roleName === "Project manager") {
+   if (account.roleName !== "Project manager") {
       newGroupArray = listGroup.map((item) => {
          return { value: item.id, label: `${item.groupName} #${item.id}` };
       });

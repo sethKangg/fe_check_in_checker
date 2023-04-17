@@ -36,14 +36,17 @@ const ModalUpdateStaff = (pros) => {
 
    const handleSubmit = async () => {
       //validate
-      await updateStaffLevel();
+      let res = await updateStaffLevel();
       //api
-
+      if (res.status === 200) {
+         toast.success("Cập nhật tài thông tin nhân viên thành công");
+         await pros.fetchListUser(pros.currentPage, PAGE_LIMIT, "", "");
+         handleClose();
+      } else {
+         toast.error("Có lỗi xảy ra trong tiến trình cập nhật thông tin nhaan viên");
+      }
       //   let res = await postCreateUser(email);
       // pros.fetchListUser();
-
-      await pros.fetchListUser(pros.currentPage, PAGE_LIMIT, "", "");
-      handleClose();
 
       // toast.error("ehe");
    };

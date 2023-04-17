@@ -48,7 +48,7 @@ const ModalAddAccount = (pros) => {
 
       if (res.status === 200) {
          handleClose();
-         toast.success(`${res.data} `);
+         toast.success(`Tạo tài khoản mới thành công `);
       } else {
          // let response = res.data.error.map((number, index) => {
          // });
