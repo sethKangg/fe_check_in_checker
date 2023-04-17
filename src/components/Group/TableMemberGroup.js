@@ -43,7 +43,7 @@ const TableMemberGroup = (pros) => {
                            <td>{item.promotionLevel}</td>
                            <th className="d-flex ">
                               <button className="btn btn-primary ml-3">View</button>
-                              {item.roleName != "GROUP LEADER" ? (
+                              {item.roleName != "Group Leader" ? (
                                  <button
                                     className="btn btn-danger mx-3"
                                     onClick={() => handleRemove(item)}
@@ -59,7 +59,7 @@ const TableMemberGroup = (pros) => {
                   })}
                {listMember && listMember.length === 0 && (
                   <tr>
-                     <td colSpan={4}>No data found</td>
+                     <td colSpan={4}>Hiện không có dữ liệu</td>
                   </tr>
                )}
             </tbody>

@@ -98,7 +98,11 @@ const ViewCaptured = () => {
    }, [onlyMe, isError, startDay, endDay, debouncedSearchTerm, currentPage]);
    return (
       <div className="container-3 d-flex flex-column">
-         <div className="title-vc">AVX</div>
+         <div className="title-vc">
+            <h2 className="d-flex justify-content-center">
+               Bảng thống kê nhận diện khuôn mặt của nhân viên
+            </h2>
+         </div>
          <div>
             <InputGroup className="my-3">
                <Form.Control

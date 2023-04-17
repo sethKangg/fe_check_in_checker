@@ -42,7 +42,7 @@ const ModalUpdateStaff = (pros) => {
       //   let res = await postCreateUser(email);
       // pros.fetchListUser();
 
-      pros.fetchListUser(pros.currentPage, PAGE_LIMIT, "", "");
+      await pros.fetchListUser(pros.currentPage, PAGE_LIMIT, "", "");
       handleClose();
 
       // toast.error("ehe");

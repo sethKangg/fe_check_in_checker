@@ -11,14 +11,18 @@ const ModalDisableAccount = (pros) => {
    const handleComfirm = async (item) => {
       let res = await putStatusAccount(item.id);
       // if (res) {
-      toast.success(`Change Status ${item.id} sucessfully`);
+      if (res.status === 200) {
+         toast.success(`Cập nhật tài khoản ${dataDelete.username} thành công `);
+      } else {
+         toast.error("Có lỗi trong quá trình cập nhật");
+      }
       handleClose();
       pros.setCurrentPage(1);
-      pros.fetchListUser(pros.currentPage, PAGE_LIMIT, "", "");
+      await pros.fetchListUser(pros.currentPage, PAGE_LIMIT, "", "");
       // await pros.fetchListUser();
       // }
    };
-
+   if (show === true) console.log(dataDelete);
    return (
       <>
          <Modal show={show} onHide={handleClose} backdrop="static">
@@ -26,12 +30,12 @@ const ModalDisableAccount = (pros) => {
                <Modal.Title>Comfirm Disable User</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-               Are you sure to disable this user ?
-               <b>{dataDelete && dataDelete.username ? dataDelete.username : ``}</b>
+               {dataDelete.enable ? "Xác nhận khóa tài khoản " : "Xác nhận mở lại tài khoản "}
+               <b>{dataDelete && dataDelete.username ? dataDelete.username : ` `} </b> ?
             </Modal.Body>
             <Modal.Footer>
                <Button variant="secondary" onClick={handleClose}>
-                  Cancel
+                  Đóng
                </Button>
                <Button
                   variant="primary"
@@ -39,7 +43,7 @@ const ModalDisableAccount = (pros) => {
                      handleComfirm(dataDelete);
                   }}
                >
-                  Comfirm
+                  Xác nhận
                </Button>
             </Modal.Footer>
          </Modal>

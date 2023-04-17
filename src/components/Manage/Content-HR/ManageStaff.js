@@ -22,13 +22,19 @@ const ManageStaff = () => {
    const [dataDelete, setDataDelete] = useState({});
    const [dataView, setDataView] = useState([]);
    const debouncedSearchTerm = useDebounce(searchValue, 800);
-
+   const [isLoading, setIsLoading] = useState(false);
    const fetchListUser = async (page, size, searchValue, filterIndex) => {
-      let res = await getStaff(page, 10, searchValue, filterIndex);
-      // console.log("Userdata: ", res);
-      if (res.status == 200) {
-         setListStaff(res.data.list);
-         setPageCount(res.data.allPages);
+      try {
+         setIsLoading(true);
+         let res = await getStaff(page, 10, searchValue, filterIndex);
+         // console.log("Userdata: ", res);
+         if (res.status == 200) {
+            setListStaff(res.data.list);
+            setPageCount(res.data.allPages);
+         }
+      } catch (e) {
+      } finally {
+         setIsLoading(false);
       }
    };
    const fetchListLevel = async () => {
@@ -121,19 +127,23 @@ const ManageStaff = () => {
                </div>
             </div>
             <div className="table-user mt-3">
-               <TableStaffPaginate
-                  PAGE_LIMIT={PAGE_LIMIT}
-                  listStaff={listStaff}
-                  handleClickUpdate={handleClickUpdate}
-                  handleDelete={handleDelete}
-                  fetchListUser={fetchListUser}
-                  pageCount={pageCount}
-                  currentPage={currentPage}
-                  searchValue={searchValue}
-                  filterIndex={filterIndex}
-                  setCurrentPage={setCurrentPage}
-                  handleClickView={handleClickView}
-               />
+               {isLoading ? (
+                  <>Đang tải dữ liệu </>
+               ) : (
+                  <TableStaffPaginate
+                     PAGE_LIMIT={PAGE_LIMIT}
+                     listStaff={listStaff}
+                     handleClickUpdate={handleClickUpdate}
+                     handleDelete={handleDelete}
+                     fetchListUser={fetchListUser}
+                     pageCount={pageCount}
+                     currentPage={currentPage}
+                     searchValue={searchValue}
+                     filterIndex={filterIndex}
+                     setCurrentPage={setCurrentPage}
+                     handleClickView={handleClickView}
+                  />
+               )}
             </div>
          </div>
          <div>

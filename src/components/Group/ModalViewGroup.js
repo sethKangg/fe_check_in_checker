@@ -159,7 +159,7 @@ const ModalViewGroup = (pros) => {
                      </div>
                   </div>
                ) : (
-                  <div>LOADING ....</div>
+                  <div>Đang tải dữ liệu ....</div>
                )}
             </Modal.Body>
             <Modal.Footer>

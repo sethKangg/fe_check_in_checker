@@ -68,6 +68,11 @@ const TableCaptured = (pros) => {
                   )}
                </div>
             ))}
+         {listVB && listVB.length === 0 && (
+            <h3 className="d-flex justify-content-center mt-3">
+               Không có dữ liệu trong khoảng thời gian này
+            </h3>
+         )}
          {/* {listVB && listVB <div>Không có dữ liệu</div>} */}
          <div className="mt-3 d-flex justify-content-center text-center">
             <ReactPaginate

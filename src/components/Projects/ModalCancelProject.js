@@ -14,8 +14,8 @@ const ModalCancelProject = (pros) => {
       let res = await putStatusProject(item.id, 3);
       if (res.status == 200) {
          toast.success(`Change Status ${item.id} sucessfully`);
-         fetchListProject(1, "");
          handleClose();
+         await fetchListProject(1, "");
       }
    };
 
@@ -36,7 +36,7 @@ const ModalCancelProject = (pros) => {
             </Modal.Body>
             <Modal.Footer>
                <Button variant="secondary" onClick={handleClose}>
-                  Cancel
+                  Đóng
                </Button>
                <Button
                   variant="primary"
@@ -44,7 +44,7 @@ const ModalCancelProject = (pros) => {
                      handleComfirm(dataDelete);
                   }}
                >
-                  Comfirm
+                  Xác nhận
                </Button>
             </Modal.Footer>
          </Modal>

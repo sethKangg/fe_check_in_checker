@@ -12,7 +12,7 @@ import {
 } from "../../services/apiService";
 import ModalRemoveStaff from "./ModalRemoveStaff";
 import TableMemberProject from "./TableMemberProject";
-
+import { components } from "react-select";
 const ModalViewProject = (pros) => {
    const { show, setShow, fetchListProject, PAGE_LIMIT, dataView } = pros;
 
@@ -88,6 +88,7 @@ const ModalViewProject = (pros) => {
          if (show === true) {
             let res = await fetchListMemberProject(dataView.id, currentPage, LIMIT_MEMBER);
             let res2 = await fetchListStaff();
+            console.log(dataView);
          }
          // let res = await fetchListMemberProject(dataView.id);
          // Process the response here
@@ -118,16 +119,29 @@ const ModalViewProject = (pros) => {
    const newArray = listStaff.map((item) => {
       return { value: item.id, label: `${item.fullName} #${item.id}` };
    });
-
+   const NoOptionsMessage = (props) => {
+      return (
+         <components.NoOptionsMessage {...props}>
+            Không có nhân viên nào khả dụng
+         </components.NoOptionsMessage>
+      );
+   };
    return (
       <>
          <Modal show={show} onHide={handleClose} size="xl">
-            <Modal.Header closeButton>
-               <Modal.Title>
-                  Dự án{" "}
-                  <b>
-                     {dataView.projectName} - {dataView.id}
-                  </b>
+            <Modal.Header>
+               <Modal.Title className="w-100">
+                  <div className="d-flex justify-content-between">
+                     <div>
+                        Dự án{" "}
+                        <b>
+                           {dataView.projectName} - {dataView.id}
+                        </b>
+                     </div>
+                     <div>
+                        <button className="btn btn-warning">Hoàn thành</button>
+                     </div>
+                  </div>
                </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -140,13 +154,16 @@ const ModalViewProject = (pros) => {
                               <Select
                                  onChange={(event) => setListSelected(event)}
                                  className="basic-single"
-                                 classNamePrefix="select"
+                                 classNamePrefix="rt_sl_option"
                                  // defaultValue={newArray[0]}
                                  isClearable={true}
                                  isSearchable={true}
+                                 closeMenuOnSelect={false}
                                  isMulti={true}
                                  // name="color"
                                  options={newArray}
+                                 placeholder={<div>Chọn nhân viên thêm vào dự án</div>}
+                                 components={{ NoOptionsMessage }}
                               />
                            </>
                         )}
@@ -167,7 +184,7 @@ const ModalViewProject = (pros) => {
                      </div>
                   </div>
                ) : (
-                  <div>LOADING ....</div>
+                  <div>Đang tải dữ liệu ...</div>
                )}
             </Modal.Body>
             <Modal.Footer>

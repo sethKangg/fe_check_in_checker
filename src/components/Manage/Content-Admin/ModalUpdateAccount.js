@@ -32,7 +32,7 @@ const ModalUpdateAccount = (pros) => {
       }
    }, [dataUpdate]);
 
-   const handleSubmit = () => {
+   const handleSubmit = async () => {
       //validate
 
       //api
@@ -40,7 +40,7 @@ const ModalUpdateAccount = (pros) => {
       //   let res = await postCreateUser(email);
       // pros.fetchListUser();
 
-      pros.fetchListUser(pros.currentPage, 1, "", "   ");
+      await pros.fetchListUser(pros.currentPage, 1, "", "   ");
       handleClose();
       toast.error("ehe");
    };

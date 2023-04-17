@@ -17,16 +17,22 @@ const Groups = () => {
    const PAGE_LIMIT = 10;
    const debouncedSearchTerm = useDebounce(searchValue, 800);
    const [listGroup, setListGroup] = useState([]);
-
+   const [isLoading, setIsLoading] = useState(false);
    const account = useSelector((state) => state.user.account);
    const staffId = account.roleName === "Human resource" ? "0" : account.id;
 
    const fetchListGroup = async (page, size, searchValue) => {
-      let res = await getAllGroup(page, size, searchValue, staffId);
-      // console.log("groupData : ", res);
-      if (res.status == 200) {
-         setListGroup(res.data.list);
-         // setPageCount(res.data.allPages);
+      try {
+         setIsLoading(true);
+         let res = await getAllGroup(page, size, searchValue, staffId);
+         // console.log("groupData : ", res);
+         if (res.status == 200) {
+            setListGroup(res.data.list);
+            // setPageCount(res.data.allPages);
+         }
+      } catch (error) {
+      } finally {
+         setIsLoading(false);
       }
    };
 
@@ -67,13 +73,19 @@ const Groups = () => {
       setShowModalView(true);
       setDataView(item);
    };
+   if (isLoading)
+      return (
+         <div className="mt-3 py-3 d-flex justify-content-center">
+            <h3>Đang tải dữ liệu</h3>
+         </div>
+      );
    return (
       <>
          <Container fluid className="py-5">
             <div>
                <InputGroup className=" my-3">
                   <Form.Control
-                     placeholder="Tìm theo tên group"
+                     placeholder="Tìm theo tên nhóm"
                      value={searchValue}
                      onChange={(e) => handleSearch(e)}
                   />

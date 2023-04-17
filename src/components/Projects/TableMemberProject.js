@@ -61,7 +61,7 @@ const TableMemberProject = (pros) => {
                   })}
                {listMember && listMember.length === 0 && (
                   <tr>
-                     <td colSpan={4}>No data found</td>
+                     <td colSpan={4}>Hiện không có dữ liệu</td>
                   </tr>
                )}
             </tbody>

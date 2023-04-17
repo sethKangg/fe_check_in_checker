@@ -15,8 +15,8 @@ const TableProjectPaginate = (pros) => {
       handleClickUpdate,
       handleDelete,
    } = pros;
-   const handlePageClick = (event) => {
-      fetchListProject(event.selected + 1, PAGE_LIMIT, searchValue);
+   const handlePageClick = async (event) => {
+      await fetchListProject(event.selected + 1, PAGE_LIMIT, searchValue);
       setCurrentPage(event.selected + 1);
       // console.log(`User requested page number ${event.selected}, which is offset `);
    };
@@ -79,10 +79,10 @@ const TableProjectPaginate = (pros) => {
                            <Card.Text>
                               Người phụ trách: <b>{" " + task.projectManagerName}</b>
                            </Card.Text>
-                           <Card.Text>Time: {new Date(task.time).toLocaleString()}</Card.Text>
+                           {/* <Card.Text>Thòi gian: {new Date(task.time).toLocaleString()}</Card.Text> */}
                            <Card.Text>Nhóm: {task.group}</Card.Text>
                            <Card.Text>
-                              Status:{" "}
+                              Tình trạng:{" "}
                               {task.status === "Done"
                                  ? "Hoàn thành"
                                  : task.status === "Cancel"
@@ -93,7 +93,7 @@ const TableProjectPaginate = (pros) => {
                      </Card>
                   );
                })}
-            {listProject && listProject.length === 0 && <div>NOT FOUND</div>}
+            {listProject && listProject.length === 0 && <div>Hiện đang chưa có dự án nào</div>}
          </div>
 
          <div className="mt-3 d-flex justify-content-center text-center">

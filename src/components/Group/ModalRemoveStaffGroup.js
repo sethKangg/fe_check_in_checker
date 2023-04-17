@@ -38,7 +38,7 @@ const ModalRemoveStaffGroup = (pros) => {
             </Modal.Body>
             <Modal.Footer>
                <Button variant="secondary" onClick={handleClose}>
-                  Cancel
+                  Đóng
                </Button>
                <Button
                   variant="primary"
@@ -46,7 +46,7 @@ const ModalRemoveStaffGroup = (pros) => {
                      handleComfirm(dataDelete);
                   }}
                >
-                  Comfirm
+                  Xác nhận
                </Button>
             </Modal.Footer>
          </Modal>

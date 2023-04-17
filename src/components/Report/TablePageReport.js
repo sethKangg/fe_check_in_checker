@@ -52,21 +52,21 @@ const TablePageReport = (pros) => {
                               <span className="icon">
                                  <AiOutlineCheckCircle size={30} color="green" />
                               </span>
-                              Phê duyệt
+                              Được chấp thuận
                            </>
                         ) : e.status === "Reject" ? (
                            <>
                               <span className="icon">
                                  <AiFillStop size={30} color="red" />
                               </span>
-                              Từ chối
+                              Bị từ chối
                            </>
                         ) : e.status === "Pending" ? (
                            <>
                               <span className="icon">
                                  <AiOutlineCoffee size={30} color="#a7a49e" />
                               </span>
-                              Đang duyệt
+                              Đang trong quá trình duyệt
                            </>
                         ) : (
                            <></>

@@ -1,12 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { exportData, getMonthlyReport } from "../../services/apiService";
+import { getMonthlyReport } from "../../services/apiService";
 import { useEffect } from "react";
 import "./Report.css";
 import moment from "moment";
 import { Form } from "react-bootstrap";
-import { toast } from "react-toastify";
-import { saveAs } from "file-saver";
+
 import { useNavigate } from "react-router-dom";
 const MonthlyReport = () => {
    var XLSX = require("xlsx");
@@ -25,6 +24,7 @@ const MonthlyReport = () => {
       }
    };
    const getTotalDays = () => {
+      const [year, month] = date.split("-").map((str) => parseInt(str));
       return new Date(year, month, 0).getDate();
    };
    useEffect(() => {

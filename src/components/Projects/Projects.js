@@ -30,14 +30,21 @@ const Projects = () => {
 
    const debouncedSearchTerm = useDebounce(searchValue, 800);
    const account = useSelector((state) => state.user.account);
+   const [loading, isLoading] = useState(false);
    const staffId = account.roleName === "Human resource" ? "0" : account.id;
 
    const fetchListProject = async (page, searchValue) => {
-      let res = await getAllProjects(page, PAGE_LIMIT, searchValue, staffId);
-      // console.log("PROJECT DATA: ", res);
-      if (res.status == 200) {
-         setListProject(res.data.list);
-         setPageCount(res.data.allPages);
+      try {
+         isLoading(true);
+         let res = await getAllProjects(page, PAGE_LIMIT, searchValue, staffId);
+         // console.log("PROJECT DATA: ", res);
+         if (res.status == 200) {
+            setListProject(res.data.list);
+            setPageCount(res.data.allPages);
+         }
+      } catch (error) {
+      } finally {
+         isLoading(false);
       }
    };
 
@@ -124,21 +131,25 @@ const Projects = () => {
                   </Form.Select>
                </div> */}
             </div>
-            <div className="  mt-3">
-               <TableProjectPaginate
-                  PAGE_LIMIT={PAGE_LIMIT}
-                  listProject={listProject}
-                  handleClickUpdate={handleClickUpdate}
-                  handleDelete={handleDelete}
-                  fetchListProject={fetchListProject}
-                  showOptionsIndex={showOptionsIndex}
-                  setShowOptionsIndex={setShowOptionsIndex}
-                  pageCount={pageCount}
-                  currentPage={currentPage}
-                  searchValue={searchValue}
-                  setCurrentPage={setCurrentPage}
-                  handleClickView={handleClickView}
-               />
+            <div className="mt-3">
+               {loading === true ? (
+                  "Đang tải dữ liệu"
+               ) : (
+                  <TableProjectPaginate
+                     PAGE_LIMIT={PAGE_LIMIT}
+                     listProject={listProject}
+                     handleClickUpdate={handleClickUpdate}
+                     handleDelete={handleDelete}
+                     fetchListProject={fetchListProject}
+                     showOptionsIndex={showOptionsIndex}
+                     setShowOptionsIndex={setShowOptionsIndex}
+                     pageCount={pageCount}
+                     currentPage={currentPage}
+                     searchValue={searchValue}
+                     setCurrentPage={setCurrentPage}
+                     handleClickView={handleClickView}
+                  />
+               )}
             </div>
          </div>
          <ModalAddProject
@@ -161,7 +172,12 @@ const Projects = () => {
             PAGE_LIMIT={PAGE_LIMIT}
             fetchListProject={fetchListProject}
          />
-         <ModalViewProject show={showModalView} setShow={setShowModalView} dataView={dataView} />
+         <ModalViewProject
+            show={showModalView}
+            setShow={setShowModalView}
+            dataView={dataView}
+            fetchListProject={fetchListProject}
+         />
       </div>
    );
 };

@@ -21,13 +21,19 @@ const ManageAccount = (pros) => {
    const [dataDelete, setDataDelete] = useState({});
 
    const debouncedSearchTerm = useDebounce(searchValue, 800);
-
+   const [isLoading, setIsLoading] = useState(false);
    const fetchListUser = async (page, size, searchValue, filterIndex) => {
-      let res = await getCombineUser(page, 10, searchValue, filterIndex);
-      console.log("Userdata: ", res);
-      if (res.status == 200) {
-         setListUser(res.data.list);
-         setPageCount(res.data.allPages);
+      try {
+         setIsLoading(true);
+         let res = await getCombineUser(page, 10, searchValue, filterIndex);
+         console.log("Userdata: ", res);
+         if (res.status == 200) {
+            setListUser(res.data.list);
+            setPageCount(res.data.allPages);
+         }
+      } catch (er) {
+      } finally {
+         setIsLoading(false);
       }
    };
 
@@ -102,17 +108,21 @@ const ManageAccount = (pros) => {
                </div>
             </div>
             <div className="table-user mt-3">
-               <TableAccountPaginate
-                  listUser={listUser}
-                  handleClickUpdate={handleClickUpdate}
-                  handleDelete={handleDelete}
-                  fetchListUser={fetchListUser}
-                  pageCount={pageCount}
-                  currentPage={currentPage}
-                  searchValue={searchValue}
-                  filterIndex={filterIndex}
-                  setCurrentPage={setCurrentPage}
-               />
+               {isLoading ? (
+                  "Đang tải dữ liệu"
+               ) : (
+                  <TableAccountPaginate
+                     listUser={listUser}
+                     handleClickUpdate={handleClickUpdate}
+                     handleDelete={handleDelete}
+                     fetchListUser={fetchListUser}
+                     pageCount={pageCount}
+                     currentPage={currentPage}
+                     searchValue={searchValue}
+                     filterIndex={filterIndex}
+                     setCurrentPage={setCurrentPage}
+                  />
+               )}
             </div>
          </div>
          <div>

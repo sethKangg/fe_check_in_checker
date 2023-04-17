@@ -4,9 +4,9 @@ import ReactPaginate from "react-paginate";
 
 const TableStaffPaginate = (pros) => {
    const { listStaff, pageCount, searchValue, filterIndex, PAGE_LIMIT, handleClickView } = pros;
-   const handlePageClick = (event) => {
-      pros.fetchListUser(event.selected + 1, PAGE_LIMIT, searchValue, filterIndex);
+   const handlePageClick = async (event) => {
       pros.setCurrentPage(event.selected + 1);
+      await pros.fetchListUser(event.selected + 1, PAGE_LIMIT, searchValue, filterIndex);
       // console.log(`User requested page number ${event.selected}, which is offset `);
    };
    return (
@@ -59,7 +59,7 @@ const TableStaffPaginate = (pros) => {
                   })}
                {listStaff && listStaff.length === 0 && (
                   <tr>
-                     <td colSpan={4}>Không có dữ liệu</td>
+                     <td colSpan={4}>Hiện không có dữ liệu</td>
                   </tr>
                )}
             </tbody>

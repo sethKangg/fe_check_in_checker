@@ -61,7 +61,7 @@ const ModalAddGroup = (pros) => {
          });
       }
       pros.setCurrentPage(1);
-      return fetchListGroup(1, PAGE_LIMIT, "", "");
+      await fetchListGroup(1, PAGE_LIMIT, "", "");
    };
 
    const handleSelectGroupLeader = (e) => {
@@ -85,7 +85,7 @@ const ModalAddGroup = (pros) => {
                      <input type="text" className="form-control" ref={newGroupName} />
                   </div>
                   <div className=" col-md-4  ">
-                     <label className="form-label">Họ</label>
+                     <label className="form-label">Trưởng nhóm</label>
 
                      {listGL && (
                         <Select

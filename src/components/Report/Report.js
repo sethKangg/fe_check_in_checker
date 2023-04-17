@@ -48,11 +48,21 @@ const Report = () => {
       setCurrentPage(1);
       setStatus(filter);
    };
+   const msgHR = "Đang đăng nhập bằng tài khoản HR. Bạn có thể phê duyệt các yêu cầu ";
+   const msgNonHR = "Bạn không thể phê duyệt các yêu cầu. ";
    return (
       <div className="p-3">
-         <div className="d-flex justify-content-center">Yêu cầu</div>
+         <div className="d-flex justify-content-center my-2">
+            <h2
+               style={{
+                  color: "red",
+               }}
+            >
+               {account.roleName === "Human resource" ? msgHR : msgNonHR}
+            </h2>
+         </div>
          <div className="d-flex justify-content-between ">
-            <div className="d-flex gap-3">
+            <div className="d-flex gap-3 mb-3">
                <button
                   className={`btn ${status === "" ? "btn-primary" : "btn-secondary"}`}
                   onClick={() => clickFilterButton("")}
@@ -139,7 +149,7 @@ const Report = () => {
                   putApi={putApi}
                />
             ) : (
-               <>Loading</>
+               <>Đang tải dữ liệu ...</>
             )}
          </div>
          <ModalAddReport

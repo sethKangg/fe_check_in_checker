@@ -98,7 +98,7 @@ const ModalAddProject = (pros) => {
          });
       }
       // pros.setCurrentPage(1);
-      return fetchListProject(1, "");
+      await fetchListProject(1, "");
    };
 
    const handleSelectGroupLeader = (e) => {
@@ -115,19 +115,19 @@ const ModalAddProject = (pros) => {
       value: account.groupId,
       label: `${account.groupName} #${account.groupId}`,
    };
-   if (!account.roleName === "PROJECT MANAGER") {
+   if (account.roleName === "Project manager") {
+      newArray = [{ value: account.id, label: `${account.staffName} #${account.id}` }];
+      newGroupArray = [
+         { value: account.groupId, label: `${account.groupName} #${account.groupId}` },
+      ];
+      // console.log("List State", newArray, newGroupArray);
+   } else {
       newArray = listStaff.map((item) => {
          return { value: item.id, label: `${item.fullName} #${item.id}` };
       });
       newGroupArray = listGroup.map((item) => {
          return { value: item.id, label: `${item.groupName} #${item.id}` };
       });
-      // console.log("List State", newArray, newGroupArray);
-   } else {
-      newArray = [{ value: account.id, label: `${account.staffName} #${account.id}` }];
-      newGroupArray = [
-         { value: account.groupId, label: `${account.groupName} #${account.groupId}` },
-      ];
       // console.log("List redux", newArray, newGroupArray);
    }
    return (
@@ -179,7 +179,7 @@ const ModalAddProject = (pros) => {
                         </div>
                      </>
                   ) : (
-                     <div className=" col-md-4  ">Loading ...</div>
+                     <div className=" col-md-4  ">Đang tải dữ liệu ...</div>
                   )}
                </form>
             </Modal.Body>

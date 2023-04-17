@@ -159,7 +159,7 @@ const ModalViewStaff = (pros) => {
                <div className="info mt-3">
                   <div className="h3 info-title">Ảnh nhận diện </div>
                   {isLoading ? (
-                     <div> Loading ...</div>
+                     <div> Đang tải dữ liệu ...</div>
                   ) : (
                      <div className="info-img d-flex align-items-center justify-align-content-start gap-3 flex-wrap  ">
                         {listImg &&

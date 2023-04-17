@@ -249,7 +249,7 @@ const Calendar = (pros) => {
                         value={selectValue}
                         options={newArray}
                         isSearchable={true}
-                        closeMenuOnSelect={false}
+                        // closeMenuOnSelect={false}
                         placeholder={<div>Chọn lịch theo nhân viên</div>}
                         components={{ NoOptionsMessage }}
                      />

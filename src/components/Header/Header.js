@@ -26,7 +26,7 @@ const Header = () => {
       <Navbar bg="light" expand="lg">
          <Container>
             <NavLink className="navbar-brand" to={"/"}>
-               Checkin Checker
+               CTS
             </NavLink>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">

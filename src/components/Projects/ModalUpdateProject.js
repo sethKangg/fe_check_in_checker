@@ -74,7 +74,7 @@ const ModalUpdateProject = (pros) => {
          });
       }
       // pros.setCurrentPage(1);
-      fetchListProject(1, "");
+      await fetchListProject(1, "");
    };
 
    const handleSelectGroupLeader = (e) => {
@@ -90,7 +90,7 @@ const ModalUpdateProject = (pros) => {
       return { value: item.id, label: `${item.fullName} #${item.id}` };
    });
    let newGroupArray = null;
-   if (!account.roleName === "PROJECT MANAGER") {
+   if (!account.roleName === "Project manager") {
       newGroupArray = listGroup.map((item) => {
          return { value: item.id, label: `${item.groupName} #${item.id}` };
       });
@@ -134,7 +134,7 @@ const ModalUpdateProject = (pros) => {
                         </div>
                      </>
                   ) : (
-                     <div className=" col-md-4  ">Loading ...</div>
+                     <div className=" col-md-4  ">Đang tải dữ liệu ...</div>
                   )}
                </form>
             </Modal.Body>

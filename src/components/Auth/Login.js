@@ -24,7 +24,7 @@ const Login = () => {
 
       let data = await postLogin(username, password);
       if (data.status === 200) {
-         toast.success("login success");
+         toast.success("Đăng nhập vào tài khoản thành công");
          setLoading(false);
          // console.log("data ", data);
          navigate("/");
