@@ -59,7 +59,7 @@ const ModalUpdateProfile = (pros) => {
          <Modal show={show} onHide={handleClose} size="xl">
             <Modal.Header closeButton>
                <Modal.Title>
-                  Cập nhật Profile - <b>{dataUpdate.username}</b>
+                  Cập nhật thông tin hồ sơ - <b>{dataUpdate.username}</b>
                </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -106,10 +106,10 @@ const ModalUpdateProfile = (pros) => {
             </Modal.Body>
             <Modal.Footer>
                <Button variant="secondary" onClick={handleClose}>
-                  Close
+                  Đóng
                </Button>
                <Button variant="primary" onClick={() => handleSubmit()}>
-                  Save Changes
+                  Xác nhận
                </Button>
             </Modal.Footer>
          </Modal>

@@ -70,7 +70,7 @@ const ModalAddAccount = (pros) => {
 
          <Modal show={show} onHide={handleClose} size="xl">
             <Modal.Header closeButton>
-               <Modal.Title>Add new user</Modal.Title>
+               <Modal.Title>Thêm tài khoản mới</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                <form className="row g-3" encType="multipart/form-data">
@@ -154,10 +154,10 @@ const ModalAddAccount = (pros) => {
             </Modal.Body>
             <Modal.Footer>
                <Button variant="secondary" onClick={handleClose}>
-                  Close
+                  Đóng
                </Button>
                <Button variant="primary" onClick={handleSubmit}>
-                  Save Changes
+                  Xác nhận
                </Button>
             </Modal.Footer>
          </Modal>

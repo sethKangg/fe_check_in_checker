@@ -27,7 +27,7 @@ const ModalDisableAccount = (pros) => {
       <>
          <Modal show={show} onHide={handleClose} backdrop="static">
             <Modal.Header closeButton>
-               <Modal.Title>Comfirm Disable User</Modal.Title>
+               <Modal.Title>Xác nhận khóa/mở lại tài khoản</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                {dataDelete.enable ? "Xác nhận khóa tài khoản " : "Xác nhận mở lại tài khoản "}

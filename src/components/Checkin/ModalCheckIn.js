@@ -60,10 +60,10 @@ const ModalCheckIn = (props) => {
                </Modal.Body>
                <Modal.Footer>
                   <Button variant="secondary" onClick={handleClose}>
-                     Close
+                     Đóng
                   </Button>
                   <Button variant="primary" onClick={() => sendAPI()}>
-                     Save Changes
+                     Xác nhận
                   </Button>
                </Modal.Footer>
             </Modal>

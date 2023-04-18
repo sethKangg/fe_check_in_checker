@@ -71,10 +71,11 @@ const getListLevel = () => {
    return axios.get(`levels/getAllLevels`);
 };
 
-const putLevelStaff = (idStaff, levelUpdate) => {
+const putLevelStaff = (idStaff, levelUpdate, roleUp) => {
    return axios.put(`staffs/changePromotionLevel`, {
       staffId: idStaff,
       levelId: levelUpdate,
+      roleId: roleUp,
    });
 };
 

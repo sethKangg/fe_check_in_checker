@@ -96,7 +96,7 @@ const ManageStaff = () => {
    return (
       <div className="manage-container p-3">
          <div className="title d-flex justify-content-center ">
-            <h1>Manage User</h1>
+            <h1>Quản lý nhân viên</h1>
          </div>
          <div className="user-content mt-3">
             <div>
@@ -108,13 +108,14 @@ const ManageStaff = () => {
                   />
                </InputGroup>
             </div>
-            <div className="d-flex align-items-center justify-content-between">
-               <div>
+            <div className="d-flex align-items-center justify-content-end">
+               {/* <div>
                   <button className="border-0 btn btn-primary" onClick={() => setShowModal(true)}>
                      Thêm nhân viên mới
                   </button>
-               </div>
-               <div className="">
+               </div> */}
+               <div className="d-flex">
+                  {/* <label>Lọc tài khoản theo</label> */}
                   <Form.Select
                      aria-label="Default select example"
                      value={filterIndex}

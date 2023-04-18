@@ -157,15 +157,15 @@ const ViewCaptured = () => {
                   className={`${indexBtn === 3 ? "btn-view-active" : "btn-view"}`}
                   onClick={(e) => clickBtnIdx(3)}
                >
-                  (CHỜ) DUYỆT
+                  ẢNH LỖI
                </button>
             </div>
 
-            <div className="d-flex gap-3 ">
+            {/* <div className="d-flex gap-3 ">
                <button className="btn-slash">Cài đặt</button>
                <button className="btn-slash">Sửa</button>
                <button className="btn-slash">Chọn tất cả</button>
-            </div>
+            </div> */}
          </div>
          <div>
             <TableCaptured

@@ -35,10 +35,11 @@ const Report = () => {
    };
    const putApi = async (complainId, statusId) => {
       let res = await putComplain(complainId, statusId);
-      console.log(res);
+      // console.log(res);
       if (res.status === 200) {
          toast.success("Cập nhật yêu cầu thành công");
          setCurrentPage(1);
+         await fetchApi(currentPage, status);
       }
    };
    useEffect(() => {

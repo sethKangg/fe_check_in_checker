@@ -185,10 +185,10 @@ const ModalAddProject = (pros) => {
             </Modal.Body>
             <Modal.Footer>
                <Button variant="secondary" onClick={handleClose}>
-                  Close
+                  Đóng
                </Button>
                <Button variant="primary" onClick={handleSubmit}>
-                  Save Changes
+                  Xác nhận
                </Button>
             </Modal.Footer>
          </Modal>
