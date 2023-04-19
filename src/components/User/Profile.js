@@ -88,8 +88,8 @@ const Profile = (pros) => {
                   </button>
                </div>
             )}
-            <div className="info">
-               <h3>Thông tin</h3>
+            <div className="info mt-3">
+               <h1 className="d-flex justify-content-center ">Thông tin tài khoản</h1>
                <div className="info_data">
                   <div className="data">
                      <h3>Email</h3>

@@ -1,5 +1,5 @@
 .btn-view {
-   font-family: Verdana, Geneva, Tahoma, sans-serif;
+   /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
    /* width: 100px; */
    padding: 8px 12px;
    border: none;
@@ -10,7 +10,7 @@
    font-size: 15px;
 }
 .btn-view-active {
-   font-family: Verdana, Geneva, Tahoma, sans-serif;
+   /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
    /* width: 100px; */
    padding: 8px 12px;
    border: none;

@@ -49,8 +49,9 @@ const Report = () => {
       setCurrentPage(1);
       setStatus(filter);
    };
-   const msgHR = "Đang đăng nhập bằng tài khoản HR. Bạn có thể phê duyệt các yêu cầu ";
-   const msgNonHR = "Bạn không thể phê duyệt các yêu cầu. ";
+
+   const msgHR = "Tài khoản hiện tại có thể phê duyệt các yêu cầu ";
+   const msgNonHR = "Tài khoản hiện tại không thể phê duyệt các yêu cầu. ";
    return (
       <div className="p-3">
          <div className="d-flex justify-content-center my-2">

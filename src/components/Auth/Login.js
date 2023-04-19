@@ -42,50 +42,126 @@ const Login = () => {
    };
 
    return (
-      <div className="login-container">
-         <div className="login-header">Chào mừng đến với hệ thống CTS </div>
-         <div className="login-title ">CTS</div>
-         <div className="login-welcome ">
-            Trang đăng nhập dành cho các loại tài khoản: Admin, Human resources, Group leader,
-            Project manager, Staff
-         </div>
-         <div className="login-content col-4 mx-auto d-flex flex-column gap-3 ">
-            <div className="login-form form-group ">
-               <label>Tên tài khoản</label>
-               <input
-                  type={"email"}
-                  className="form-control"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-               />
+      // <div className="login-container">
+      //    <div className="login-header">Chào mừng đến với hệ thống CTS </div>
+      //    <div className="login-title ">CTS</div>
+      //    <div className="login-welcome ">
+      //       Trang đăng nhập dành cho các loại tài khoản: Admin, Human resources, Group leader,
+      //       Project manager, Staff
+      //    </div>
+      //    <div className="login-content col-4 mx-auto d-flex flex-column gap-3 ">
+      //       <div className="login-form form-group ">
+      //          <label>Tên tài khoản</label>
+      //          <input
+      //             type={"email"}
+      //             className="form-control"
+      //             value={username}
+      //             onChange={(e) => setUsername(e.target.value)}
+      //          />
+      //       </div>
+      //       <div className="form-group ">
+      //          <label>Mật khẩu</label>
+      //          <input
+      //             type={"password"}
+      //             className="form-control"
+      //             value={password}
+      //             onChange={(e) => setPassword(e.target.value)}
+      //             onKeyDown={(e) => handleKeyDown((e) => handleKeyDown(e))}
+      //          />
+      //       </div>
+      //       <span className="forgot-password" onClick={() => navigate("/forgot-password")}>
+      //          Quên mật khẩu ?
+      //       </span>
+      //       <div>
+      //          <button className="btn-submit" onClick={() => handleSubmit()} disabled={loading}>
+      //             Đăng nhập
+      //             {loading === true ? <AiOutlineLoading3Quarters className="spin" /> : <></>}
+      //          </button>
+      //          <div className="text-center">
+      //             <span
+      //                className="back "
+      //                onClick={() => {
+      //                   navigate("/");
+      //                }}
+      //             >
+      //                &#60;&#60; Quay về trang chủ
+      //             </span>
+      //          </div>
+      //       </div>
+      //    </div>
+      // </div>
+      <div className="wr_lg ">
+         <div className="container_lg d-flex">
+            <div className="text-box">
+               <p>Chào mừng đến với</p>
+               <h1>CTS</h1>
+               <h3>Website chấm công </h3>
+               <div className="lg_row">
+                  <p onClick={() => navigate("/")}>Trang chủ</p>
+                  <p onClick={() => navigate("/check_in")}>Điểm danh</p>
+               </div>
             </div>
-            <div className="form-group ">
-               <label>Mật khẩu</label>
-               <input
-                  type={"password"}
-                  className="form-control"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  onKeyDown={(e) => handleKeyDown((e) => handleKeyDown(e))}
-               />
-            </div>
-            <span className="forgot-password" onClick={() => navigate("/forgot-password")}>
-               Quên mật khẩu ?
-            </span>
-            <div>
-               <button className="btn-submit" onClick={() => handleSubmit()} disabled={loading}>
-                  Đăng nhập
-                  {loading === true ? <AiOutlineLoading3Quarters className="spin" /> : <></>}
-               </button>
-               <div className="text-center">
-                  <span
-                     className="back "
-                     onClick={() => {
-                        navigate("/");
+            <div className="lg_right w-100 m-auto">
+               <div className="login-content col-4 mx-auto d-flex flex-column gap-3 ">
+                  <h3
+                     style={{
+                        color: "#fff",
+                        fontSize: "35px",
+                        display: "flex",
+                        justifyContent: "center",
+                        fontWeight: "600",
                      }}
                   >
-                     &#60;&#60; Quay về trang chủ
+                     Đăng nhập
+                  </h3>
+                  <div className="login-form form-group ">
+                     <label>Tên tài khoản</label>
+                     <input
+                        type={"email"}
+                        className="form-control"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                     />
+                  </div>
+                  <div className="form-group ">
+                     <label>Mật khẩu</label>
+                     <input
+                        type={"password"}
+                        className="form-control"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        onKeyDown={(e) => handleKeyDown((e) => handleKeyDown(e))}
+                     />
+                  </div>
+                  <span className="forgot-password" onClick={() => navigate("/forgot-password")}>
+                     <label
+                        style={{
+                           cursor: "pointer",
+                        }}
+                     >
+                        Quên mật khẩu ?
+                     </label>
                   </span>
+                  <div>
+                     <button
+                        className="btn-submit"
+                        onClick={() => handleSubmit()}
+                        disabled={loading}
+                     >
+                        Đăng nhập
+                        {loading === true ? <AiOutlineLoading3Quarters className="spin" /> : <></>}
+                     </button>
+                     {/* <div className="text-center">
+                        <span
+                           className="back "
+                           onClick={() => {
+                              navigate("/");
+                           }}
+                        >
+                           &#60;&#60; Quay về trang chủ
+                        </span>
+                     </div> */}
+                  </div>
                </div>
             </div>
          </div>

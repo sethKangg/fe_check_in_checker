@@ -9,7 +9,7 @@ const PrivateRoute = (pros) => {
       Admin: 1,
       "Human resource": 2,
       "Project manager": 3,
-      "Group Leader": 4,
+      "Group leader": 4,
       Staff: 5,
    };
 

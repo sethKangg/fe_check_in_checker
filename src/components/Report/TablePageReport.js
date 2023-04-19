@@ -5,9 +5,26 @@ import { useSelector } from "react-redux";
 
 const TablePageReport = (pros) => {
    const { listComplaints, pageCount, setCurrentPage, putApi } = pros;
-   const handlePageClick = (event) => {
-      setCurrentPage(event.selected + 1);
+   const handlePageClick = async (event) => {
+      await setCurrentPage(event.selected + 1);
       // console.log(`User requested page number ${event.selected}, which is offset `);
+   };
+   const convertTime = (time) => {
+      const date = new Date(time);
+
+      const options = {
+         timeZone: "Asia/Ho_Chi_Minh",
+         // weekday: "long",
+         year: "numeric",
+         month: "long",
+         day: "numeric",
+         // hour: "numeric",
+         // minute: "numeric",
+         // second: "numeric",
+      };
+
+      const localTime = date.toLocaleString("vi-VN", options);
+      return localTime;
    };
    const account = useSelector((state) => state.user.account);
    return (
@@ -24,7 +41,7 @@ const TablePageReport = (pros) => {
                               </p>
                            </div>
                            <div>
-                              <p className="name">Thời gian: {e.createDay}</p>
+                              <p className="name">Thời gian: {convertTime(e.createDay)}</p>
                            </div>
                         </div>
                         <div className="user-position d-flex justify-content-between">
@@ -34,14 +51,20 @@ const TablePageReport = (pros) => {
                               </p>
                               {/* <p className="role mx-2"> Admin </p> */}
                            </div>
-                           <div className="d-flex">
-                              <p className="position">
-                                 Người duyệt: {e.approveName} #{e.approveId}
-                              </p>
-                              {/* <p className="role mx-2"> Admin </p> */}
-                           </div>
+                           {e.approveName && (
+                              <div className="d-flex flex-column">
+                                 <p className="position">
+                                    Người duyệt: {e.approveName} #{e.approveId}
+                                 </p>
+                                 <p className="position">Duyệt ngày: {convertTime(e.lastUpdate)}</p>
+                                 {/* <p className="role mx-2"> Admin </p> */}
+                              </div>
+                           )}
                         </div>
-                        <div className="content">Nội dung: {e.content}</div>
+                        <div className="">
+                           <label>Nội dung:</label>
+                           <div className="content p-2">{e.content}</div>
+                        </div>
                      </div>
                   </div>
                   <div className="card-2-bottom-part ">

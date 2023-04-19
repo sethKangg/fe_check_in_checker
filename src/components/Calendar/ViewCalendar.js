@@ -94,8 +94,8 @@ const ViewCalendar = (pros) => {
                   <div className="info-content d-flex align-items-center ">
                      <div className=" col-md-6">
                         Tên:
-                        {dataDay && dataDay.length > 0
-                           ? dataDay.lastName + " " + dataDay.firstName
+                        {dataDay.lastName && dataDay.lastName.length > 0
+                           ? " " + dataDay.lastName + " " + dataDay.firstName
                            : " chưa có thông tin"}
                      </div>
                      <div className="col-md-6 d-flex mx-1 align-items-center gap-2">
