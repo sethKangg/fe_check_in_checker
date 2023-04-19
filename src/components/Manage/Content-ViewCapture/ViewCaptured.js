@@ -26,17 +26,8 @@ const ViewCaptured = () => {
    const [indexBtn, setIndexBtn] = useState(1);
    const LIST_LIMIT = 10;
    const debouncedSearchTerm = useDebounce(searchValue, 800);
-   const fetchListCaptured = async () => {
-      let res = await getViewCaptured(
-         account.id,
-         onlyMe,
-         isError,
-         startDay,
-         endDay,
-         debouncedSearchTerm,
-         currentPage,
-         LIST_LIMIT,
-      );
+   const fetchListCaptured = async (OM, IE, SD, ED, ST, Page) => {
+      let res = await getViewCaptured(account.id, OM, IE, SD, ED, ST, Page, LIST_LIMIT);
       if (res.status === 200) {
          console.log(res.data);
          let down = _.chain(res.data.content)
@@ -58,24 +49,27 @@ const ViewCaptured = () => {
          const list = Object.values(final.list);
          setListVB(list);
          setPageCount(final.pageCount);
-         console.log(final);
+         // console.log(final);
          // console.log("down list>>>", down);
       }
    };
 
-   const clickBtnIdx = (ind) => {
+   const clickBtnIdx = async (ind) => {
       setIndexBtn(ind);
       setSearchValue("");
       setCurrentPage(1);
       if (ind === 1) {
          setIsError(0);
          setOnlyMe(0);
+         await fetchListCaptured(0, 0, startDay, endDay, searchValue, 1);
       } else if (ind === 2) {
          setIsError(0);
          setOnlyMe(1);
+         await fetchListCaptured(1, 0, startDay, endDay, searchValue, 1);
       } else {
          setIsError(1);
          setOnlyMe(0);
+         await fetchListCaptured(0, 1, startDay, endDay, searchValue, 1);
       }
    };
 
@@ -94,24 +88,46 @@ const ViewCaptured = () => {
    };
    useEffect(() => {
       // console.log(startDay);
-      fetchListCaptured();
-   }, [onlyMe, isError, startDay, endDay, debouncedSearchTerm, currentPage]);
+      const fetchDT = async () => {
+         await fetchListCaptured(
+            onlyMe,
+            isError,
+            startDay,
+            endDay,
+            debouncedSearchTerm,
+            currentPage,
+         );
+      };
+      fetchDT();
+   }, [debouncedSearchTerm]);
+   const handleSD = async (e) => {
+      const newStartDay = e.target.value;
+      const newCurrentPage = 1;
+      await Promise.all([setStartDay(newStartDay), setCurrentPage(newCurrentPage)]);
+      await fetchListCaptured(onlyMe, isError, e.target.value, endDay, searchValue, 1);
+   };
+   const handleED = async (e) => {
+      const newEndDay = e.target.value;
+      const newCurrentPage = 1;
+      await Promise.all([setEndDay(newEndDay), setCurrentPage(newCurrentPage)]);
+      await fetchListCaptured(onlyMe, isError, startDay, newEndDay, searchValue, 1);
+   };
    return (
       <div className="container-3 d-flex flex-column">
          <div className="title-vc">
-            <h2 className="d-flex justify-content-center">
-               Bảng thống kê nhận diện khuôn mặt của nhân viên
-            </h2>
+            <h2 className="d-flex justify-content-center">Bảng thống kê ảnh</h2>
          </div>
-         <div>
-            <InputGroup className="my-3">
-               <Form.Control
-                  placeholder="Tìm theo tên tài khoản"
-                  value={searchValue}
-                  onChange={(e) => handleSearch(e)}
-               />
-            </InputGroup>
-         </div>
+         {indexBtn !== 3 && (
+            <div>
+               <InputGroup className="my-3">
+                  <Form.Control
+                     placeholder="Tìm theo tên tài khoản"
+                     value={searchValue}
+                     onChange={(e) => handleSearch(e)}
+                  />
+               </InputGroup>
+            </div>
+         )}
          <div className=" d-flex justify-content-between ">
             <div className="">
                <div className="mb-1">Bắt đầu từ</div>
@@ -119,8 +135,10 @@ const ViewCaptured = () => {
                   type="date"
                   max={endDay}
                   min={minDate}
-                  onChange={(e) => setStartDay(e.target.value)}
-                  defaultValue={startDay}
+                  onChange={(e) => {
+                     handleSD(e);
+                  }}
+                  value={startDay}
                   pattern="\d{1,2}/\d{1,2}/\d{4}"
                   placeholder="dd/MM/yyyy"
                />
@@ -132,8 +150,8 @@ const ViewCaptured = () => {
                   type="date"
                   max={maxDate}
                   min={startDay}
-                  onChange={(e) => setEndDay(e.target.value)}
-                  defaultValue={endDay}
+                  onChange={async (e) => handleED(e)}
+                  value={endDay}
                   // pattern="\d{1,2}/\d{1,2}/\d{4}"
                   // placeholder="dd/MM/yyyy"
                />
@@ -173,6 +191,13 @@ const ViewCaptured = () => {
                setCurrentPage={setCurrentPage}
                pageCount={pageCount}
                handleSrcImg={handleSrcImg}
+               currentPage={currentPage}
+               fetchListCaptured={fetchListCaptured}
+               onlyMe={onlyMe}
+               isError={isError}
+               startDay={startDay}
+               endDay={endDay}
+               searchValue={searchValue}
             />
          </div>
       </div>

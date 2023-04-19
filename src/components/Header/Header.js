@@ -50,9 +50,9 @@ const Header = () => {
                         Dự án
                      </NavLink>
                   ) : null}
-                  {account.roleName === "Human resource" || account.roleName === "Group Leader" ? (
+                  {account.roleName === "Human resource" || account.roleName === "Group leader" ? (
                      <NavLink className="nav-link" to={"/group"}>
-                        Nhóm
+                        Nhóm  
                      </NavLink>
                   ) : null}
                   {isAuthenticated && (

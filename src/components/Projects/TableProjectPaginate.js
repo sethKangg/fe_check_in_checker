@@ -99,12 +99,12 @@ const TableProjectPaginate = (pros) => {
 
          <div className="mt-3 d-flex justify-content-center text-center">
             <ReactPaginate
-               nextLabel="Next>"
+               nextLabel="Trang sau>"
                onPageChange={handlePageClick}
                pageRangeDisplayed={3}
                marginPagesDisplayed={2}
                pageCount={pageCount}
-               previousLabel="<Prev"
+               previousLabel="<Trang trước"
                pageClassName="page-item"
                pageLinkClassName="page-link"
                previousClassName="page-item"

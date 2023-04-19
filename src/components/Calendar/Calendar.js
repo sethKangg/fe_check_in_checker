@@ -272,6 +272,10 @@ const Calendar = (pros) => {
                   <div className="box holiday   "></div>
                   <div className=""> : Ngày lễ </div>
                </div>
+               <div className="d-flex align-items-center mt-3">
+                  <div className="box not_yet"></div>
+                  <div className=""> : Không tính </div>
+               </div>
             </div>
             <button className="add-event">
                <i className="fas fa-plus"></i>

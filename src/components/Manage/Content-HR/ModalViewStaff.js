@@ -165,13 +165,17 @@ const ModalViewStaff = (pros) => {
                      <div className="info-img d-flex align-items-center justify-align-content-start gap-3 flex-wrap  ">
                         {listImg &&
                            listImg.map((e, i) => (
-                              <div className="container-img" key={i}>
-                                 <img
-                                    src={handleSrcImg(e.image)}
-                                    width={250}
-                                    onClick={() => togglePreview(handleSrcImg(e.image))}
-                                 />
-                                 <p className="mt-2"> {convertTime(e.timeSetup)}</p>
+                              <div className="captured-card" key={i}>
+                                 <div className="d-flex m-auto flex-column">
+                                    <div className="img-captured">
+                                       <img
+                                          src={handleSrcImg(e.image)}
+                                          width={250}
+                                          onClick={() => togglePreview(handleSrcImg(e.image))}
+                                       />
+                                    </div>
+                                    <p className="mt-2"> {convertTime(e.timeSetup)}</p>
+                                 </div>
                               </div>
                            ))}
                         {listImg && listImg.length === 0 && <div>Nhân viên đang không có ảnh</div>}

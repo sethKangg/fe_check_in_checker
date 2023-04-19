@@ -146,7 +146,7 @@ const ModalViewProject = (pros) => {
                      <div>
                         {dataView.status === "Processing" && (
                            <button className="btn btn-warning" onClick={() => handleDone()}>
-                              Hoàn thành
+                              Kết thúc dự án
                            </button>
                         )}
                      </div>

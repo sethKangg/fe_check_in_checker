@@ -641,7 +641,9 @@
    font-size: 30px;
    color: #ec8274;
 }
-
+.not_yet {
+   background-color: #fff;
+}
 .holiday {
    background-color: #ffeb4b;
 }

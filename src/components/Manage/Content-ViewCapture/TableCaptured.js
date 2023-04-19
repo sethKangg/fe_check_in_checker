@@ -3,15 +3,28 @@ import { useState } from "react";
 
 import ReactPaginate from "react-paginate";
 const TableCaptured = (pros) => {
-   const { listVB, pageCount, setCurrentPage, putApi, handleSrcImg } = pros;
+   const {
+      listVB,
+      pageCount,
+      setCurrentPage,
+      handleSrcImg,
+      fetchListCaptured,
+      onlyMe,
+      isError,
+      startDay,
+      endDay,
+      searchValue,
+      currentPage,
+   } = pros;
    const [showImage, setShowImage] = useState(false);
    const [imageSrc, setImageSrc] = useState("");
    function togglePreview(src) {
       setImageSrc(src);
       setShowImage(true);
    }
-   const handlePageClick = (event) => {
+   const handlePageClick = async (event) => {
       setCurrentPage(event.selected + 1);
+      await fetchListCaptured(onlyMe, isError, startDay, endDay, searchValue, event.selected + 1);
       // console.log(`User requested page number ${event.selected}, which is offset `);
    };
    return (
@@ -28,8 +41,6 @@ const TableCaptured = (pros) => {
                            <div className="captured-card">
                               <div className=" d-flex m-auto flex-column">
                                  <div className="img-captured">
-                                    {/* <img src={`../../../assets/Images` + e[i]} /> */}
-                                    {/* <img src={require(`../../../assets/Images${e.imagePath}`)} /> */}
                                     <img
                                        src={handleSrcImg(e.imagePath)}
                                        onClick={() => togglePreview(handleSrcImg(e.imagePath))}
@@ -76,12 +87,12 @@ const TableCaptured = (pros) => {
          {/* {listVB && listVB <div>Không có dữ liệu</div>} */}
          <div className="mt-3 d-flex justify-content-center text-center">
             <ReactPaginate
-               nextLabel="Next>"
+               nextLabel="Trang sau>"
                onPageChange={(e) => handlePageClick(e)}
                pageRangeDisplayed={3}
                marginPagesDisplayed={2}
                pageCount={pageCount}
-               previousLabel="<Prev"
+               previousLabel="<Trang trước"
                pageClassName="page-item"
                pageLinkClassName="page-link"
                previousClassName="page-item"
@@ -94,7 +105,7 @@ const TableCaptured = (pros) => {
                containerClassName="pagination"
                activeClassName="active"
                renderOnZeroPageCount={null}
-               //    forcePage={pros.currentPage - 1}
+               forcePage={currentPage - 1}
             />
          </div>
       </>
