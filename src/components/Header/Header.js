@@ -34,9 +34,14 @@ const Header = () => {
                   <NavLink className="nav-link" to={"/"}>
                      Trang chủ
                   </NavLink>
-                  {account.roleName === "Human resource" || account.roleName === "Admin" ? (
-                     <NavLink className="nav-link" to={"/manage"}>
+                  {account.roleName === "Human resource" ? (
+                     <NavLink className="nav-link" to={"/manage/manage-staff"}>
                         Quản lý
+                     </NavLink>
+                  ) : null}
+                  {account.roleName === "Admin" ? (
+                     <NavLink className="nav-link" to={"/manage/manage-account"}>
+                        Quản lý thành viên
                      </NavLink>
                   ) : null}
                   {isAuthenticated && (

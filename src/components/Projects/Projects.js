@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 
 const Projects = () => {
    const [showOptionsIndex, setShowOptionsIndex] = useState(-1);
-   const PAGE_LIMIT = 10;
+   const PAGE_LIMIT = 12;
 
    const [showModal, setShowModal] = useState(false);
    const [showUpdate, setShowUpdate] = useState(false);

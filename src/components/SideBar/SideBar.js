@@ -12,11 +12,14 @@ import "./SideBar.scss";
 import { FaTachometerAlt, FaGem, FaRegLaughWink, FaHeart, FaList } from "react-icons/fa";
 import { AiFillHome } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 // import sidebarBg from '../../assets/bg2.jpg';
 
 const SideBar = (props) => {
    const { image, collapsed, toggled, handleToggleSidebar } = props;
    const navigate = useNavigate();
+   const account = useSelector((state) => state.user.account);
+
    return (
       <ProSidebar
          // image={image ? sidebarBg : false}
@@ -45,7 +48,7 @@ const SideBar = (props) => {
          </SidebarHeader>
 
          <SidebarContent>
-            <Menu iconShape="circle">
+            {/* <Menu iconShape="circle">
                <MenuItem
                   icon={<FaTachometerAlt />}
                   suffix={<span className="badge red">{"new"}</span>}
@@ -53,41 +56,41 @@ const SideBar = (props) => {
                   Dashboard
                </MenuItem>
                <MenuItem icon={<FaGem />}> "components" </MenuItem>
-            </Menu>
+            </Menu> */}
             <Menu iconShape="circle">
-               <SubMenu
-                  suffix={<span className="badge yellow"></span>}
-                  title={"Quản lý tài khoản"}
-                  icon={<FaRegLaughWink />}
-               >
-                  <MenuItem>
-                     <Link to={"/admins"} />
-                     Admin
-                  </MenuItem>
-                  <MenuItem>
-                     Manage
-                     <Link to={"/manage/manage-account"} />
-                  </MenuItem>
-                  <MenuItem>
-                     <Link to={"/admins/dashboard"} />
-                  </MenuItem>
-               </SubMenu>
-               <SubMenu
-                  prefix={<span className="badge gray"></span>}
-                  title="Staff Management"
-                  icon={<FaHeart />}
-               >
-                  <MenuItem>
-                     Manage
-                     <Link to={"/manage/manage-staff"} />
-                  </MenuItem>
-               </SubMenu>
-               <SubMenu title="Check-In" icon={<FaList />}>
-                  <MenuItem>
-                     Tình trạng Check In
-                     <Link to={"/manage/view-capture"} />
-                  </MenuItem>
-               </SubMenu>
+               {account.roleName === "Admin" && (
+                  <SubMenu
+                     suffix={<span className="badge yellow"></span>}
+                     title={"Admin"}
+                     icon={<FaRegLaughWink />}
+                  >
+                     <MenuItem>
+                        Quản lý tài khoản
+                        <Link to={"/manage/manage-account"} />
+                     </MenuItem>
+                  </SubMenu>
+               )}
+               {account.roleName === "Human resource" && (
+                  <>
+                     <SubMenu
+                        prefix={<span className="badge gray"></span>}
+                        title="Human Resource"
+                        icon={<FaHeart />}
+                     >
+                        <MenuItem>
+                           Quản lý nhân viên
+                           <Link to={"/manage/manage-staff"} />
+                        </MenuItem>
+                     </SubMenu>
+
+                     <SubMenu title="Ảnh" icon={<FaList />}>
+                        <MenuItem>
+                           Tổng hợp ảnh chụp
+                           <Link to={"/manage/view-capture"} />
+                        </MenuItem>
+                     </SubMenu>
+                  </>
+               )}
             </Menu>
          </SidebarContent>
 

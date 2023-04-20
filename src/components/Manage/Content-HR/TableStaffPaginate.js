@@ -1,7 +1,8 @@
 import React from "react";
 import { Table } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
-
+import { useNavigate } from "react-router-dom";
+import { FiImage, FiSearch, FiMenu } from "react-icons/fi";
 const TableStaffPaginate = (pros) => {
    const { listStaff, pageCount, searchValue, filterIndex, PAGE_LIMIT, handleClickView } = pros;
    const handlePageClick = async (event) => {
@@ -29,6 +30,7 @@ const TableStaffPaginate = (pros) => {
          return "Không xác định";
       }
    };
+   const navigate = useNavigate();
    return (
       <>
          <Table striped bordered hover responsive className="user-table">
@@ -63,19 +65,27 @@ const TableStaffPaginate = (pros) => {
                            </td>
                            <th className="actions">
                               <button
-                                 className="btn btn-primary ml-3"
+                                 className="btn btn-primary "
                                  onClick={() => {
                                     handleClickView(true, item);
                                  }}
                               >
-                                 Xem ảnh
+                                 <FiImage />
+                              </button>
+                              <button
+                                 className="btn btn-primary"
+                                 onClick={() => {
+                                    navigate(`/profile/${item.username}`);
+                                 }}
+                              >
+                                 <FiSearch />
                               </button>
                               <button
                                  disabled={item.roleName !== "Human resource" ? false : true}
-                                 className="btn btn-warning mx-3"
+                                 className="btn btn-warning"
                                  onClick={() => pros.handleClickUpdate(true, item)}
                               >
-                                 Cập nhật
+                                 <FiMenu />
                               </button>
                            </th>
                         </tr>

@@ -97,6 +97,7 @@ const Calendar = (pros) => {
    };
 
    const fetchListStaff = async () => {
+      if (account.roleName === "Staff") return;
       try {
          setIsLoading1(true);
          let res = await getStaff(1, 99, "", 2);
@@ -240,6 +241,8 @@ const Calendar = (pros) => {
                <div>
                   {isLoading1 ? (
                      "Đang tải dữ liệu"
+                  ) : account.roleName === "Staff" ? (
+                     <></>
                   ) : (
                      <Select
                         // ref={assignGroupLeader}
