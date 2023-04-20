@@ -10,22 +10,19 @@ const TablePageReport = (pros) => {
       // console.log(`User requested page number ${event.selected}, which is offset `);
    };
    const convertTime = (time) => {
-      const date = new Date(time);
+      try {
+         const [datePart, timePart] = time.split(" ");
+         const [day, month, year] = datePart.split("-");
+         const [hour, minutes, seconds] = timePart.split(":");
+         const dateObj = new Date(year, month - 1, day, hour, minutes, seconds);
 
-      const options = {
-         timeZone: "Asia/Ho_Chi_Minh",
-         // weekday: "long",
-         year: "numeric",
-         month: "long",
-         day: "numeric",
-         // hour: "numeric",
-         // minute: "numeric",
-         // second: "numeric",
-      };
-
-      const localTime = date.toLocaleString("vi-VN", options);
-      return localTime;
+         const formattedDate = `${hour}:${minutes}:${seconds} ${day}-${month}-${year}`;
+         return formattedDate;
+      } catch {
+         return "Không xác định";
+      }
    };
+
    const account = useSelector((state) => state.user.account);
    return (
       <>
@@ -41,7 +38,7 @@ const TablePageReport = (pros) => {
                               </p>
                            </div>
                            <div>
-                              <p className="name">Thời gian: {convertTime(e.createDay)}</p>
+                              <p className="name">Ngày gửi: {convertTime(e.createDay)}</p>
                            </div>
                         </div>
                         <div className="user-position d-flex justify-content-between">

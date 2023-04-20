@@ -26,7 +26,7 @@ const Profile = (pros) => {
       if (res.status === 200) {
          setUserData(res.data);
       } else {
-         navigate("/");
+         navigate("/error-authe");
       }
    };
 

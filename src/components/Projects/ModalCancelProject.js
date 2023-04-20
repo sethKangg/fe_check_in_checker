@@ -13,7 +13,7 @@ const ModalCancelProject = (pros) => {
    const handleComfirm = async (item) => {
       let res = await putStatusProject(item.id, 3);
       if (res.status == 200) {
-         toast.success(`Change Status ${item.id} sucessfully`);
+         toast.success(`Cập nhật dự án ${item.id} thành công`);
          handleClose();
          await fetchListProject(1, "");
       }

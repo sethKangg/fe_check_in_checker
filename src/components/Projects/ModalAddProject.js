@@ -115,7 +115,7 @@ const ModalAddProject = (pros) => {
       value: account.groupId,
       label: `${account.groupName} #${account.groupId}`,
    };
-   if (account.roleName === "Project manager") {
+   if (account.roleName === "Group leader") {
       newArray = [{ value: account.id, label: `${account.staffName} #${account.id}` }];
       newGroupArray = [
          { value: account.groupId, label: `${account.groupName} #${account.groupId}` },
