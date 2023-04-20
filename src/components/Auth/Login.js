@@ -27,11 +27,16 @@ const Login = () => {
          toast.success("Đăng nhập vào tài khoản thành công");
          setLoading(false);
          // console.log("data ", data);
-         navigate("/");
          dispatch(doLogin(data));
+         if (data.data.accountDTO.roleName === "Admin") {
+            // console.log("ISADMIN");
+            // navigate("/manage/manage-account");
+         } else {
+            // navigate("/");
+         }
       } else {
          setLoading(false);
-         toast.error("Có lỗi xảy ra");
+         toast.error("Có lỗi xảy ra trong quá trình đăng nhập");
       }
    };
 
@@ -92,7 +97,7 @@ const Login = () => {
       // </div>
       <div className="wr_lg ">
          <div className="container_lg d-flex">
-            <div className="text-box">
+            <div className="text-box w-50 m-auto">
                <p>Chào mừng đến với</p>
                <h1>CTS</h1>
                <h3>Website chấm công </h3>

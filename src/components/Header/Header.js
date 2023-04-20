@@ -52,7 +52,7 @@ const Header = () => {
                   ) : null}
                   {account.roleName === "Human resource" || account.roleName === "Group leader" ? (
                      <NavLink className="nav-link" to={"/group"}>
-                        Nhóm  
+                        Nhóm
                      </NavLink>
                   ) : null}
                   {isAuthenticated && (
@@ -76,22 +76,29 @@ const Header = () => {
                            Đăng nhập
                         </button>
 
-                        <button className="btn border-dark btn-info mx-2 p-2 border-2">
-                           Điểm danh
+                        <button
+                           className="btn border-dark btn-info mx-2 p-2 border-2"
+                           onClick={() => navigate("check_in")}
+                        >
+                           Chấm công
                         </button>
                      </>
                   ) : (
-                     <NavDropdown
-                        title={account.staffName + " - " + account.roleName}
-                        id="basic-nav-dropdown"
-                     >
-                        <NavDropdown.Item onClick={() => navigate(`/profile/${account.username}`)}>
-                           Thông tin tài khoản
-                        </NavDropdown.Item>
-                        <NavDropdown.Item onClick={() => handleLogOut()}>
-                           Đăng xuất
-                        </NavDropdown.Item>
-                     </NavDropdown>
+                     <>
+                        <NavDropdown
+                           title={account.staffName + " - " + account.roleName}
+                           id="basic-nav-dropdown"
+                        >
+                           <NavDropdown.Item
+                              onClick={() => navigate(`/profile/${account.username}`)}
+                           >
+                              Thông tin tài khoản
+                           </NavDropdown.Item>
+                           <NavDropdown.Item onClick={() => handleLogOut()}>
+                              Đăng xuất
+                           </NavDropdown.Item>
+                        </NavDropdown>
+                     </>
                   )}
                </Nav>
             </Navbar.Collapse>

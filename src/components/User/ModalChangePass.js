@@ -25,7 +25,10 @@ const ModalChangePass = (props) => {
          toast.success("Đổi mật khẩu thành công");
          handleClose();
       } else {
-         toast.error(res.data);
+         Object.values(res.data.error).map((item, index) => {
+            // msgToast += item + "\n";
+            toast.error(item);
+         });
       }
    };
    useEffect(() => {
@@ -38,7 +41,7 @@ const ModalChangePass = (props) => {
       if (!currentPass) return toast.error("Mật khẩu cũ không được để trống");
       if (!newPass) return toast.error("Mật khẩu mới không được để trống");
       if (!comfirmPass) return toast.error("Xác nhận mật khẩu không được để trống");
-      if (currentPass.length < 6) return toast.error("Mật khẩu phải có ít nhất 6 ký tự]");
+      if (currentPass.length < 6) return toast.error("Mật khẩu phải có ít nhất 6 ký tự");
       if (newPass.length < 6) return toast.error("Mật khẩu phải có ít nhất 6 ký tự");
       if (comfirmPass.length < 6) return toast.error("Mật khẩu phải có ít nhất 6 ký tự");
       //api

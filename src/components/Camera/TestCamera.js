@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from "react";
 import CameraPhoto, { FACING_MODES, IMAGE_TYPES } from "jslib-html5-camera-photo";
 import { toast } from "react-toastify";
 import { addRecognizeImg } from "../../services/apiService";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 function TestCamera() {
    const [cameraPhoto, setCameraPhoto] = useState(null);
    const [dataUri, setDataUri] = useState("");
@@ -14,6 +16,9 @@ function TestCamera() {
       setCameraPhoto(new CameraPhoto(videoRef.current));
       // startCamera(FACING_MODES.USER, {});
    }, []);
+   const navigate = useNavigate();
+   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+   if (isAuthenticated) return navigate("/");
 
    function startCamera(idealFacingMode, idealResolution) {
       cameraPhoto
@@ -60,6 +65,7 @@ function TestCamera() {
          .catch((error) => {
             console.log("No camera to stop!:", error);
          });
+      setDataUri("");
    }
 
    const handleCheckIn = async () => {
@@ -110,9 +116,9 @@ function TestCamera() {
             {dataUri && (
                <div className="preview-img d-flex flex-column justify-content-center align-items-center ">
                   <div className="preview-header">Ảnh xem trước</div>
-                  <img width="300px" height="200px" src={dataUri} alt="Đang tải ..." />
+                  <img width="390px" height="300px" src={dataUri} alt="Đang tải ..." />
                   <button onClick={() => handleSubmit()} className="btn btn-success mt-3">
-                     Xác nhận Check-In
+                     Xác nhận và gửi
                   </button>
                </div>
             )}

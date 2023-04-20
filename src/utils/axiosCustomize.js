@@ -10,10 +10,10 @@ nProgress.configure({
 });
 // const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 const instance = axios.create({
-   // baseURL: "http://192.168.1.13:8080/",//hunglocal
-   baseURL: "https://cts-backend.azurewebsites.net/", //SethLocal
+   // baseURL: "http://192.168.1.27:8080/", //hunglocal
+   // baseURL: "https://cts-backend.azurewebsites.net/", //SethLocal
    // baseURL: "http://192.168.121.16:8080/", //BaoLocal
-   // baseURL: "http://192.168.121.254:8080/", //BaoLocalFPT
+   baseURL: "http://192.168.1.5:8080/", //BaoLocalFPT
    withCredentials: false,
    headers: {
       "Content-Type": "application/json",

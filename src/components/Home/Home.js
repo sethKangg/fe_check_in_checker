@@ -3,79 +3,64 @@ import { useSelector } from "react-redux";
 import storage from "redux-persist/es/storage";
 import localStorage from "redux-persist/es/storage";
 import videoHomePage from "../../assets/intro-home.mp4";
-import profile_1 from "../../assets/profile-1.jpg";
+import profile_1 from "../../assets/profile-2.jpg";
 
 import { AccessToken } from "../Auth/auth";
+import { useNavigate } from "react-router-dom";
+import { AiOutlineArrowRight } from "react-icons/ai";
 const Home = () => {
    const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
    const account = useSelector((state) => state.user.account);
-   const storedDataPromise = localStorage.getItem("persist:root");
-   console.log(storedDataPromise);
-
+   const navigate = useNavigate();
    return (
-      <div className="home-container">
-         <div className="d-flex w-100 ">
-            <div className="w-50">
-               <h1 className="">
-                  Phần mềm check in chấm công etcetc etc etc etc etc etc etc etc etc etc etc c
+      <div className="home-container w-100 ">
+         <div className="d-flex w-100 h-100 p-3 m-auto pt-5">
+            <div className="w-50 m-auto">
+               <h1
+                  style={{
+                     fontSize: "50px",
+                     fontWeight: "600px",
+                  }}
+               >
+                  Chào mừng đến với trang web chấm công sử dụng AI bot
                </h1>
                <div className="mt-3">
-                  loremispum loremispum loremispum loremispum loremispum loremispum loremispum
-                  loremispum loremispum
+                  Công cụ chấm công sử dụng AI bot giúp quản lý thời gian làm việc hiệu quả và
+                  chuyên nghiệp hơn. Liên hệ để biết thêm thông tin và trải nghiệm sản phẩm ngay hôm
+                  nay!
                </div>
-               <div className="mt-3">
-                  loremispum loremispum loremispum loremispum loremispum loremispum loremispum
-                  loremispum loremispum
-               </div>
+               <div className="mt-3"></div>
                <div className="mt-3 w-100 d-flex justify-content-center">
-                  <button className="btn border-dark form-control-lg text-info border-2 ">
-                     Check in here
-                  </button>
+                  <div className="text-box">
+                     <div className="lg_row" style={{}}>
+                        <p
+                           onClick={() => navigate("/check_in")}
+                           style={{
+                              border: "2px solid black",
+                              color: "#000",
+                              display: "flex",
+                              alignItems: "center",
+                           }}
+                        >
+                           <AiOutlineArrowRight /> Chấm công
+                        </p>
+                     </div>
+                  </div>
                </div>
             </div>
-            <div className="d-flex justify-content-end w-[720px]">
-               <video className=" right-0" width="700px" autoPlay muted loop>
+            <div className="d-flex justify-content-end w-50">
+               <video
+                  className=" right-0"
+                  width="100%"
+                  autoPlay
+                  muted
+                  loop
+                  style={{
+                     borderRadius: "10px",
+                  }}
+               >
                   <source src={videoHomePage} type="video/mp4" />
                </video>
-            </div>
-         </div>
-         <div className="home-content w-100 mt-3 d-flex align-items-center justify-content-center">
-            <div className="d-flex flex-column align-items-center">
-               <div className="img-profile">
-                  {/* <img src={require(profile_1)} /> */}
-                  <img className="w-[250px] h-[160px]" src={profile_1} />
-               </div>
-               <div className="">Profescor ssxsx</div>
-            </div>
-         </div>
-         <div className="mt-5 home-content w-100 mt-3 d-flex align-items-center justify-content-center">
-            <div className="d-flex flex-column align-items-center">
-               <div className="img-profile">
-                  {/* <img src={require(profile_1)} /> */}
-                  <img className="w-[250px] h-[160px]" src={profile_1} />
-               </div>
-               <div className="">Profescor ssxsx</div>
-            </div>
-            <div className="d-flex flex-column align-items-center">
-               <div className="img-profile">
-                  {/* <img src={require(profile_1)} /> */}
-                  <img className="w-[250px] h-[160px]" src={profile_1} />
-               </div>
-               <div className="">Profescor ssxsx</div>
-            </div>
-            <div className="d-flex flex-column align-items-center">
-               <div className="img-profile">
-                  {/* <img src={require(profile_1)} /> */}
-                  <img className="w-[250px] h-[160px]" src={profile_1} />
-               </div>
-               <div className="">Profescor ssxsx</div>
-            </div>
-            <div className="d-flex flex-column align-items-center">
-               <div className="img-profile">
-                  {/* <img src={require(profile_1)} /> */}
-                  <img className="w-[250px] h-[160px]" src={profile_1} />
-               </div>
-               <div className="">Profescor ssxsx</div>
             </div>
          </div>
       </div>

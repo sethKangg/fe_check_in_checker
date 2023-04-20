@@ -20,6 +20,7 @@ const ModalViewGroup = (pros) => {
    const [listSelected, setListSelected] = useState([]);
    const [listMember, setListMember] = useState([]);
    const [listStaff, setListStaff] = useState([]);
+   const [listPrj, setListPrj] = useState([]);
    const [pageCount, setPageCount] = useState(1);
    const [currentPage, setCurrentPage] = useState(1);
    const [searchValue, setSearchValue] = useState("");
@@ -51,8 +52,9 @@ const ModalViewGroup = (pros) => {
          //console.log(data);
          if (response.status == 200) {
             // console.log("LIST MEMBER: ", response);
-            setListMember(response.data.list);
-            setPageCount(response.data.allPages);
+            setListMember(response.data.response.list);
+            setPageCount(response.data.response.allPages);
+            setListPrj(response.data.listProject);
          }
       } catch (error) {
          // console.log("Error", error);
@@ -129,35 +131,56 @@ const ModalViewGroup = (pros) => {
             </Modal.Header>
             <Modal.Body>
                {!isLoading && !isLoading1 ? (
-                  <div className="row g-3">
-                     <div className=" col-md-12  ">
-                        <label className="form-label">Thêm nhân viên mới</label>
-                        <Select
-                           onChange={(event) => setListSelected(event)}
-                           className="basic-single"
-                           classNamePrefix="select"
-                           // defaultValue={newArray[0]}
-                           isClearable={true}
-                           isSearchable={true}
-                           isMulti={true}
-                           // name="color"
-                           options={newArray}
-                        />
+                  <>
+                     <div className="row g-3">
+                        <div className=" col-md-12  ">
+                           <label className="form-label">Thêm nhân viên mới</label>
+                           <Select
+                              onChange={(event) => setListSelected(event)}
+                              className="basic-single"
+                              classNamePrefix="select"
+                              // defaultValue={newArray[0]}
+                              isClearable={true}
+                              isSearchable={true}
+                              isMulti={true}
+                              // name="color"
+                              options={newArray}
+                           />
+                        </div>
+                        <div className="table-user mt-3">
+                           <TableMemberGroup
+                              PAGE_LIMIT={LIMIT_MEMBER}
+                              listMember={listMember}
+                              pageCount={pageCount}
+                              currentPage={currentPage}
+                              searchValue={searchValue}
+                              setCurrentPage={setCurrentPage}
+                              handleRemove={handleRemove}
+                              fetchListMember={fetchListMemberProject}
+                              projectId={dataView.id}
+                           />
+                        </div>
                      </div>
-                     <div className="table-user mt-3">
-                        <TableMemberGroup
-                           PAGE_LIMIT={LIMIT_MEMBER}
-                           listMember={listMember}
-                           pageCount={pageCount}
-                           currentPage={currentPage}
-                           searchValue={searchValue}
-                           setCurrentPage={setCurrentPage}
-                           handleRemove={handleRemove}
-                           fetchListMember={fetchListMemberProject}
-                           projectId={dataView.id}
-                        />
+
+                     <div className="mt-3">
+                        <h3 onClick={() => console.log(listPrj)}>Dự án gần đây </h3>
+                        <div className="projects_data">
+                           <div className="dat">
+                              {listPrj &&
+                                 listPrj.map((e, i) => (
+                                    <div key={i} className="d-flex gap-3 mb-3">
+                                       <div>
+                                          <label>Tên dự án: </label> {e.projectName} ||{" "}
+                                       </div>
+                                       <div>
+                                          Trạng thái: <b>{e.status}</b>
+                                       </div>
+                                    </div>
+                                 ))}
+                           </div>
+                        </div>
                      </div>
-                  </div>
+                  </>
                ) : (
                   <div>Đang tải dữ liệu ....</div>
                )}

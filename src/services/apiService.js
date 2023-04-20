@@ -280,11 +280,12 @@ const deleteMemberInGroup = (member) => {
 const getInfoTS = (staffId, time) => {
    return axios.get(`timesheets/get-timesheet/${staffId}?date=${time}`);
 };
-const putTS = (staffId, date, dateStatus, note) => {
+const putTS = (staffId, date, dateStatus, note, dayWorkingStatus) => {
    let data = {
       date: date,
       dateStatus: dateStatus,
       note: note,
+      dayWorkingStatus: dayWorkingStatus,
    };
    return axios.put(`timesheets/update-timesheet-status/${staffId}`, data);
 };

@@ -24,6 +24,7 @@ const ModalUpdateCalendar = (pros) => {
    const [value, setValue] = useState("");
    const inputRef = useRef(null);
    const [vSelect, setVSelect] = useState("0");
+   const [sSelect, setSSelect] = useState("");
    const handleClose = () => {
       setShow(false);
    };
@@ -36,6 +37,7 @@ const ModalUpdateCalendar = (pros) => {
       if (show === true) {
          if (data.dateStatus && data.dateStatus !== undefined) {
             setVSelect(data.dateStatus);
+            setSSelect(data.dayWorkingStatus);
          } else {
             setVSelect("0");
          }
@@ -45,7 +47,7 @@ const ModalUpdateCalendar = (pros) => {
       }
    }, [show]);
    const putApi = async (date) => {
-      let res = await putTS(idParams, date, vSelect, value);
+      let res = await putTS(idParams, date, vSelect, value, sSelect);
       console.log(res);
       if (res.status === 200) {
          toast.success("Cập nhật thành công");
@@ -87,7 +89,7 @@ const ModalUpdateCalendar = (pros) => {
                   {/* from this */}
                   <div className="col-md-4">
                      <label className="form-label" onClick={() => console.log(vSelect)}>
-                        Tình trạng ngày
+                        Trạng thái điểm danh
                      </label>
                      <Form.Select
                         value={vSelect}
@@ -97,8 +99,23 @@ const ModalUpdateCalendar = (pros) => {
                            Chưa có
                         </option>
                         <option value="OK">Đúng giờ</option>
-                        <option value="LATE">Đi muộn</option>
+                        <option disabled={true} value="LATE">
+                           Đi muộn
+                        </option>
                         <option value="ABSENT">Không đi</option>
+                     </Form.Select>
+                  </div>
+                  <div className="col-md-4">
+                     <label className="form-label" onClick={() => console.log(vSelect)}>
+                        Trạng thái ngày
+                     </label>
+                     <Form.Select
+                        value={sSelect}
+                        onChange={(event) => setSSelect(event.target.value)}
+                     >
+                        <option value="Làm cả ngày">Làm cả ngày</option>
+                        <option value="Chỉ làm sáng">Chỉ làm sáng</option>
+                        <option value="Chỉ làm chiều">Chỉ làm chiều</option>
                      </Form.Select>
                   </div>
                   {/* to this */}

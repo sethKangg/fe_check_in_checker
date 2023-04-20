@@ -13,9 +13,12 @@ const ModalDisableAccount = (pros) => {
       // if (res) {
       if (res.status === 200) {
          toast.success(`Cập nhật tài khoản ${dataDelete.username} thành công `);
+      } else if (res.status === 409) {
+         toast.error("Không thể tự khóa tài khoản bản thân");
       } else {
          toast.error("Có lỗi trong quá trình cập nhật");
       }
+
       handleClose();
       pros.setCurrentPage(1);
       await pros.fetchListUser(pros.currentPage, PAGE_LIMIT, "", "");

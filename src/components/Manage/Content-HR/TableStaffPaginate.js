@@ -9,6 +9,26 @@ const TableStaffPaginate = (pros) => {
       await pros.fetchListUser(event.selected + 1, PAGE_LIMIT, searchValue, filterIndex);
       // console.log(`User requested page number ${event.selected}, which is offset `);
    };
+   const convertTime = (time) => {
+      const date = new Date(time);
+
+      const options = {
+         timeZone: "Asia/Ho_Chi_Minh",
+         // weekday: "long",
+         year: "numeric",
+         month: "long",
+         day: "numeric",
+         // hour: "numeric",
+         // minute: "numeric",
+         // second: "numeric",
+      };
+      try {
+         const localTime = date.toLocaleString("vi-VN", options);
+         return localTime;
+      } catch (er) {
+         return "Không xác định";
+      }
+   };
    return (
       <>
          <Table striped bordered hover responsive className="user-table">
@@ -21,6 +41,7 @@ const TableStaffPaginate = (pros) => {
                   <th scope="col">Số điện thoại</th>
                   <th scope="col">Cấp bậc</th>
                   <th scope="col">Chức vụ</th>
+                  <th scope="col">Trạng thái</th>
                </tr>
             </thead>
             <tbody>
@@ -31,11 +52,15 @@ const TableStaffPaginate = (pros) => {
                         <tr key={index}>
                            <th scope="row">{item.id}</th>
                            <td scope="row">{item.fullName}</td>
-                           <td scope="row">{item.dateOfBirth}</td>
+                           <td scope="row">{convertTime(item.dateOfBirth)}</td>
                            <td scope="row">{item.email}</td>
                            <td scope="row">{item.phone}</td>
                            <td scope="row">{item.promotionLevel}</td>
                            <td scope="row">{item.roleName}</td>
+                           <td scope="row">
+                              <input type="checkbox" disabled={true} checked={item.enable} />
+                              {/* {item.enable ? "TRUE" : "FALSE"} */}
+                           </td>
                            <th className="actions">
                               <button
                                  className="btn btn-primary ml-3"
@@ -43,7 +68,7 @@ const TableStaffPaginate = (pros) => {
                                     handleClickView(true, item);
                                  }}
                               >
-                                 Xem thông tin
+                                 Xem ảnh
                               </button>
                               <button
                                  disabled={item.roleName !== "Human resource" ? false : true}

@@ -42,7 +42,7 @@ const ModalUpdateStaff = (pros) => {
       if (show === true) {
          console.log(dataUpdate);
          // console.log("dataUpdate >>>.", dataUpdate);
-         setCurrentLevel("" + dataUpdate.promotionLevel);
+         setCurrentLevel("" + dataUpdate.promotionLevelId);
          SetRole(dataUpdate.roleName);
       }
    }, [show]);
@@ -60,7 +60,7 @@ const ModalUpdateStaff = (pros) => {
    const handleClickFilter = (event) => {
       setCurrentLevel(event.target.value);
    };
-
+ 
    return (
       <>
          <Modal show={show} onHide={handleClose} size="xl">
@@ -88,7 +88,7 @@ const ModalUpdateStaff = (pros) => {
                         {listLevel.map((level, index) => {
                            return (
                               <option key={level.id} value={level.id}>
-                                 {level.description}
+                                 {level.name}
                               </option>
                            );
                         })}

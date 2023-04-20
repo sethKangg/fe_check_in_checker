@@ -122,8 +122,8 @@ const ManageStaff = () => {
                      onChange={(event) => handleClickFilter(event)}
                   >
                      <option value="2">Tất cả</option>
-                     <option value="1">Active</option>
-                     <option value="0">Inactive</option>
+                     <option value="1">Đang hoạt động</option>
+                     <option value="0">Không hoạt động</option>
                   </Form.Select>
                </div>
             </div>

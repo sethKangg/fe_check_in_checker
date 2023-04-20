@@ -77,7 +77,7 @@ const ManageAccount = (pros) => {
    return (
       <div className="manage-container p-3">
          <div className="title d-flex justify-content-center ">
-            <h1>Manage User</h1>
+            <h1>Quản lý tài khoản người dùng</h1>
          </div>
          <div className="user-content mt-3">
             <div>
@@ -92,7 +92,7 @@ const ManageAccount = (pros) => {
             <div className="d-flex align-items-center justify-content-between">
                <div>
                   <button className="border-0 btn btn-primary" onClick={() => setShowModal(true)}>
-                     Thêm nhân viên mới
+                     Thêm tài khoản nhân viên mới
                   </button>
                </div>
                <div className="">
@@ -102,8 +102,8 @@ const ManageAccount = (pros) => {
                      onChange={(event) => handleClickFilter(event)}
                   >
                      <option value="2">Tất cả</option>
-                     <option value="1">Active</option>
-                     <option value="0">Inactive</option>
+                     <option value="1">Đang hoạt động</option>
+                     <option value="0">Không hoạt động</option>
                   </Form.Select>
                </div>
             </div>

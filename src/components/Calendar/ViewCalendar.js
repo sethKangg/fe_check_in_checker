@@ -61,7 +61,31 @@ const ViewCalendar = (pros) => {
       return src;
    };
    const handleSubmit = () => {};
+   const convertMinutesToTime = (minutes) => {
+      if (minutes < 60) {
+         return minutes + " phút";
+      }
+      const hour = Math.floor(minutes / 60);
+      const minute_remainder = minutes % 60;
 
+      let timeString = `${hour < 10 ? "0" : ""}${hour}:`;
+      timeString += `${minute_remainder < 10 ? "0" : ""}${minute_remainder} tiếng`;
+
+      return timeString;
+   };
+   const converToHM = (time) => {
+      try {
+         const dateObj = new Date(time);
+
+         const hour = dateObj.getHours();
+         const minutes = dateObj.getMinutes().toString().padStart(2, "0");
+
+         const formattedTime = `${hour}:${minutes}`;
+         return formattedTime;
+      } catch {
+         return "Không xác định";
+      }
+   };
    return (
       <div>
          <Modal className="modal-view-check-in" show={show} onHide={handleClose} size="xl">
@@ -73,12 +97,16 @@ const ViewCalendar = (pros) => {
                         {day + 1} / {month + 1} / {year}{" "}
                      </b>
                   </div>
+                  {dataDay && dataDay.updatedHistory && dataDay.lastUpdated && (
+                     <div>
+                        {dataDay.updatedHistory} lúc {dataDay.lastUpdated}
+                     </div>
+                  )}
                </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                {/* {!isLoading && !isLoading1 ? <div className="row g-3"></div> : <div>LOADING ....</div>} */}
                <div className="info">
-                  <div>{dataDay && dataDay.note && <div>Ghi chú: {dataDay.note}</div>}</div>
                   <div className="d-flex justify-content-between">
                      <div className="h3 info-title">Thông tin người dùng</div>
                      {month === new Date().getMonth() &&
@@ -100,35 +128,83 @@ const ViewCalendar = (pros) => {
                      </div>
                      <div className="col-md-6 d-flex mx-1 align-items-center gap-2">
                         Trạng thái Check-In:
-                        <div
-                           className={`
+                        <div>
+                           <div
+                              className={`
                            d-flex align-items-center gap-2
-                              ${
-                                 dataDay?.dateStatus === "OK"
-                                    ? "c_right_time"
-                                    : dataDay?.dateStatus === "LATE"
-                                    ? "c_late"
-                                    : dataDay?.dateStatus === "ABSENT"
-                                    ? "c_not_go"
-                                    : ""
-                              }`}
-                        >
-                           <b>
-                              {dataDay?.dateStatus === "OK"
-                                 ? " Đúng giờ"
+                           ${
+                              dataDay?.dateStatus === "OK"
+                                 ? "c_right_time"
                                  : dataDay?.dateStatus === "LATE"
-                                 ? "Đến muộn"
+                                 ? "c_late"
                                  : dataDay?.dateStatus === "ABSENT"
-                                 ? " Không đi"
-                                 : "Chưa có thông tin"}
-                           </b>
+                                 ? "c_not_go"
+                                 : ""
+                           }`}
+                           >
+                              <b>
+                                 {dataDay?.dateStatus === "OK"
+                                    ? " Đúng giờ"
+                                    : dataDay?.dateStatus === "LATE"
+                                    ? "Đến muộn"
+                                    : dataDay?.dateStatus === "ABSENT"
+                                    ? " Không đi"
+                                    : "Chưa có thông tin"}
+                              </b>
+                           </div>
                         </div>
+                     </div>
+                  </div>
+                  <div className="d-flex justify-content-between">
+                     <div>
+                        <div>
+                           {dataDay && dataDay.note && (
+                              <>
+                                 <label>Ghi chú:</label> {dataDay.note}
+                              </>
+                           )}
+                        </div>
+                        <div>
+                           {dataDay && dataDay.dayWorkingStatus && (
+                              <>
+                                 <label>Trạng thái ngày:</label> {dataDay.dayWorkingStatus}
+                              </>
+                           )}
+                        </div>
+                        <div className="mt-3 w-75 d-flex justify-content-between">
+                           {dataDay && dataDay.lateCheckInMinutes && (
+                              <div>
+                                 <label>Check-in muộn: </label>
+                                 {convertMinutesToTime(dataDay.lateCheckInMinutes)}{" "}
+                              </div>
+                           )}
+                           {dataDay && dataDay.earlyCheckOutMinutes && (
+                              <div>
+                                 <label>Check-out sớm: </label>
+                                 {convertMinutesToTime(dataDay.earlyCheckOutMinutes)}{" "}
+                              </div>
+                           )}
+                        </div>
+                     </div>
+                     <div>
+                        {dataDay && dataDay.timeCheckIn && (
+                           <div className="d-flex justify-content-end">
+                              <label>Check-in lúc:</label>
+                              {dataDay.timeCheckIn}
+                           </div>
+                        )}
+                        {dataDay && dataDay.timeCheckOut && (
+                           <div>
+                              <label>Check-out lúc:</label>
+                              {dataDay.timeCheckOut}
+                           </div>
+                        )}
                      </div>
                   </div>
                </div>
 
                <div className="info mt-3">
-                  <div className="h3 info-title">Ảnh Check-In </div>
+                  <div className="h3 info-title">Ảnh Check-In</div>
                   <div className="info-img d-flex align-items-center justify-align-content-start gap-3 flex-wrap  ">
                      {listImg &&
                         listImg.map((i, e) => (
@@ -138,8 +214,14 @@ const ViewCalendar = (pros) => {
                                  width={220}
                                  onClick={() => togglePreview(handleSrcImg(i.imagePath))}
                               />
-                              <p>Ảnh thứ #{i.imageVerifyId}</p>
-                              <p>{i.status}</p>
+                              {/* <p>Ảnh thứ #{i.imageVerifyId}</p> */}
+                              <p className="mt-3">
+                                 {i.status === "APPROVED"
+                                    ? "Thành công"
+                                    : i.status === "PENDING"
+                                    ? "Đang duyệt"
+                                    : "Không nhận dạng được"}
+                              </p>
                               <p>Chụp lúc {i.verifyTime}</p>
                            </div>
                         ))}

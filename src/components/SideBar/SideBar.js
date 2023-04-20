@@ -9,12 +9,14 @@ import {
    SidebarContent,
 } from "react-pro-sidebar";
 import "./SideBar.scss";
-import { FaTachometerAlt, FaGem, FaGithub, FaRegLaughWink, FaHeart, FaList } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaTachometerAlt, FaGem, FaRegLaughWink, FaHeart, FaList } from "react-icons/fa";
+import { AiFillHome } from "react-icons/ai";
+import { Link, useNavigate } from "react-router-dom";
 // import sidebarBg from '../../assets/bg2.jpg';
 
 const SideBar = (props) => {
    const { image, collapsed, toggled, handleToggleSidebar } = props;
+   const navigate = useNavigate();
    return (
       <ProSidebar
          // image={image ? sidebarBg : false}
@@ -25,6 +27,7 @@ const SideBar = (props) => {
       >
          <SidebarHeader>
             <div
+               onClick={() => navigate("/")}
                style={{
                   padding: "24px",
                   textTransform: "uppercase",
@@ -34,9 +37,10 @@ const SideBar = (props) => {
                   overflow: "hidden",
                   textOverflow: "ellipsis",
                   whiteSpace: "nowrap",
+                  cursor: "pointer",
                }}
             >
-               {"sidebarTitle"}
+               {"CTS"}
             </div>
          </SidebarHeader>
 
@@ -87,26 +91,25 @@ const SideBar = (props) => {
             </Menu>
          </SidebarContent>
 
-         <SidebarFooter style={{ textAlign: "center" }}>
+         <SidebarFooter style={{ textAlign: "center", cursor: "pointer" }}>
             <div
                className="sidebar-btn-wrapper"
                style={{
                   padding: "20px 24px",
                }}
+               onClick={() => navigate("/")}
             >
-               <a
-                  href="https://github.com/azouaoui-med/react-pro-sidebar"
-                  target="_blank"
-                  className="sidebar-btn"
-                  rel="noopener noreferrer"
+               <AiFillHome />
+               {/* <span
+                  style={{
+                     whiteSpace: "nowrap",
+                     textOverflow: "ellipsis",
+                     overflow: "hidden",
+                     width: "20px",
+                  }}
                >
-                  <FaGithub />
-                  <span
-                     style={{ whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" }}
-                  >
-                     Trang chủ
-                  </span>
-               </a>
+                  Trang chủ
+               </span> */}
             </div>
          </SidebarFooter>
       </ProSidebar>

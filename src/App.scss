@@ -27,10 +27,10 @@
                 .home-content {
                     .img-profile {
                         img {
-                            border: 3px solid green;
-                            height: 160px;
-                            width: 250px;
-                            clip-path: circle();
+                            border-radius: 50%;
+                            width: 200px;
+                            height: 200px;
+                            object-fit: cover;
                         }
                     }
                 }
