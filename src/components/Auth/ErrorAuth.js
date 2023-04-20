@@ -3,6 +3,12 @@ import "./moon.css";
 import { useNavigate } from "react-router-dom";
 const ErrorAuth = () => {
    const navigate = useNavigate();
+   const handleLogOut = () => {
+      console.log("Logout");
+      dispatch(doLogOut());
+      toast.success("Đăng xuất thành công");
+      navigate("/login");
+   };
    return (
       <div className="body_moon">
          <div class="moon"></div>
@@ -24,7 +30,7 @@ const ErrorAuth = () => {
             <button class="error__button" onClick={() => navigate("/")}>
                Trang chủ
             </button>
-            <button class="error__button" onClick={() => navigate("/logout")}>
+            <button class="error__button" onClick={() => handleLogOut()}>
                Đăng xuất
             </button>
          </div>
