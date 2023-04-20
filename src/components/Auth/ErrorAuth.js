@@ -1,8 +1,11 @@
 import React from "react";
 import "./moon.css";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 const ErrorAuth = () => {
    const navigate = useNavigate();
+   const dispatch = useDispatch();
    const handleLogOut = () => {
       console.log("Logout");
       dispatch(doLogOut());
