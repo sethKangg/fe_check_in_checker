@@ -3,6 +3,7 @@ import "./moon.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { doLogOut } from "../../redux/action/userAction";
 const ErrorAuth = () => {
    const navigate = useNavigate();
    const dispatch = useDispatch();
