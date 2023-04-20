@@ -139,7 +139,12 @@ const Calendar = (pros) => {
          <div className="container-2">
             <div className="left">
                <div className="my-3">
-                  <h1 onClick={() => console.log(idParams === selectValue)}>
+                  <h1
+                     onClick={() => console.log(idParams === selectValue)}
+                     style={{
+                        color: "#fff",
+                     }}
+                  >
                      Lịch chấm công
                      <b> {months[month]} </b>
                      của
@@ -238,7 +243,11 @@ const Calendar = (pros) => {
                </div>
             </div>
             <div className="right">
-               <div>
+               <div
+                  style={{
+                     color: "#fff !important",
+                  }}
+               >
                   {isLoading1 ? (
                      "Đang tải dữ liệu"
                   ) : account.roleName === "Staff" ? (
@@ -252,6 +261,7 @@ const Calendar = (pros) => {
                         value={selectValue}
                         options={newArray}
                         isSearchable={true}
+                        // menuIsOpen={true}
                         // closeMenuOnSelect={false}
                         placeholder={<div>Chọn lịch theo nhân viên</div>}
                         components={{ NoOptionsMessage }}
@@ -280,9 +290,9 @@ const Calendar = (pros) => {
                   <div className=""> : Không tính </div>
                </div>
             </div>
-            <button className="add-event">
+            {/* <button className="add-event">
                <i className="fas fa-plus"></i>
-            </button>
+            </button> */}
          </div>
          {/* {month === todaynth() && year === today.getFullYear() && ( */}
          <ViewCalendar
