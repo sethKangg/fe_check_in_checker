@@ -1,10 +1,11 @@
 {
 
   "name": "fe_check_in_checker",
+  "homepage": ".",
 
   "version": "0.1.0",
 
-  "proxy": "https://cts-backend.azurewebsites.net/",
+  "proxy": "http://localhost:3000",
 
   "private": true,
 

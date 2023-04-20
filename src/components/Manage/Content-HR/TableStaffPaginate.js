@@ -59,7 +59,7 @@ const TableStaffPaginate = (pros) => {
                            <td scope="row">{item.phone}</td>
                            <td scope="row">{item.promotionLevel}</td>
                            <td scope="row">{item.roleName}</td>
-                           <td scope="row">
+                           <td scope="">
                               <input type="checkbox" disabled={true} checked={item.enable} />
                               {/* {item.enable ? "TRUE" : "FALSE"} */}
                            </td>

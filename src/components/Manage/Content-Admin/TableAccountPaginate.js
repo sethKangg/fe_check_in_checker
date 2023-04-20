@@ -19,7 +19,7 @@ const TableAccountPaginate = (pros) => {
                   <th scope="col">Tên</th>
                   <th scope="col">Email</th>
                   <th scope="col">Chức vụ</th>
-                  <th scope="col">Trạng thái hoạt đ</th>
+                  <th scope="col">Trạng thái hoạt động</th>
                </tr>
             </thead>
             <tbody>
