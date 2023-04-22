@@ -145,6 +145,7 @@ const ModalViewGroup = (pros) => {
                               isMulti={true}
                               // name="color"
                               options={newArray}
+                              placeholder={<div>Chọn nhân viên thêm vào nhóm</div>}
                            />
                         </div>
                         <div className="table-user mt-3">

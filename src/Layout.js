@@ -45,7 +45,7 @@ const Layout = () => {
                <Route
                   path="/project"
                   element={
-                     <PrivateRoute acceptRole={[2, 3]}>
+                     <PrivateRoute acceptRole={[2, 3, 4]}>
                         <Projects />
                      </PrivateRoute>
                   }

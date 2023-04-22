@@ -115,7 +115,7 @@ const ModalAddProject = (pros) => {
       value: account.groupId,
       label: `${account.groupName} #${account.groupId}`,
    };
-   if (account.roleName === "Group leader") {
+   if (account.roleName !== "Group leader") {
       newArray = [{ value: account.id, label: `${account.staffName} #${account.id}` }];
       newGroupArray = [
          { value: account.groupId, label: `${account.groupName} #${account.groupId}` },
@@ -134,12 +134,12 @@ const ModalAddProject = (pros) => {
       <>
          <Modal show={show} onHide={handleClose} size="xl">
             <Modal.Header closeButton>
-               <Modal.Title>Tạo nhóm mới</Modal.Title>
+               <Modal.Title>Tạo dự án mới </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                <form className="row g-3" encType="multipart/form-data">
                   <div className="col-md-8">
-                     <label className="form-label">Tên nhóm</label>
+                     <label className="form-label">Tên dự án</label>
                      <input
                         type="text"
                         className="form-control"

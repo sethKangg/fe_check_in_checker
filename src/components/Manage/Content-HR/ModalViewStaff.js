@@ -4,6 +4,7 @@ import { Button, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import profile_1 from "../../../assets/profile-1.jpg";
 import { deleteImgTraining, getImgTrainStaff, postImgTraining } from "../../../services/apiService";
+import ModalDeleteImgStaff from "./ModalDeleteImgStaff";
 // import postImgTraining from "../../../services/apiService";
 // import profile_2 from "../../assets/profile-2.jpg";
 
@@ -14,6 +15,7 @@ const ModalViewStaff = (pros) => {
    const [base64String, setBase64String] = useState("");
    const [listImg, setListImg] = useState([]);
    const [isLoading, setIsLoading] = useState(false);
+   const [showDelete, setShowDelete] = useState(false);
    function togglePreview(src) {
       setImageSrc(src);
       setShowImage(true);
@@ -94,7 +96,13 @@ const ModalViewStaff = (pros) => {
       return localTime;
    };
    const clickDelete = async () => {
-      await deleteImg();
+      let res = await deleteImg();
+      if (res.status === 200) {
+         toast.success("Xóa ảnh nhân viên thành công !");
+      } else {
+         toast.error("Có lỗi trong quá trình xóa ảnh");
+      }
+
       await fetchImgUser();
    };
    const deleteImg = async () => {
@@ -105,6 +113,8 @@ const ModalViewStaff = (pros) => {
       } else {
          toast.error("Có lỗi xảy ra");
       }
+      setShowDelete(false);
+      await fetchImgUser();
    };
    return (
       <div>
@@ -119,7 +129,8 @@ const ModalViewStaff = (pros) => {
                         </b>
                      </div>
                      <div>
-                        <button className="btn btn-danger" onClick={() => clickDelete()}>
+                        <button className="btn btn-danger" onClick={() => setShowDelete(true)}>
+                           {/* <button className="btn btn-danger" onClick={() => clickDelete()}> */}
                            Xóa ảnh training
                         </button>
                      </div>
@@ -136,8 +147,13 @@ const ModalViewStaff = (pros) => {
                            // style="visibility:hidden"
                            type="file"
                            onChange={handleFileInputChange}
-                           placeholder="Tải ảnh từ máy "
+                           placeholder="Tải ảnh từ máy"
+                           style={{
+                              display: "none",
+                           }}
+                           id="file_up"
                         />
+                        <label for="file_up">Chọn ảnh từ máy</label>
                         {base64String && (
                            <div className="d-flex flex-column ">
                               <div className="d-flex justify-content-center">Ảnh chọn</div>
@@ -195,6 +211,7 @@ const ModalViewStaff = (pros) => {
                </Button>
             </Modal.Footer>
          </Modal>
+         <ModalDeleteImgStaff show={showDelete} setShow={setShowDelete} clickDelete={deleteImg} />
          {showImage && (
             <div className="modal-preview" onClick={() => setShowImage(false)}>
                <img src={imageSrc} alt="big image" />

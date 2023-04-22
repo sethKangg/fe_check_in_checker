@@ -31,12 +31,13 @@ const Projects = () => {
    const debouncedSearchTerm = useDebounce(searchValue, 800);
    const account = useSelector((state) => state.user.account);
    const [loading, isLoading] = useState(false);
-   const staffId = account.roleName === "Human resource" ? "0" : account.id;
+   const staffId = account.roleName === "Group leader" ? "0" : account.id;
+   const groupId = account.roleName === "Group leader" ? account.groupId : "0";
 
    const fetchListProject = async (page, searchValue) => {
       try {
          isLoading(true);
-         let res = await getAllProjects(page, PAGE_LIMIT, searchValue, staffId);
+         let res = await getAllProjects(page, PAGE_LIMIT, searchValue, staffId,groupId);
          // console.log("PROJECT DATA: ", res);
          if (res.status == 200) {
             setListProject(res.data.list);

@@ -25,28 +25,29 @@ const Home = () => {
                   Chào mừng đến với trang web chấm công sử dụng AI bot
                </h1>
                <div className="mt-3">
-                  Công cụ chấm công sử dụng AI bot giúp quản lý thời gian làm việc hiệu quả và
-                  chuyên nghiệp hơn. Liên hệ để biết thêm thông tin và trải nghiệm sản phẩm ngay hôm
-                  nay!
+                  Công cụ chấm công sử dụng BOT nhận diện khuôn mặt; giúp quản lý thời gian làm việc
+                  hiệu quả và chuyên nghiệp hơn.
                </div>
                <div className="mt-3"></div>
-               <div className="mt-3 w-100 d-flex justify-content-center">
-                  <div className="text-box">
-                     <div className="lg_row" style={{}}>
-                        <p
-                           onClick={() => navigate("/check_in")}
-                           style={{
-                              border: "2px solid black",
-                              color: "#000",
-                              display: "flex",
-                              alignItems: "center",
-                           }}
-                        >
-                           <AiOutlineArrowRight /> Chấm công
-                        </p>
+               {!isAuthenticated && (
+                  <div className="mt-3 w-100 d-flex justify-content-center">
+                     <div className="text-box">
+                        <div className="lg_row" style={{}}>
+                           <p
+                              onClick={() => navigate("/check_in")}
+                              style={{
+                                 border: "2px solid black",
+                                 color: "#000",
+                                 display: "flex",
+                                 alignItems: "center",
+                              }}
+                           >
+                              <AiOutlineArrowRight /> Chấm công
+                           </p>
+                        </div>
                      </div>
                   </div>
-               </div>
+               )}
             </div>
             <div className="d-flex justify-content-end w-50">
                <video

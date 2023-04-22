@@ -44,8 +44,7 @@ const Header = () => {
                         Lịch
                      </NavLink>
                   )}
-                  {account.roleName === "Human resource" ||
-                  account.roleName === "Project manager" ? (
+                  {account.roleName === "Group leader" || account.roleName === "Project manager" ? (
                      <NavLink className="nav-link" to={"/project"}>
                         Dự án
                      </NavLink>

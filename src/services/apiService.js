@@ -101,9 +101,9 @@ const deleteGroup = (groupID) => {
    return axios.delete(`groups/deleteGroup/${groupID}`);
 };
 
-const getAllProjects = (page, size, searchValue, staff) => {
+const getAllProjects = (page, size, searchValue, staff, groupId) => {
    return axios.get(
-      `projects/getAllProject?size=${size}&page=${page}&name=${searchValue}&staffId=${staff}`,
+      `projects/getAllProject?size=${size}&page=${page}&name=${searchValue}&staffId=${staff}&groupId=${groupId}`,
    );
 };
 

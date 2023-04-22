@@ -14,6 +14,7 @@ import {
 import ModalRemoveStaff from "./ModalRemoveStaff";
 import TableMemberProject from "./TableMemberProject";
 import { components } from "react-select";
+import ModalConfirmDone from "./ModalConfirmDone";
 const ModalViewProject = (pros) => {
    const { show, setShow, fetchListProject, PAGE_LIMIT, dataView } = pros;
 
@@ -35,6 +36,7 @@ const ModalViewProject = (pros) => {
 
    const [isLoading, setIsLoading] = useState(false);
    const [isLoading1, setIsLoading1] = useState(false);
+   const [showDone, setShowDone] = useState(false);
 
    const handleRemove = (item) => {
       setDataRemove(item);
@@ -89,7 +91,7 @@ const ModalViewProject = (pros) => {
          if (show === true) {
             let res = await fetchListMemberProject(dataView.id, currentPage, LIMIT_MEMBER);
             let res2 = await fetchListStaff();
-            console.log(dataView);
+            // console.log(dataView);
          }
          // let res = await fetchListMemberProject(dataView.id);
          // Process the response here
@@ -99,7 +101,7 @@ const ModalViewProject = (pros) => {
    }, [show, currentPage]);
 
    const handleSubmit = async () => {
-      console.log(listSelected);
+      // console.log(listSelected);
       let res = await postStaffToProject(listSelected, dataView.id);
       // if (res.status === 200) {
       //    toast.success(`Thêm thành công ${listSelected.length} thành viên !`);
@@ -117,6 +119,8 @@ const ModalViewProject = (pros) => {
          toast.success(`Cập nhật dự án ${dataView.projectName} thành công`);
          handleClose();
          await fetchListProject(1, "");
+      } else {
+         toast.error("Có lỗi trong quá trình cập nhật");
       }
    };
 
@@ -191,7 +195,6 @@ const ModalViewProject = (pros) => {
                                  isMulti={true}
                                  // name="color"
                                  options={newArray}
-                                 placeholder={<div>Chọn nhân viên thêm vào dự án</div>}
                                  components={{ NoOptionsMessage }}
                               />
                            </>
@@ -235,6 +238,7 @@ const ModalViewProject = (pros) => {
                // setListMember={setListMember}
             />
          </Modal>
+         <ModalConfirmDone show={showDone} setShow={setShowDone} confirm={handleDone} />
       </>
    );
 };

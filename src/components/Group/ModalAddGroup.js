@@ -14,8 +14,8 @@ const ModalAddGroup = (pros) => {
       setShow(false);
    };
    //    const handleShow = () => pros.setShow(true);
-
-   const newGroupName = useRef("");
+   const [newGroupName, setNewGroupName] = useState("");
+   // const newGroupName = useRef("");
    const assignGroupLeader = useRef(null);
 
    const fetchListGroupLeader = async () => {
@@ -45,12 +45,13 @@ const ModalAddGroup = (pros) => {
 
    const handleSubmit = async () => {
       //validate
-      if (!values.newGroupName) {
+      if (!newGroupName) {
          return toast.error("Tên nhóm không được để trống");
       }
+      // console.log(newGroupName, assignGroupLeader);
       //api
 
-      let res = await postCreateGroup(newGroupName, assignGroupLeader);
+      let res = await postCreateGroup(newGroupName, assignGroupLeader.current.value);
 
       if (res.status === 200) {
          handleClose();
@@ -82,7 +83,12 @@ const ModalAddGroup = (pros) => {
                <form className="row g-3" encType="multipart/form-data">
                   <div className="col-md-6">
                      <label className="form-label">Tên nhóm</label>
-                     <input type="text" className="form-control" ref={newGroupName} />
+                     <input
+                        type="text"
+                        className="form-control"
+                        value={newGroupName}
+                        onChange={(e) => setNewGroupName(e.target.value)}
+                     />
                   </div>
                   <div className=" col-md-4  ">
                      <label className="form-label">Trưởng nhóm</label>
