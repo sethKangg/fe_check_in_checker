@@ -15,6 +15,8 @@ import ModalRemoveStaff from "./ModalRemoveStaff";
 import TableMemberProject from "./TableMemberProject";
 import { components } from "react-select";
 import ModalConfirmDone from "./ModalConfirmDone";
+import ModalInfo from "../User/ModalInfo";
+import ModalSetStaffPM from "./ModalSetStaffPM";
 const ModalViewProject = (pros) => {
    const { show, setShow, fetchListProject, PAGE_LIMIT, dataView } = pros;
 
@@ -37,7 +39,8 @@ const ModalViewProject = (pros) => {
    const [isLoading, setIsLoading] = useState(false);
    const [isLoading1, setIsLoading1] = useState(false);
    const [showDone, setShowDone] = useState(false);
-
+   const [showInfo, setShowInfo] = useState(false);
+   const [paramId, setParamId] = useState([]);
    const handleRemove = (item) => {
       setDataRemove(item);
       setShowRemove(true);
@@ -135,6 +138,14 @@ const ModalViewProject = (pros) => {
          </components.NoOptionsMessage>
       );
    };
+   const handleClickInfo = (item) => {
+      setShowInfo(true);
+      setParamId(item);
+   };
+   // const handleClickSet = (item) => {
+   //    setShowSet(true);
+   //    setDataSet(item);
+   // };
    return (
       <>
          <Modal show={show} onHide={handleClose} size="xl">
@@ -212,6 +223,7 @@ const ModalViewProject = (pros) => {
                            fetchListMember={fetchListMemberProject}
                            projectId={dataView.id}
                            data={dataView}
+                           handleClickInfo={handleClickInfo}
                         />
                      </div>
                   </div>
@@ -234,11 +246,24 @@ const ModalViewProject = (pros) => {
                setShow={setShowRemove}
                dataDelete={dateRemove}
                projectId={dataView.id}
-               // setIsLoading={setIsLoading}
-               // setListMember={setListMember}
             />
          </Modal>
          <ModalConfirmDone show={showDone} setShow={setShowDone} confirm={handleDone} />
+         <ModalInfo
+            show={showInfo}
+            setShow={setShowInfo}
+            idParams={paramId.staffId}
+            modalTitle={paramId.fullName}
+            setId={setParamId}
+         />
+         {/* <ModalSetStaffPM
+            show={showSet}
+            setShow={setShowSet}
+            data={dataSet}
+            setData={setDataSet}
+            fetchListMemberProject={fetchListMemberProject}
+            projectId={dataView.id}
+         /> */}
       </>
    );
 };

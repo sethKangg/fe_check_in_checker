@@ -20,7 +20,7 @@ const ModalAddGroup = (pros) => {
 
    const fetchListGroupLeader = async () => {
       let res = await getListGL();
-      console.log("listGL: ", res);
+      // console.log("listGL: ", res);
       if (res.status == 200) {
          setListGL(res.data.list);
       }
@@ -67,7 +67,7 @@ const ModalAddGroup = (pros) => {
 
    const handleSelectGroupLeader = (e) => {
       assignGroupLeader.current.value = e.value;
-      console.log(assignGroupLeader.current.value);
+      // console.log(assignGroupLeader.current.value);
    };
 
    const newArray = listGL.map((item) => {

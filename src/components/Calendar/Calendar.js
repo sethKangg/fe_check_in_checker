@@ -42,6 +42,8 @@ const Calendar = (pros) => {
       "Tháng 12",
    ];
    const prevMonth = () => {
+      // if (!checkPrev(month, year))
+      //          return toast.error("Chỉ được chọn trong khoảng thời gian là 3 tháng");
       const newMonth = month - 1;
       const newYear = year - (newMonth === -1 ? 1 : 0);
 
@@ -50,6 +52,9 @@ const Calendar = (pros) => {
    };
 
    const nextMonth = () => {
+      // if (checkAfter(month, year))
+      //    return toast.error("Chỉ được chọn trong khoảng thời gian là 3 tháng");
+
       const newMonth = month + 1;
       const newYear = year + (newMonth === 12 ? 1 : 0);
 
@@ -127,6 +132,40 @@ const Calendar = (pros) => {
    const handleSelect = (e) => {
       setIdParams(e.value);
       setNameTitle(e.label);
+   };
+   const checkPrev = (month, year) => {
+      try {
+         const currentDate = new Date();
+         // const trueMonth = month + 1;
+         const targetDate = new Date(year, month);
+         const differenceInMonths =
+            (currentDate.getFullYear() - targetDate.getFullYear()) * 12 +
+            (currentDate.getMonth() - targetDate.getMonth());
+
+         return Math.abs(differenceInMonths) <= 2;
+      } catch {
+         return false;
+      }
+   };
+   const checkAfter = (targetMonth, targetYear) => {
+      try {
+         const currentDate = new Date();
+         const currentMonth = currentDate.getMonth();
+         const currentYear = currentDate.getFullYear();
+
+         if (targetYear > currentYear) {
+            return true;
+         } else if (targetYear === currentYear && targetMonth >= currentMonth + 3) {
+            return true;
+         } else if (targetYear < currentYear) {
+            const differenceInMonths = (currentYear - targetYear) * 12 + currentMonth - targetMonth;
+            return differenceInMonths >= 3;
+         }
+
+         return false;
+      } catch {
+         return false;
+      }
    };
    return (
       <>

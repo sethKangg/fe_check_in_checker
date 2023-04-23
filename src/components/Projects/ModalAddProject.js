@@ -84,7 +84,7 @@ const ModalAddProject = (pros) => {
       //    return toast.error("Tên nhóm không được để trống");
       // }
       //api
-
+      // console.log(newGroupName, assignPM, assignGroup);
       let res = await postNewProject(newGroupName, assignPM, assignGroup);
       // console.log(newGroupName, assignPM, assignGroup);
       // let res = await postAddProject(newGroupName, assignPM);
@@ -110,10 +110,10 @@ const ModalAddProject = (pros) => {
       // console.log(assignPM.current.value);
    };
 
-   let newArray = { value: account.id, label: `${account.staffName} #${account.id}` };
+   let newArray = [{ value: account.id, label: `${account.staffName} #${account.id} (Bản thân)` }];
    let newGroupArray = {
       value: account.groupId,
-      label: `${account.groupName} #${account.groupId}`,
+      label: `${account.groupName} #${account.groupId} (Bản thân)`,
    };
    if (account.roleName !== "Group leader") {
       newArray = [{ value: account.id, label: `${account.staffName} #${account.id}` }];
@@ -122,12 +122,15 @@ const ModalAddProject = (pros) => {
       ];
       // console.log("List State", newArray, newGroupArray);
    } else {
-      newArray = listStaff.map((item) => {
-         return { value: item.id, label: `${item.fullName} #${item.id}` };
+      listStaff.map((item) => {
+         newArray.push({ value: item.id, label: `${item.fullName} #${item.id}` });
       });
-      newGroupArray = listGroup.map((item) => {
-         return { value: item.id, label: `${item.groupName} #${item.id}` };
-      });
+      // newGroupArray = listGroup.map((item) => {
+      //    return { value: item.id, label: `${item.groupName} #${item.id}` };
+      // });
+      newGroupArray = [
+         { value: account.groupId, label: `${account.groupName} #${account.groupId}` },
+      ];
       // console.log("List redux", newArray, newGroupArray);
    }
    return (
@@ -156,7 +159,7 @@ const ModalAddProject = (pros) => {
                               onChange={(event) => handleSelectGroupLeader(event)}
                               className="basic-single"
                               classNamePrefix="select"
-                              defaultValue={newArray[0]}
+                              // defaultValue={newArray[0]}
                               isClearable={true}
                               isSearchable={true}
                               // name="color"
@@ -170,7 +173,7 @@ const ModalAddProject = (pros) => {
                               onChange={(event) => handleSelectGroup(event)}
                               className="basic-single"
                               classNamePrefix="select"
-                              defaultValue={newGroupArray[0]}
+                              // defaultValue={newGroupArray[0]}
                               isClearable={true}
                               isSearchable={true}
                               // name="color"

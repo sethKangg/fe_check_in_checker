@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import { getStaffGroup, getStaffAvaiableGroup, postAddStaffGroup } from "../../services/apiService";
 import TableMemberGroup from "./TableMemberGroup";
 import ModalRemoveStaffGroup from "./ModalRemoveStaffGroup";
+import ModalSetStaffPM from "../Projects/ModalSetStaffPM";
+import ModalInfo from "../User/ModalInfo";
 
 const ModalViewGroup = (pros) => {
    const { show, setShow, fetchListProject, PAGE_LIMIT, dataView } = pros;
@@ -27,10 +29,13 @@ const ModalViewGroup = (pros) => {
    const [dateRemove, setDataRemove] = useState([]);
    const LIMIT_MEMBER = 10;
    const [showRemove, setShowRemove] = useState(false);
+   const [showSet, setShowSet] = useState(false);
+   const [dataSet, setDataSet] = useState([]);
 
    const [isLoading, setIsLoading] = useState(false);
    const [isLoading1, setIsLoading1] = useState(false);
-
+   const [showInfo, setShowInfo] = useState(false);
+   const [paramId, setParamId] = useState([]);
    const handleRemove = (item) => {
       setDataRemove(item);
       setShowRemove(true);
@@ -117,7 +122,14 @@ const ModalViewGroup = (pros) => {
    const newArray = listStaff.map((item) => {
       return { value: item.id, label: `${item.fullName} #${item.id}` };
    });
-
+   const handleClickSet = (item) => {
+      setShowSet(true);
+      setDataSet(item);
+   };
+   const handleClickInfo = (item) => {
+      setShowInfo(true);
+      setParamId(item);
+   };
    return (
       <>
          <Modal show={show} onHide={handleClose} size="xl">
@@ -159,6 +171,8 @@ const ModalViewGroup = (pros) => {
                               handleRemove={handleRemove}
                               fetchListMember={fetchListMemberProject}
                               projectId={dataView.id}
+                              handleClickSet={handleClickSet}
+                              handleClickInfo={handleClickInfo}
                            />
                         </div>
                      </div>
@@ -174,7 +188,14 @@ const ModalViewGroup = (pros) => {
                                           <label>Tên dự án: </label> {e.projectName} ||{" "}
                                        </div>
                                        <div>
-                                          Trạng thái: <b>{e.status}</b>
+                                          Trạng thái:{" "}
+                                          <b>
+                                             {e.status === "Done"
+                                                ? "Hoàn thành"
+                                                : e.status === "Cancel"
+                                                ? "Hủy bỏ"
+                                                : "Đang tiến hành"}
+                                          </b>
                                        </div>
                                     </div>
                                  ))}
@@ -201,8 +222,21 @@ const ModalViewGroup = (pros) => {
                setShow={setShowRemove}
                dataDelete={dateRemove}
                projectId={dataView.id}
-               // setIsLoading={setIsLoading}
-               // setListMember={setListMember}
+            />
+            <ModalSetStaffPM
+               show={showSet}
+               setShow={setShowSet}
+               data={dataSet}
+               setData={setDataSet}
+               fetchListMemberProject={fetchListMemberProject}
+               projectId={dataView.id}
+            />
+            <ModalInfo
+               show={showInfo}
+               setShow={setShowInfo}
+               idParams={paramId.id}
+               modalTitle={paramId.fullName}
+               setId={setParamId}
             />
          </Modal>
       </>

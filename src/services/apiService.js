@@ -94,7 +94,7 @@ const postCreateGroup = (groupName, groupLeader) => {
       groupName: groupName,
       groupLeader: groupLeader,
    };
-   return axios.post(`groups/createGroup`, data);
+   return axios.post(`groups/addGroup`, data);
 };
 
 const deleteGroup = (groupID) => {
@@ -295,6 +295,9 @@ const getMonthlyReport = (date) => {
 const exportData = (date) => {
    return axios.get(`reports/export?monthYear=${date}`);
 };
+const setStaffPm = (staffId) => {
+   return axios.put(`groups/setStaffToPM?staffId=${staffId}`);
+};
 export {
    putLevelStaff,
    putStatusAccount,
@@ -344,4 +347,5 @@ export {
    putTS,
    getMonthlyReport,
    exportData,
+   setStaffPm,
 };

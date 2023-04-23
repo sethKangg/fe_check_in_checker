@@ -1,6 +1,6 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
-
+import { FiImage, FiX, FiTrendingUp } from "react-icons/fi";
 const TableMemberProject = (pros) => {
    const {
       PAGE_LIMIT,
@@ -11,6 +11,7 @@ const TableMemberProject = (pros) => {
       fetchListMember,
       projectId,
       data,
+      handleClickInfo,
    } = pros;
    const handlePageClick = (event) => {
       fetchListMember(projectId, event.selected + 1, PAGE_LIMIT);
@@ -43,14 +44,22 @@ const TableMemberProject = (pros) => {
                            <td>{item.email}</td>
                            <td>{item.roleName}</td>
                            <td>{item.promotionLevel}</td>
+                           <th>
+                              <button
+                                 className="btn btn-primary"
+                                 onClick={() => handleClickInfo(item)}
+                              >
+                                 <FiImage />
+                              </button>
+                           </th>
                            {item.roleName != "Project manager" && data.status === "Processing" ? (
                               <th className="d-flex ">
                                  {/* <button className="btn btn-primary ml-3">Xem</button> */}
                                  <button
-                                    className="btn btn-danger mx-3"
+                                    className="btn btn-danger"
                                     onClick={() => handleRemove(item)}
                                  >
-                                    Xoá khỏi dự án
+                                    <FiX />
                                  </button>
                               </th>
                            ) : (

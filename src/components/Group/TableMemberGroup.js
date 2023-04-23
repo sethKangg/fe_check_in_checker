@@ -1,5 +1,6 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
+import { FiImage, FiX, FiTrendingUp } from "react-icons/fi";
 const TableMemberGroup = (pros) => {
    const {
       PAGE_LIMIT,
@@ -9,6 +10,8 @@ const TableMemberGroup = (pros) => {
       handleRemove,
       fetchListMember,
       projectId,
+      handleClickSet,
+      handleClickInfo,
    } = pros;
    const handlePageClick = (event) => {
       fetchListMember(projectId, event.selected + 1, PAGE_LIMIT);
@@ -41,14 +44,29 @@ const TableMemberGroup = (pros) => {
                            <td>{item.email}</td>
                            <td>{item.roleName}</td>
                            <td>{item.promotionLevel}</td>
-                           <th className="d-flex ">
-                              {/* <button className="btn btn-primary ml-3">Xem</button> */}
-                              {item.roleName != "Group Leader" ? (
+                           <th className="d-flex gap-3">
+                              <button
+                                 className="btn btn-primary"
+                                 onClick={() => handleClickInfo(item)}
+                              >
+                                 <FiImage />
+                              </button>
+                              {item.roleName == "Staff" ? (
                                  <button
-                                    className="btn btn-danger mx-3"
+                                    className="btn btn-warning "
+                                    onClick={() => handleClickSet(item)}
+                                 >
+                                    <FiTrendingUp />
+                                 </button>
+                              ) : (
+                                 <></>
+                              )}
+                              {item.roleName != "Group leader" ? (
+                                 <button
+                                    className="btn btn-danger"
                                     onClick={() => handleRemove(item)}
                                  >
-                                    Xoá khỏi nhóm
+                                    <FiX />
                                  </button>
                               ) : (
                                  <></>
