@@ -24,7 +24,7 @@ const Groups = () => {
    const fetchListGroup = async (page, size, searchValue) => {
       try {
          setIsLoading(true);
-         let res = await getAllGroup(page, size, searchValue, staffId);
+         let res = await getAllGroup(page, 99, searchValue, staffId);
          // console.log("groupData : ", res);
          if (res.status == 200) {
             setListGroup(res.data.list);

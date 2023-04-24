@@ -91,9 +91,12 @@ const ModalUpdateProject = (pros) => {
    });
    let newGroupArray = null;
    if (account.roleName !== "Project manager") {
-      newGroupArray = listGroup.map((item) => {
-         return { value: item.id, label: `${item.groupName} #${item.id}` };
-      });
+      newGroupArray = [
+         { value: account.groupId, label: `${account.groupName} #${account.groupId}` },
+      ];
+      // newGroupArray = listGroup.map((item) => {
+      //    return { value: item.id, label: `${item.groupName} #${item.id}` };
+      // });
    } else
       newGroupArray = [
          { value: account.groupId, label: `${account.groupName} #${account.groupId}` },

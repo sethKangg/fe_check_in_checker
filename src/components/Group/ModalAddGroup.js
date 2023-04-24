@@ -55,7 +55,7 @@ const ModalAddGroup = (pros) => {
 
       if (res.status === 200) {
          handleClose();
-         toast.success(`${res.data} `);
+         toast.success(`Tạo nhóm mới thành công `);
       } else {
          Object.values(res.data.error).map((item, index) => {
             toast.error(item);

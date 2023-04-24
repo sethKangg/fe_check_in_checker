@@ -120,6 +120,7 @@ const ModalViewProject = (pros) => {
       let res = await putStatusProject(dataView.id, 2);
       if (res.status == 200) {
          toast.success(`Cập nhật dự án ${dataView.projectName} thành công`);
+         setShowDone(false);
          handleClose();
          await fetchListProject(1, "");
       } else {
@@ -142,6 +143,9 @@ const ModalViewProject = (pros) => {
       setShowInfo(true);
       setParamId(item);
    };
+   const handleClickDone = () => {
+      setShowDone(true);
+   };
    // const handleClickSet = (item) => {
    //    setShowSet(true);
    //    setDataSet(item);
@@ -160,7 +164,7 @@ const ModalViewProject = (pros) => {
                      </div>
                      <div>
                         {dataView.status === "Processing" && (
-                           <button className="btn btn-warning" onClick={() => handleDone()}>
+                           <button className="btn btn-warning" onClick={() => handleClickDone()}>
                               Kết thúc dự án
                            </button>
                         )}

@@ -92,7 +92,7 @@ const getAllGroup = (page, size, groupName, staff) => {
 const postCreateGroup = (groupName, groupLeader) => {
    let data = {
       groupName: groupName,
-      groupLeader: groupLeader,
+      groupLeaderId: groupLeader,
    };
    return axios.post(`groups/addGroup`, data);
 };
