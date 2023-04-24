@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import "./Report.css";
 import moment from "moment";
 import { Form } from "react-bootstrap";
-
+import axios from "../../utils/axiosCustomize";
 import { useNavigate } from "react-router-dom";
 const MonthlyReport = () => {
    var XLSX = require("xlsx");
@@ -33,10 +33,7 @@ const MonthlyReport = () => {
    }, [date]);
 
    const exportExcel = () => {
-      window.open(
-         `https://cts-backend.azurewebsites.net/reports/export?monthYear=${date}`,
-         "_blank",
-      );
+      window.open(`${axios.defaults.baseURL}reports/export?monthYear=${date}`, "_blank");
    };
    const [selectedMonth, setSelectedMonth] = useState("");
 

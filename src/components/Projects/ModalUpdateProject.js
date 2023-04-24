@@ -129,9 +129,6 @@ const ModalUpdateProject = (pros) => {
                               className="basic-single"
                               classNamePrefix="select"
                               defaultValue={newGroupArray[0]}
-                              // isClearable={true}
-                              // isSearchable={true}
-                              // name="color"
                               options={newGroupArray}
                            />
                         </div>

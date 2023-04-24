@@ -5,6 +5,7 @@ import { getAllGroup } from "../../services/apiService";
 import ModalAddGroup from "./ModalAddGroup";
 import ModalViewGroup from "./ModalViewGroup";
 import { useSelector } from "react-redux";
+import ModalUpdateGroup from "./ModalUpdateGroup";
 const Groups = () => {
    const numCards = 35; // number of cards to display
    const cards = [];
@@ -13,6 +14,8 @@ const Groups = () => {
    const [searchValue, setSearchValue] = useState("");
    const [showModalView, setShowModalView] = useState(false);
    const [showModal, setShowModal] = useState(false);
+   const [showModalUp, setShowModalUp] = useState(false);
+   const [dataUp, setDataUp] = useState([]);
    const [dataView, setDataView] = useState([]);
    const PAGE_LIMIT = 10;
    const debouncedSearchTerm = useDebounce(searchValue, 800);
@@ -54,6 +57,10 @@ const Groups = () => {
    const handleShowHideModal = (value) => {
       setShowModal(value);
    };
+   const handleUpdate = (item) => {
+      setShowModalUp(true);
+      setDataUp(item);
+   };
    // create an array of cards to display
    for (let i = 1; i <= numCards; i++) {
       cards.push(
@@ -62,7 +69,7 @@ const Groups = () => {
                <Card.Body>
                   <Card.Title>Nhóm {i}</Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">Group Leader</Card.Subtitle>
-                  <Card.Text>Status</Card.Text>
+                  <Card.Text>Trạng thái</Card.Text>
                   <Button variant="primary">View</Button>
                </Card.Body>
             </Card>
@@ -112,8 +119,26 @@ const Groups = () => {
                         <Col xs={12} sm={8} md={6} lg={4} key={group.id} className="mt-3  ">
                            <Card>
                               <Card.Body>
-                                 <Card.Title>
-                                    <b>{group.groupName}</b>
+                                 <Card.Title className="d-flex w-100 justify-content-between align-items-center">
+                                    <div
+                                       style={{
+                                          whiteSpace: "nowrap",
+                                          width: "1000px",
+                                          overflow: "hidden",
+                                          textOverflow: "ellipsis",
+                                       }}
+                                    >
+                                       <b>{group.groupName}</b>
+                                    </div>
+                                    <div>
+                                       <button
+                                          className="btn btn-warning"
+                                          onClick={() => handleUpdate(group)}
+                                       >
+                                          {" "}
+                                          Sửa
+                                       </button>
+                                    </div>
                                  </Card.Title>
                                  <Card.Subtitle className="mb-2 text-muted">
                                     Trưởng nhóm: <b>{group.groupLeaderName}</b>
@@ -143,6 +168,12 @@ const Groups = () => {
             />
          )}
          <ModalViewGroup show={showModalView} setShow={setShowModalView} dataView={dataView} />
+         <ModalUpdateGroup
+            show={showModalUp}
+            setShow={setShowModalUp}
+            data={dataUp}
+            fetchListGroup={fetchListGroup}
+         />
       </>
    );
 };

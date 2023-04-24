@@ -28,15 +28,13 @@ const Login = () => {
          setLoading(false);
          // console.log("data ", data);
          dispatch(doLogin(data));
-         if (data.data.accountDTO.roleName === "Admin") {
-            // console.log("ISADMIN");
-            // navigate("/manage/manage-account");
-         } else {
-            // navigate("/");
-         }
       } else {
          setLoading(false);
-         toast.error("Có lỗi xảy ra trong quá trình đăng nhập");
+         // toast.error("Có lỗi xảy ra trong quá trình đăng nhập");
+         Object.values(data.data.error).map((item, index) => {
+            // msgToast += item + "\n";
+            toast.error(item);
+         });
       }
    };
 

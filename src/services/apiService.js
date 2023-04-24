@@ -298,6 +298,12 @@ const exportData = (date) => {
 const setStaffPm = (staffId) => {
    return axios.put(`groups/setStaffToPM?staffId=${staffId}`);
 };
+const updateGroup = (groupId, groupName) => {
+   let data = {
+      groupName: groupName,
+   };
+   return axios.put(`groups/editGroup/${groupId}`, data);
+};
 export {
    putLevelStaff,
    putStatusAccount,
@@ -348,4 +354,5 @@ export {
    getMonthlyReport,
    exportData,
    setStaffPm,
+   updateGroup,
 };

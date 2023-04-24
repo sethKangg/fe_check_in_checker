@@ -22,11 +22,11 @@ const Home = () => {
                      fontWeight: "600px",
                   }}
                >
-                  Chào mừng đến với trang web chấm công sử dụng AI bot
+                  Chào mừng đến với hệ thống quản lý chấm công
                </h1>
                <div className="mt-3">
-                  Công cụ chấm công sử dụng BOT nhận diện khuôn mặt; giúp quản lý thời gian làm việc
-                  hiệu quả và chuyên nghiệp hơn.
+                  Công cụ chấm công sử dụng Server nhận diện khuôn mặt, giúp quản lý thời gian làm
+                  việc hiệu quả và chuyên nghiệp hơn.
                </div>
                <div className="mt-3"></div>
                {!isAuthenticated && (
