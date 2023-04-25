@@ -29,25 +29,23 @@ const Home = () => {
                   việc hiệu quả và chuyên nghiệp hơn.
                </div>
                <div className="mt-3"></div>
-               {!isAuthenticated && (
                   <div className="mt-3 w-100 d-flex justify-content-center">
-                     <div className="text-box">
-                        <div className="lg_row" style={{}}>
-                           <p
-                              onClick={() => navigate("/check_in")}
-                              style={{
-                                 border: "2px solid black",
-                                 color: "#000",
-                                 display: "flex",
-                                 alignItems: "center",
-                              }}
-                           >
-                              <AiOutlineArrowRight /> Chấm công
-                           </p>
-                        </div>
+                  <div className="text-box">
+                     <div className="lg_row" style={{}}>
+                        <p
+                           onClick={() => navigate("/check_in")}
+                           style={{
+                              border: "2px solid black",
+                              color: "#000",
+                              display: "flex",
+                              alignItems: "center",
+                           }}
+                        >
+                           <AiOutlineArrowRight /> Chấm công
+                        </p>
                      </div>
                   </div>
-               )}
+               </div>
             </div>
             <div className="d-flex justify-content-end w-50">
                <video

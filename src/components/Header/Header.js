@@ -89,6 +89,12 @@ const Header = () => {
                      </>
                   ) : (
                      <>
+                        {/* <button
+                           className="btn border-dark btn-info mx-2 p-2 border-2"
+                           onClick={() => navigate("check_in")}
+                        >
+                           Chấm công
+                        </button> */}
                         <NavDropdown
                            title={account.staffName + " - " + account.roleName}
                            id="basic-nav-dropdown"

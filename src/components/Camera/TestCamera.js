@@ -18,7 +18,7 @@ function TestCamera() {
    }, []);
    const navigate = useNavigate();
    const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-   if (isAuthenticated) return navigate("/");
+   // if (isAuthenticated) return navigate("/");
 
    function startCamera(idealFacingMode, idealResolution) {
       cameraPhoto
