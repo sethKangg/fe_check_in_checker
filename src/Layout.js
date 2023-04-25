@@ -32,7 +32,14 @@ const Layout = () => {
             <Route path="/" element={<App />}>
                <Route index element={<Home />} />
                <Route path="/users" element={<User />} />
-               <Route path="/check_in" element={<TestCamera />}></Route>
+               <Route
+                  path="/check_in"
+                  element={
+                     // <PrivateRoute acceptRole={[2, 3, 4, 5]}>
+                     <TestCamera />
+                     // </PrivateRoute>
+                  }
+               ></Route>
                <Route path="/profile/:username" element={<Profile />}></Route>
                <Route
                   path="/group"
@@ -50,10 +57,31 @@ const Layout = () => {
                      </PrivateRoute>
                   }
                ></Route>
-               <Route path="/calendar" element={<Calendar />}></Route>
+               <Route
+                  path="/calendar"
+                  element={
+                     <PrivateRoute acceptRole={[2, 3, 4, 5]}>
+                        <Calendar />
+                     </PrivateRoute>
+                  }
+               ></Route>
                <Route path="/allCamera" element={<AllCamera />}></Route>
-               <Route path="/report" element={<Report />}></Route>
-               <Route path="/monthly-report" element={<MonthlyReport />}></Route>
+               <Route
+                  path="/report"
+                  element={
+                     <PrivateRoute acceptRole={[2, 3, 4, 5]}>
+                        <Report />
+                     </PrivateRoute>
+                  }
+               ></Route>
+               <Route
+                  path="/monthly-report"
+                  element={
+                     <PrivateRoute acceptRole={[2]}>
+                        <MonthlyReport />
+                     </PrivateRoute>
+                  }
+               ></Route>
                {/* <Route path="/testCamera" element={<TestCamera />}></Route> */}
             </Route>
             <Route

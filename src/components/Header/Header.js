@@ -44,7 +44,7 @@ const Header = () => {
                         Quản lý
                      </NavLink>
                   ) : null}
-                  {isAuthenticated && (
+                  {isAuthenticated && account.roleName !== "Admin" && (
                      <NavLink className="nav-link" to={`/calendar`}>
                         Lịch
                      </NavLink>
@@ -59,7 +59,7 @@ const Header = () => {
                         Nhóm
                      </NavLink>
                   ) : null}
-                  {isAuthenticated && (
+                  {isAuthenticated && account.roleName !== "Admin" && (
                      <NavLink className="nav-link" to={"/report"}>
                         Yêu cầu
                      </NavLink>
