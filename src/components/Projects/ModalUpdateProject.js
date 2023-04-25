@@ -89,18 +89,21 @@ const ModalUpdateProject = (pros) => {
    const newArray = listStaff.map((item) => {
       return { value: item.id, label: `${item.fullName} #${item.id}` };
    });
-   let newGroupArray = null;
-   if (account.roleName !== "Project manager") {
-      newGroupArray = [
-         { value: account.groupId, label: `${account.groupName} #${account.groupId}` },
-      ];
-      // newGroupArray = listGroup.map((item) => {
-      //    return { value: item.id, label: `${item.groupName} #${item.id}` };
-      // });
-   } else
-      newGroupArray = [
-         { value: account.groupId, label: `${account.groupName} #${account.groupId}` },
-      ];
+   let newGroupArray = [
+      { value: account.groupId, label: `${account.groupName} #${account.groupId}` },
+   ];
+   // if (account.roleName !== "Project manager") {
+   //    newGroupArray = [
+   //       { value: account.groupId, label: `${account.groupName} #${account.groupId}` },
+   //    ];
+   //    // newGroupArray = listGroup.map((item) => {
+   //    //    return { value: item.id, label: `${item.groupName} #${item.id}` };
+   //    // });
+   // } else
+   //    newGroupArray = [
+   //       { value: account.groupId, label: `${account.groupName} #${account.groupId}` },
+   //    ];
+   console.log(account.groupId, account.groupName);
    return (
       <>
          <Modal show={show} onHide={handleClose} size="xl">

@@ -62,7 +62,7 @@ const ModalAddGroup = (pros) => {
          });
       }
       pros.setCurrentPage(1);
-      await fetchListGroup(1, PAGE_LIMIT, "", "");
+      await fetchListGroup(1, PAGE_LIMIT, "");
    };
 
    const handleSelectGroupLeader = (e) => {

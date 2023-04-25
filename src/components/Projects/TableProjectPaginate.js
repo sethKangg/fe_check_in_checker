@@ -37,6 +37,9 @@ const TableProjectPaginate = (pros) => {
                                        showOptionsIndex === index ? "hidden-title" : "normal-title"
                                     }
                                     onClick={() => handleClickView(true, task)}
+                                    style={{
+                                       cursor: "pointer",
+                                    }}
                                  >
                                     {task.projectName}
                                  </Card.Title>

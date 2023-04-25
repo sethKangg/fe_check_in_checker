@@ -131,7 +131,7 @@ const ModalViewStaff = (pros) => {
                      <div>
                         <button className="btn btn-danger" onClick={() => setShowDelete(true)}>
                            {/* <button className="btn btn-danger" onClick={() => clickDelete()}> */}
-                           Xóa ảnh training
+                           Xóa ảnh nhận diện
                         </button>
                      </div>
                   </div>

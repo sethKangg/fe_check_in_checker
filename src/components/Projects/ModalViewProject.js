@@ -104,6 +104,7 @@ const ModalViewProject = (pros) => {
    }, [show, currentPage]);
 
    const handleSubmit = async () => {
+      if (listSelected.length === 0) return toast.error("Xin hãy chọn thành viên trước");
       // console.log(listSelected);
       let res = await postStaffToProject(listSelected, dataView.id);
       // if (res.status === 200) {
@@ -211,6 +212,7 @@ const ModalViewProject = (pros) => {
                                  // name="color"
                                  options={newArray}
                                  components={{ NoOptionsMessage }}
+                                 placeholder={<div>Chọn nhân viên muốn thêm</div>}
                               />
                            </>
                         )}
@@ -239,9 +241,11 @@ const ModalViewProject = (pros) => {
                <Button variant="secondary" onClick={handleClose}>
                   Đóng
                </Button>
-               <Button variant="primary" onClick={handleSubmit}>
-                  Thêm thành viên
-               </Button>
+               {dataView.status === "Processing" && (
+                  <Button variant="primary" onClick={handleSubmit}>
+                     Thêm thành viên
+                  </Button>
+               )}
             </Modal.Footer>
             <ModalRemoveStaff
                PAGE_LIMIT={LIMIT_MEMBER}

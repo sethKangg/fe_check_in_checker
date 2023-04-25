@@ -128,62 +128,59 @@ const ViewCaptured = () => {
                </InputGroup>
             </div>
          )}
-         <div className=" d-flex justify-content-between ">
-            <div className="">
-               <div className="mb-1">Bắt đầu từ</div>
-               <input
-                  type="date"
-                  max={endDay}
-                  min={minDate}
-                  onChange={(e) => {
-                     handleSD(e);
-                  }}
-                  value={startDay}
-                  pattern="\d{1,2}/\d{1,2}/\d{4}"
-                  placeholder="dd/MM/yyyy"
-               />
+         <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between mt-3 align-items-center ">
+               <div className="d-flex gap-3 ">
+                  <button
+                     className={`${indexBtn === 1 ? "btn-view-active" : "btn-view"}`}
+                     onClick={(e) => clickBtnIdx(1)}
+                  >
+                     TẤT CẢ
+                  </button>
+                  <button
+                     className={`${indexBtn === 2 ? "btn-view-active" : "btn-view"}`}
+                     onClick={(e) => clickBtnIdx(2)}
+                  >
+                     BẢN THÂN
+                  </button>
+                  <button
+                     className={`${indexBtn === 3 ? "btn-view-active" : "btn-view"}`}
+                     onClick={(e) => clickBtnIdx(3)}
+                  >
+                     ẢNH LỖI
+                  </button>
+               </div>
             </div>
 
-            <div className="">
-               <div className="mb-1">Đến ngày </div>
-               <input
-                  type="date"
-                  max={maxDate}
-                  min={startDay}
-                  onChange={async (e) => handleED(e)}
-                  value={endDay}
-                  // pattern="\d{1,2}/\d{1,2}/\d{4}"
-                  // placeholder="dd/MM/yyyy"
-               />
-            </div>
-         </div>
-         <div className="d-flex justify-content-between mt-3 align-items-center ">
-            <div className="d-flex gap-3 ">
-               <button
-                  className={`${indexBtn === 1 ? "btn-view-active" : "btn-view"}`}
-                  onClick={(e) => clickBtnIdx(1)}
-               >
-                  TẤT CẢ
-               </button>
-               <button
-                  className={`${indexBtn === 2 ? "btn-view-active" : "btn-view"}`}
-                  onClick={(e) => clickBtnIdx(2)}
-               >
-                  BẢN THÂN
-               </button>
-               <button
-                  className={`${indexBtn === 3 ? "btn-view-active" : "btn-view"}`}
-                  onClick={(e) => clickBtnIdx(3)}
-               >
-                  ẢNH LỖI
-               </button>
-            </div>
+            <div className=" d-flex gap-4 ">
+               <div className="">
+                  <div className="mb-1">Bắt đầu từ</div>
+                  <input
+                     type="date"
+                     max={endDay}
+                     min={minDate}
+                     onChange={(e) => {
+                        handleSD(e);
+                     }}
+                     value={startDay}
+                     pattern="\d{1,2}/\d{1,2}/\d{4}"
+                     placeholder="dd/MM/yyyy"
+                  />
+               </div>
 
-            {/* <div className="d-flex gap-3 ">
-               <button className="btn-slash">Cài đặt</button>
-               <button className="btn-slash">Sửa</button>
-               <button className="btn-slash">Chọn tất cả</button>
-            </div> */}
+               <div className="">
+                  <div className="mb-1">Đến ngày </div>
+                  <input
+                     type="date"
+                     max={maxDate}
+                     min={startDay}
+                     onChange={async (e) => handleED(e)}
+                     value={endDay}
+                     // pattern="\d{1,2}/\d{1,2}/\d{4}"
+                     // placeholder="dd/MM/yyyy"
+                  />
+               </div>
+            </div>
          </div>
          <div>
             <TableCaptured

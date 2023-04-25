@@ -75,19 +75,22 @@ const Profile = (pros) => {
             </div>
          </div>
          <div className="right">
-            {account.username === userData.username && (
-               <div className="btn-edit d-flex justify-content-end gap-3">
-                  <button
-                     className="btn btn-warning"
-                     onClick={() => handleClickUpdate(true, userData)}
-                  >
-                     Cập nhật tài khoản
-                  </button>
+            <div className="btn-edit d-flex justify-content-end gap-3">
+               {account.username === userData.username ||
+                  (account.roleName === "Human resource" && (
+                     <button
+                        className="btn btn-warning"
+                        onClick={() => handleClickUpdate(true, userData)}
+                     >
+                        Cập nhật tài khoản
+                     </button>
+                  ))}
+               {account.username === userData.username && (
                   <button className="btn btn-warning" onClick={() => handleClickCP(true, userData)}>
                      Đặt lại mật khẩu
                   </button>
-               </div>
-            )}
+               )}
+            </div>
             <div className="info mt-3">
                <h1 className="d-flex justify-content-center ">Thông tin tài khoản</h1>
                <div className="info_data">
