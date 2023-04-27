@@ -76,15 +76,20 @@ const Profile = (pros) => {
          </div>
          <div className="right">
             <div className="btn-edit d-flex justify-content-end gap-3">
-               {account.username === userData.username ||
-                  (account.roleName === "Human resource" && (
-                     <button
-                        className="btn btn-warning"
-                        onClick={() => handleClickUpdate(true, userData)}
-                     >
-                        Cập nhật tài khoản
-                     </button>
-                  ))}
+
+               {account.username === userData.username ? <button
+                  className="btn btn-warning"
+                  onClick={() => handleClickUpdate(true, userData)}
+               >
+                  Cập nhật tài khoản
+               </button> : account.roleName === "Human resource" ? <button
+                  className="btn btn-warning"
+                  onClick={() => handleClickUpdate(true, userData)}
+               >
+                  Cập nhật tài khoản
+               </button> : (
+                  <></>
+               )}
                {account.username === userData.username && (
                   <button className="btn btn-warning" onClick={() => handleClickCP(true, userData)}>
                      Đặt lại mật khẩu
@@ -92,14 +97,21 @@ const Profile = (pros) => {
                )}
             </div>
             <div className="info mt-3">
-               <h1 className="d-flex justify-content-center ">Thông tin tài khoản</h1>
+               <h1
+                  className="d-flex justify-content-center "
+                  onClick={() => {
+                     console.log(account.username === userData.username, account.roleName === "Human resource");
+                  }}
+               >
+                  Thông tin tài khoản
+               </h1>
                <div className="info_data">
                   <div className="data">
                      <h3>Email</h3>
                      <p>{userData.email}</p>
                   </div>
                   <div className="data">
-                     <h3>Phone</h3>
+                     <h3>Số điện thoại</h3>
                      <p>{userData.phone}</p>
                   </div>
                </div>
@@ -126,10 +138,14 @@ const Profile = (pros) => {
                      {userData.listProject &&
                         userData.listProject.map((e, i) => (
                            <div key={i} className="d-flex gap-3 mb-3">
-                              <div>Tên dự án: {userData.listProject[i].projectName} </div>
-                              <div>Thời gian: {userData.listProject[i].createDate} </div>
+                              <div>Tên dự án: {e.projectName} </div>
+                              <div>Thời gian: {e.createDate} </div>
                               <div>
-                                 Trạng thái: <b>{userData.listProject[i].status}</b>
+                                 Trạng thái: <b> {e.status === "Done"
+                                    ? "Hoàn thành"
+                                    : e.status === "Cancel"
+                                       ? "Hủy bỏ"
+                                       : "Đang tiến hành"}</b>
                               </div>
                            </div>
                         ))}
