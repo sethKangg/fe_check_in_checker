@@ -15,6 +15,11 @@ const ModalRemoveStaffGroup = (pros) => {
       console.log(res);
       if (res.status == 200) {
          toast.success(`Xoá thành viên ${dataDelete.fullName} #${dataDelete.id} thành công`);
+      } else {
+         Object.values(res.data.error).map((item, index) => {
+            // msgToast += item + "\n";
+            toast.error(item);
+         });
       }
       // handleClose(projectId, 1, PAGE_LIMIT);
       // pros.setCurrentPage(1);

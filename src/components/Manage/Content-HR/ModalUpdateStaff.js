@@ -29,18 +29,22 @@ const ModalUpdateStaff = (pros) => {
    const updateStaffLevel = async () => {
       let res = await putLevelStaff("" + dataUpdate.id, "" + currentLevel, getRoleId(role));
       // console.log("update status: ", res);
-      if ((res.status = 200)) {
+      if (res.status === 200) {
          toast.success(`Cập nhật tài khoản ${dataUpdate.fullName} thành công`);
          await pros.fetchListUser(pros.currentPage, PAGE_LIMIT, "", "");
          handleClose();
       } else {
-         toast.error("Có lỗi xảy ra trong tiến trình cập nhật thông tin nhaan viên");
+         // toast.error("Có lỗi xảy ra trong tiến trình cập nhật thông tin nhaan viên");
+         Object.values(res.data.error).map((item, index) => {
+            // msgToast += item + "\n";
+            toast.error(item);
+         });
       }
    };
    useEffect(() => {
       // console.log('dataupdate', dataUpdate);
       if (show === true) {
-         console.log(dataUpdate);
+         // console.log(dataUpdate);
          // console.log("dataUpdate >>>.", dataUpdate);
          setCurrentLevel("" + dataUpdate.promotionLevelId);
          SetRole(dataUpdate.roleName);

@@ -304,6 +304,9 @@ const updateGroup = (groupId, groupName) => {
    };
    return axios.put(`groups/editGroup/${groupId}`, data);
 };
+const getListStaffTS = (staffId, projectId) => {
+   return axios.get(`staffs/getListStaffForTimeSheet?staffId=${staffId}&projectId=${projectId}`);
+};
 export {
    putLevelStaff,
    putStatusAccount,
@@ -355,4 +358,5 @@ export {
    exportData,
    setStaffPm,
    updateGroup,
+   getListStaffTS,
 };

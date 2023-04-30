@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getCalendar, getStaff } from "../../services/apiService";
+import { getAllProjects, getCalendar, getListStaffTS, getStaff } from "../../services/apiService";
 import "./Calendar.css";
 import ViewCalendar from "./ViewCalendar";
 import { toast } from "react-toastify";
@@ -15,7 +15,9 @@ const Calendar = (pros) => {
    const [show, setShow] = useState(false);
    const [dataClick, setDataClick] = useState("");
    const [dataList, setDataList] = useState([]);
+   const [projectList, setProjectList] = useState([]);
    const [selectValue, setSelectValue] = useState([]);
+   const [projectCurrent, setProjectCurrent] = useState("0");
    const today = new Date();
    // const [activeDay, setActiveDay] = useState("");
    const [month, setMonth] = useState(today.getMonth());
@@ -27,6 +29,7 @@ const Calendar = (pros) => {
    const [listDay, setListDay] = useState([]);
    const [isLoading, setIsLoading] = useState(false);
    const [isLoading1, setIsLoading1] = useState(false);
+   const [isLoading2, setIsLoading2] = useState(false);
    const months = [
       "Tháng 1",
       "Tháng 2",
@@ -99,9 +102,10 @@ const Calendar = (pros) => {
       if (account.roleName === "Staff") return;
       try {
          setIsLoading1(true);
-         let res = await getStaff(1, 99, "", 2);
+         let res = await getListStaffTS(account.id, projectCurrent);
+         // let res = await getStaff(1, 99, "", 2);
          if (res.status === 200) {
-            setDataList(res.data.list);
+            setDataList(res.data);
             setSelectValue(account.id);
             // console.log(res.data);
          } else {
@@ -112,9 +116,24 @@ const Calendar = (pros) => {
          setIsLoading1(false);
       }
    };
+   const fetchListProject = async () => {
+      try {
+         setIsLoading2(true);
+         let res = await getAllProjects(1, 99, "", account.id, 0);
+         if (res.status === 200) {
+            setProjectList(res.data.list);
+         }
+      } catch {
+      } finally {
+         setIsLoading2(false);
+      }
+   };
+   useEffect(() => {
+      fetchListProject();
+   }, []);
    useEffect(() => {
       fetchListStaff();
-   }, []);
+   }, [projectCurrent]);
    useEffect(() => {
       fetchDataCalendar();
       initCalendar();
@@ -129,9 +148,15 @@ const Calendar = (pros) => {
    const newArray = dataList.map((item) => {
       return { value: item.id, label: `${item.fullName} #${item.id}` };
    });
+   const projectArray = projectList.map((item) => {
+      return { value: item.id, label: `${item.projectName}` };
+   });
    const handleSelect = (e) => {
       setIdParams(e.value);
       setNameTitle(e.label);
+   };
+   const handleSelectProject = (e) => {
+      setProjectCurrent(e.value);
    };
    const checkPrev = (month, year) => {
       try {
@@ -281,24 +306,39 @@ const Calendar = (pros) => {
                      color: "#fff !important",
                   }}
                >
-                  {isLoading1 ? (
+                  {isLoading1 || isLoading || isLoading2 ? (
                      "Đang tải dữ liệu"
                   ) : account.roleName === "Staff" ? (
                      <></>
                   ) : (
-                     <Select
-                        // ref={assignGroupLeader}
-                        onChange={(event) => handleSelect(event)}
-                        className="basic-single"
-                        classNamePrefix="rt_sl_option"
-                        value={selectValue}
-                        options={newArray}
-                        isSearchable={true}
-                        // menuIsOpen={true}
-                        // closeMenuOnSelect={false}
-                        placeholder={<div>Chọn lịch theo nhân viên</div>}
-                        components={{ NoOptionsMessage }}
-                     />
+                     <>
+                        {account.roleName === "Project manager" && (
+                           <Select
+                              // ref={assignGroupLeader}
+                              onChange={(event) => handleSelectProject(event)}
+                              className="basic-single"
+                              classNamePrefix="rt_sl_option"
+                              value={projectCurrent}
+                              options={projectArray}
+                              isSearchable={true}
+                              placeholder={<div>Chọn dự án</div>}
+                              components={{ NoOptionsMessage }}
+                           />
+                        )}
+                        <Select
+                           // ref={assignGroupLeader}
+                           onChange={(event) => handleSelect(event)}
+                           className="basic-single"
+                           classNamePrefix="rt_sl_option"
+                           value={selectValue}
+                           options={newArray}
+                           isSearchable={true}
+                           // menuIsOpen={true}
+                           // closeMenuOnSelect={false}
+                           placeholder={<div>Chọn lịch theo nhân viên</div>}
+                           components={{ NoOptionsMessage }}
+                        />
+                     </>
                   )}
                </div>
 
