@@ -26,12 +26,10 @@ const ModalUpdateProject = (pros) => {
       setIsLoading1(true);
       try {
          const response = await getAllGroup(1, 99, "", 0);
-         //   const data = await response.json();
-         //console.log(data);
          if (response.status == 200) {
             // console.log("LIST MEMBER: ", response);
             setListGroup(response.data.list);
-            setAssignGroup(response?.data?.list[dataUpdate.groupId - 1]?.id);
+            // setAssignGroup(response?.data?.list[dataUpdate.groupId - 1]?.id);
          }
       } catch (error) {
          // console.log("Error", error);
@@ -43,27 +41,17 @@ const ModalUpdateProject = (pros) => {
    useEffect(() => {
       const fetchData = async () => {
          if (show === true) {
-            // let res = await fetchListProjectLeader();
+            console.log("data UPdate: ", dataUpdate);
             let res1 = await fetchListGroup();
             setNewGroupName(dataUpdate.projectName);
          }
-         // Process the response here
       };
 
       fetchData();
    }, [show]);
 
    const handleSubmit = async () => {
-      //validate
-      // if (!values.newGroupName) {
-      //    return toast.error("Tên nhóm không được để trống");
-      // }
-      //api
-
-      let res = await putProject(dataUpdate.id, newGroupName, dataUpdate.pmId, assignGroup);
-      // console.log(newGroupName, assignPM, assignGroup);
-      // let res = await postAddProject(newGroupName, assignPM);
-
+      let res = await putProject(dataUpdate.id, newGroupName, dataUpdate.pmId, dataUpdate.groupId);
       console.log(res);
       if (res.status === 200) {
          toast.success(`Sửa dự án ${newGroupName} thành công `);
@@ -92,17 +80,6 @@ const ModalUpdateProject = (pros) => {
    let newGroupArray = [
       { value: account.groupId, label: `${account.groupName} #${account.groupId}` },
    ];
-   // if (account.roleName !== "Project manager") {
-   //    newGroupArray = [
-   //       { value: account.groupId, label: `${account.groupName} #${account.groupId}` },
-   //    ];
-   //    // newGroupArray = listGroup.map((item) => {
-   //    //    return { value: item.id, label: `${item.groupName} #${item.id}` };
-   //    // });
-   // } else
-   //    newGroupArray = [
-   //       { value: account.groupId, label: `${account.groupName} #${account.groupId}` },
-   //    ];
    console.log(account.groupId, account.groupName);
    return (
       <>
