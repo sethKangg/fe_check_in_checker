@@ -130,15 +130,16 @@ const Groups = () => {
                                     >
                                        <b>{group.groupName}</b>
                                     </div>
-                                    <div>
-                                       <button
-                                          className="btn btn-warning"
-                                          onClick={() => handleUpdate(group)}
-                                       >
-                                          {" "}
-                                          Sửa
-                                       </button>
-                                    </div>
+                                    {account.roleName === "Human resource" && (
+                                       <div>
+                                          <button
+                                             className="btn btn-warning"
+                                             onClick={() => handleUpdate(group)}
+                                          >
+                                             Sửa
+                                          </button>
+                                       </div>
+                                    )}
                                  </Card.Title>
                                  <Card.Subtitle className="mb-2 text-muted">
                                     Trưởng nhóm: <b>{group.groupLeaderName}</b>
