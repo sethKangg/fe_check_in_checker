@@ -219,13 +219,13 @@ const Calendar = (pros) => {
                <div className="calendar">
                   <div className="month">
                      <i className="fas fa-angle-left prev" onClick={() => prevMonth()}>
-                        Tháng trước
+                        &#60; Tháng trước
                      </i>
                      <div className="date" onClick={() => console.log(listDay)}>
                         <b>{months[month] + " Năm " + year}</b>
                      </div>
                      <i className="fas fa-angle-right next" onClick={() => nextMonth()}>
-                        Tháng sau
+                        Tháng sau &#62;
                      </i>
                   </div>
                   <div className="weekdays">

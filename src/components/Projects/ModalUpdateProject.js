@@ -5,7 +5,12 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Select from "react-select";
 import { toast } from "react-toastify";
-import { getAllGroup, getListPMAvaiable, putProject } from "../../services/apiService";
+import {
+   getAllGroup,
+   getListEditGroup,
+   getListPMAvaiable,
+   putProject,
+} from "../../services/apiService";
 import { useSelector } from "react-redux";
 
 const ModalUpdateProject = (pros) => {
@@ -37,7 +42,7 @@ const ModalUpdateProject = (pros) => {
          setIsLoading1(false);
       }
    };
-
+   
    useEffect(() => {
       const fetchData = async () => {
          if (show === true) {
@@ -112,6 +117,7 @@ const ModalUpdateProject = (pros) => {
                               options={newGroupArray}
                            />
                         </div>
+
                      </>
                   ) : (
                      <div className=" col-md-4  ">Đang tải dữ liệu ...</div>

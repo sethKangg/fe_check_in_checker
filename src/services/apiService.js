@@ -133,8 +133,8 @@ const deleteMemberInProject = (memberId, projectId) => {
    });
 };
 
-const fetchListAvaiableStaff = (groupId) => {
-   return axios.get(`staffs/getAvailableStaff/${groupId}`);
+const fetchListAvaiableStaff = (groupId, projectId) => {
+   return axios.get(`staffs/getAvailableStaff/${groupId}?projectId=${projectId}`);
 };
 
 const putStatusProject = (projectId, statusNum) => {
@@ -298,14 +298,18 @@ const exportData = (date) => {
 const setStaffPm = (staffId) => {
    return axios.put(`groups/setStaffToPM?staffId=${staffId}`);
 };
-const updateGroup = (groupId, groupName) => {
+const updateGroup = (groupId, groupName, GL) => {
    let data = {
       groupName: groupName,
+      groupLeaderId: GL,
    };
    return axios.put(`groups/editGroup/${groupId}`, data);
 };
 const getListStaffTS = (staffId, projectId) => {
    return axios.get(`staffs/getListStaffForTimeSheet?staffId=${staffId}&projectId=${projectId}`);
+};
+const getListEditGroup = (groupId) => {
+   return axios.get(`groups/getListPMInGroup?groupId=${groupId}`);
 };
 export {
    putLevelStaff,
@@ -359,4 +363,5 @@ export {
    setStaffPm,
    updateGroup,
    getListStaffTS,
+   getListEditGroup,
 };

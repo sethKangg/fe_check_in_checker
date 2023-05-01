@@ -74,7 +74,7 @@ const ModalViewProject = (pros) => {
    const fetchListStaff = async () => {
       setIsLoading1(true);
       try {
-         const response = await fetchListAvaiableStaff(dataView.groupId);
+         const response = await fetchListAvaiableStaff(dataView.groupId, dataView.id);
          //   const data = await response.json();
          //console.log(data);
          if (response.status == 200) {
@@ -94,7 +94,7 @@ const ModalViewProject = (pros) => {
          if (show === true) {
             let res = await fetchListMemberProject(dataView.id, currentPage, LIMIT_MEMBER);
             let res2 = await fetchListStaff();
-            // console.log(dataView);
+            console.log(dataView);
          }
          // let res = await fetchListMemberProject(dataView.id);
          // Process the response here
@@ -184,7 +184,7 @@ const ModalViewProject = (pros) => {
                               </label>
                            </div>
                            <div>
-                              <label>Thuộc nhóm: {dataView.projectName}</label>
+                              <label>Thuộc nhóm: {dataView.group}</label>
                            </div>
                            <div>
                               <label>

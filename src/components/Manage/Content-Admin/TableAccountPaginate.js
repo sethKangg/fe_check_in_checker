@@ -45,8 +45,11 @@ const TableAccountPaginate = (pros) => {
                               >
                                  Cập nhật
                               </button> */}
+
                               <button
-                                 className="btn btn-danger mr-3"
+                                 className={`btn mr-3  ${
+                                    item.enable ? "btn-danger" : "btn-primary"
+                                 }`}
                                  onClick={() => pros.handleDelete(item)}
                               >
                                  {item.enable ? "Khóa tài khoản" : "Mở lại tài khoản"}
