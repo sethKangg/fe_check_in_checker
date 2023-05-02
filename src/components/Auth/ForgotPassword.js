@@ -77,7 +77,7 @@ const ForgotPassword = () => {
             <div className="text-box">
                <p>Chào mừng đến với</p>
                <h1>CTS</h1>
-               <h3>Website chấm công </h3>
+               <h3>Hệ thống quản lý chấm công </h3>
                <div className="lg_row">
                   <p onClick={() => navigate("/")}>Trang chủ</p>
                   <p onClick={() => navigate("/check_in")}>Điểm danh</p>

@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import storage from "redux-persist/es/storage";
-import localStorage from "redux-persist/es/storage";
-import videoHomePage from "../../assets/intro-home.mp4";
-import profile_1 from "../../assets/profile-2.jpg";
+
+import png from "../../assets/CTS_2.png";
 
 import { AccessToken } from "../Auth/auth";
 import { useNavigate } from "react-router-dom";
@@ -24,12 +22,12 @@ const Home = () => {
                >
                   Chào mừng đến với hệ thống quản lý chấm công
                </h1>
-               <div className="mt-3">
+               {/* <div className="mt-3">
                   Công cụ chấm công sử dụng Server nhận diện khuôn mặt, giúp quản lý thời gian làm
                   việc hiệu quả và chuyên nghiệp hơn.
-               </div>
+               </div> */}
                <div className="mt-3"></div>
-                  <div className="mt-3 w-100 d-flex justify-content-center">
+               <div className="mt-3 w-100 d-flex justify-content-center">
                   <div className="text-box">
                      <div className="lg_row" style={{}}>
                         <p
@@ -48,7 +46,7 @@ const Home = () => {
                </div>
             </div>
             <div className="d-flex justify-content-end w-50">
-               <video
+               {/* <video
                   className=" right-0"
                   width="100%"
                   autoPlay
@@ -59,7 +57,8 @@ const Home = () => {
                   }}
                >
                   <source src={videoHomePage} type="video/mp4" />
-               </video>
+               </video> */}
+               <img src={png} width={"100%"} />
             </div>
          </div>
       </div>

@@ -96,7 +96,7 @@ const Header = () => {
                            Chấm công
                         </button> */}
                         <NavDropdown
-                           title={account.staffName + " - " + account.roleName}
+                           title={account.username + " - " + account.roleName}
                            id="basic-nav-dropdown"
                         >
                            <NavDropdown.Item

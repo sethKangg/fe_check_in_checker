@@ -223,6 +223,7 @@ const ModalViewGroup = (pros) => {
                setShow={setShowRemove}
                dataDelete={dateRemove}
                projectId={dataView.id}
+               fetchListStaff={fetchListStaff}
             />
             <ModalSetStaffPM
                show={showSet}
