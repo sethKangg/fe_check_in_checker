@@ -24,7 +24,7 @@ const ViewCaptured = () => {
    const [pageCount, setPageCount] = useState(1);
    const [isEnding, setIsEnding] = useState(false);
    const [indexBtn, setIndexBtn] = useState(1);
-   const LIST_LIMIT = 10;
+   const LIST_LIMIT = 30;
    const debouncedSearchTerm = useDebounce(searchValue, 800);
    const fetchListCaptured = async (OM, IE, SD, ED, ST, Page) => {
       let res = await getViewCaptured(account.id, OM, IE, SD, ED, ST, Page, LIST_LIMIT);
@@ -47,8 +47,12 @@ const ViewCaptured = () => {
          };
          // const list = Object.values(final.list).map((item) => JSON.parse(item));
          const list = Object.values(final.list);
-         setListVB(list);
-         setPageCount(final.pageCount);
+         // setListVB(list);
+         // setPageCount(final.pageCount);
+         setListVB(res.data.content);
+         setPageCount(res.data.totalPages);
+         console.log("1", list);
+         console.log("2", res.data.content);
          // console.log(final);
          // console.log("down list>>>", down);
       }
