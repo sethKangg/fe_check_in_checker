@@ -5,7 +5,15 @@ import { toast } from "react-toastify";
 import { deleteMemberInProject } from "../../services/apiService";
 
 const ModalRemoveStaff = (pros) => {
-   const { show, setShow, dataDelete, PAGE_LIMIT, projectId, fetchListMemberProject } = pros;
+   const {
+      show,
+      setShow,
+      dataDelete,
+      PAGE_LIMIT,
+      projectId,
+      fetchListMemberProject,
+      fetchListStaff,
+   } = pros;
 
    const handleClose = () => setShow(false);
 
@@ -21,6 +29,7 @@ const ModalRemoveStaff = (pros) => {
       // pros.fetchListUser(pros.currentPage, PAGE_LIMIT, "", "");
       handleClose();
       await fetchListMemberProject(projectId, 1, 10);
+      await fetchListStaff();
    };
 
    return (

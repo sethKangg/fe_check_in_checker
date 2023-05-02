@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-
+import { GiPlainCircle } from "react-icons/gi";
+import { AiOutlineLock, AiOutlineUnlock } from "react-icons/ai";
+import { MdSettingsBackupRestore } from "react-icons/md";
 const TableAccountPaginate = (pros) => {
-   const { listUser, pageCount, searchValue, filterIndex } = pros;
+   const { listUser, pageCount, searchValue, filterIndex, handleClickReset } = pros;
    const dis = false;
    const handlePageClick = async (event) => {
       pros.setCurrentPage(event.selected + 1);
@@ -33,28 +35,38 @@ const TableAccountPaginate = (pros) => {
                            <td>{item.staffName}</td>
                            <td>{item.email}</td>
                            <td>{item.roleName}</td>
-                           <td>
-                              <input type="checkbox" disabled={dis} checked={item.enable} />
+                           <td className="d-flex justify-content-center">
+                              {/* <input type="checkbox" disabled={dis} checked={item.enable} /> */}
+                              <GiPlainCircle color={`${item.enable ? "green" : "red"}`} />
                               {/* {item.enable ? "TRUE" : "FALSE"} */}
                            </td>
-                           <th className="d-flex ">
-                              {/* <button className="btn btn-primary mx-3">View</button> */}
-                              {/* <button
-                                 className="btn btn-warning mx-3"
-                                 onClick={() => pros.handleClickUpdate(true, item)}
-                              >
-                                 Cập nhật
-                              </button> */}
+                           {/* <td className=" "> */}
 
-                              <button
-                                 className={`btn mr-3  ${
-                                    item.enable ? "btn-danger" : "btn-primary"
-                                 }`}
-                                 onClick={() => pros.handleDelete(item)}
-                              >
-                                 {item.enable ? "Khóa tài khoản" : "Mở lại tài khoản"}
-                              </button>
-                           </th>
+                           <td
+                              className=""
+                              onClick={() => handleClickReset(item)}
+                              style={{
+                                 cursor: "pointer",
+                              }}
+                           >
+                              <MdSettingsBackupRestore />
+                           </td>
+                           <td
+                              // className={`btn mr-3  ${
+                              //    item.enable ? "btn-danger" : "btn-primary"
+                              // }`}
+                              onClick={() => pros.handleDelete(item)}
+                              style={{
+                                 cursor: "pointer",
+                              }}
+                           >
+                              {item.enable ? (
+                                 <AiOutlineLock color="red" />
+                              ) : (
+                                 <AiOutlineUnlock color="green" />
+                              )}
+                           </td>
+                           {/* </td> */}
                         </tr>
                      );
                   })}

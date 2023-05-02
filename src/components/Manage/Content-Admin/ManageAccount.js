@@ -5,12 +5,14 @@ import { Button, Form, InputGroup } from "react-bootstrap";
 import ModalAddAccount from "./ModalAddAccount";
 import ModalUpdateAccount from "./ModalUpdateAccount";
 import ModalDisableAccount from "./ModalDisableAccount";
+import ModalResetPass from "./ModalResetPass";
 const ManageAccount = (pros) => {
    const PAGE_LIMIT = 1;
 
    const [showModal, setShowModal] = useState(false);
    const [showUpdate, setShowUpdate] = useState(false);
    const [showModalDelete, setShowModalDelete] = useState(false);
+   const [showReset, setShowReset] = useState(false);
    const [pageCount, setPageCount] = useState(0);
    const [currentPage, setCurrentPage] = useState(1);
    const [filterIndex, setFilterIndex] = useState(2);
@@ -19,6 +21,7 @@ const ManageAccount = (pros) => {
    const [listUser, setListUser] = useState([]);
    const [dataUpdate, setDataUpdate] = useState({});
    const [dataDelete, setDataDelete] = useState({});
+   const [dataReset, setDataReset] = useState([]);
 
    const debouncedSearchTerm = useDebounce(searchValue, 800);
    const [isLoading, setIsLoading] = useState(false);
@@ -73,7 +76,10 @@ const ManageAccount = (pros) => {
       setCurrentPage(1);
       // let res = await fetchListUser(1, PAGE_LIMIT, searchValue, event.target.value);
    };
-
+   const handleClickReset = (item) => {
+      setShowReset(true);
+      setDataReset(item);
+   };
    return (
       <div className="manage-container p-3">
          <div className="title d-flex justify-content-center ">
@@ -121,6 +127,7 @@ const ManageAccount = (pros) => {
                      searchValue={searchValue}
                      filterIndex={filterIndex}
                      setCurrentPage={setCurrentPage}
+                     handleClickReset={handleClickReset}
                   />
                )}
             </div>
@@ -146,6 +153,14 @@ const ManageAccount = (pros) => {
                show={showModalDelete}
                setShow={setShowModalDelete}
                dataDelete={dataDelete}
+               fetchListUser={fetchListUser}
+               currentPage={currentPage}
+               setCurrentPage={setCurrentPage}
+            />
+            <ModalResetPass
+               show={showReset}
+               setShow={setShowReset}
+               data={dataReset}
                fetchListUser={fetchListUser}
                currentPage={currentPage}
                setCurrentPage={setCurrentPage}

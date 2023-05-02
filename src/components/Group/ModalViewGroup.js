@@ -156,6 +156,7 @@ const ModalViewGroup = (pros) => {
                               isSearchable={true}
                               isMulti={true}
                               // name="color"
+                              // menuIsOpen={true}
                               options={newArray}
                               placeholder={<div>Chọn nhân viên thêm vào nhóm</div>}
                            />

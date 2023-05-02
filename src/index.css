@@ -15,3 +15,7 @@ code {
    /* font-family: " Sans", sans-serif; */
    font-family: "poppins", sans-serif;
 }
+.active > .page-link,
+.page-link.active {
+   z-index: 0 !important;
+}

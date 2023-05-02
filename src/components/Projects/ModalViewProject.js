@@ -254,6 +254,7 @@ const ModalViewProject = (pros) => {
                setShow={setShowRemove}
                dataDelete={dateRemove}
                projectId={dataView.id}
+               fetchListStaff={fetchListStaff}
             />
          </Modal>
          <ModalConfirmDone show={showDone} setShow={setShowDone} confirm={handleDone} />

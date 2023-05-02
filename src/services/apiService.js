@@ -311,6 +311,14 @@ const getListStaffTS = (staffId, projectId) => {
 const getListEditGroup = (groupId) => {
    return axios.get(`groups/getListPMInGroup?groupId=${groupId}`);
 };
+const resetPassword = (staff, newPass) => {
+   let data = {
+      newPassword: newPass,
+   };
+   return axios.put(`accounts/resetPasswordForAdmin/${staff}`, {
+      newPassword: newPass,
+   });
+};
 export {
    putLevelStaff,
    putStatusAccount,
@@ -364,4 +372,5 @@ export {
    updateGroup,
    getListStaffTS,
    getListEditGroup,
+   resetPassword,
 };

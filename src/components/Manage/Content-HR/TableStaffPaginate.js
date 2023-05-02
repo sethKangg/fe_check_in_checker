@@ -3,6 +3,7 @@ import { Table } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import { FiImage, FiSearch, FiMenu } from "react-icons/fi";
+import { GiPlainCircle } from "react-icons/gi";
 const TableStaffPaginate = (pros) => {
    const { listStaff, pageCount, searchValue, filterIndex, PAGE_LIMIT, handleClickView } = pros;
    const handlePageClick = async (event) => {
@@ -60,7 +61,8 @@ const TableStaffPaginate = (pros) => {
                            <td scope="row">{item.promotionLevel}</td>
                            <td scope="row">{item.roleName}</td>
                            <td scope="">
-                              <input type="checkbox" disabled={true} checked={item.enable} />
+                              {/* <input type="checkbox" disabled={true} checked={item.enable} /> */}
+                              <GiPlainCircle color={`${item.enable ? "green" : "red"}`} />
                               {/* {item.enable ? "TRUE" : "FALSE"} */}
                            </td>
                            <th className="actions">
