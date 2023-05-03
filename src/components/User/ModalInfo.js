@@ -92,12 +92,12 @@ const ModalInfo = (pros) => {
          <Modal className="modal-view-check-in" show={show} onHide={handleClose} size="xl">
             <Modal.Header>
                <Modal.Title className="w-100 d-flex justify-content-between">
-                  <div>Check-In</div>
+                  <div>Check-In hôm nay</div>
                   {dataDay && dataDay.updatedHistory && dataDay.lastUpdated && (
                      <div>
                         {dataDay.updatedHistory} lúc {dataDay.lastUpdated}
                      </div>
-                  )}
+                  )}{" "}
                </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -156,7 +156,7 @@ const ModalInfo = (pros) => {
                               </>
                            )}
                         </div>
-                        <div className="mt-3 w-75 d-flex justify-content-between">
+                        <div className="mt-3  d-flex justify-content-between align-items-center">
                            {dataDay && dataDay.lateCheckInMinutes && (
                               <div>
                                  <label>Check-in muộn: </label>
@@ -173,15 +173,15 @@ const ModalInfo = (pros) => {
                      </div>
                      <div>
                         {dataDay && dataDay.timeCheckIn && (
-                           <div className="d-flex justify-content-end">
+                           <div className="d-flex justify-content-end align-items-center">
                               <label>Check-in lúc:</label>
-                              {dataDay.timeCheckIn}
+                              {" " + dataDay.timeCheckIn}
                            </div>
                         )}
                         {dataDay && dataDay.timeCheckOut && (
                            <div>
                               <label>Check-out lúc:</label>
-                              {dataDay.timeCheckOut}
+                              {" " + dataDay.timeCheckOut}
                            </div>
                         )}
                      </div>

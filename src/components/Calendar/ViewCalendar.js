@@ -173,32 +173,32 @@ const ViewCalendar = (pros) => {
                               </>
                            )}
                         </div>
-                        <div className="mt-3 w-75 d-flex justify-content-between">
+                        <div className="mt-3 d-flex justify-content-between align-items-center">
                            {dataDay && dataDay.lateCheckInMinutes && (
                               <div>
                                  <label>Check-in muộn: </label>
-                                 {convertMinutesToTime(dataDay.lateCheckInMinutes)}{" "}
+                                 {" " + convertMinutesToTime(dataDay.lateCheckInMinutes)}
                               </div>
                            )}
                            {dataDay && dataDay.earlyCheckOutMinutes && (
                               <div>
                                  <label>Check-out sớm: </label>
-                                 {convertMinutesToTime(dataDay.earlyCheckOutMinutes)}{" "}
+                                 {" " + convertMinutesToTime(dataDay.earlyCheckOutMinutes)}
                               </div>
                            )}
                         </div>
                      </div>
                      <div>
                         {dataDay && dataDay.timeCheckIn && (
-                           <div className="d-flex justify-content-end">
-                              <label>Check-in lúc:</label>
-                              {dataDay.timeCheckIn}
+                           <div className="d-flex justify-content-end align-items-center">
+                              <label>Check-in lúc: </label>
+                              {" " + dataDay.timeCheckIn}
                            </div>
                         )}
                         {dataDay && dataDay.timeCheckOut && (
                            <div>
                               <label>Check-out lúc:</label>
-                              {dataDay.timeCheckOut}
+                              {" " + dataDay.timeCheckOut}
                            </div>
                         )}
                      </div>
