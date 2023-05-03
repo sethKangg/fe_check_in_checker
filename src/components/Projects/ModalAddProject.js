@@ -23,6 +23,9 @@ const ModalAddProject = (pros) => {
    const [isLoading1, setIsLoading1] = useState(false);
    const handleClose = () => {
       setShow(false);
+      setassignPM(null);
+      setAssignGroup(null);
+      setNewGroupName("");
    };
    //    const handleShow = () => pros.setShow(true);
    const [listStaff, setListStaff] = useState([]);
@@ -39,7 +42,7 @@ const ModalAddProject = (pros) => {
          if (response.status == 200) {
             // console.log("LIST MEMBER: ", response);
             setListStaff(response.data.list);
-            setassignPM(response?.data?.list[0]?.id);
+            // setassignPM(response?.data?.list[0]?.id);
          }
       } catch (error) {
          // console.log("Error", error);
@@ -56,7 +59,7 @@ const ModalAddProject = (pros) => {
          if (response.status == 200) {
             // console.log("LIST MEMBER: ", response);
             setListGroup(response.data.list);
-            setAssignGroup(response?.data?.list[0]?.id);
+            // setAssignGroup(response?.data?.list[0]?.id);
          }
       } catch (error) {
          // console.log("Error", error);
@@ -80,9 +83,11 @@ const ModalAddProject = (pros) => {
 
    const handleSubmit = async () => {
       //validate
-      // if (!values.newGroupName) {
-      //    return toast.error("Tên nhóm không được để trống");
-      // }
+      if (!newGroupName) {
+         return toast.error("Tên nhóm không được để trống");
+      }
+      if (!assignPM) return toast.error("Hãy chọn người chủ trì");
+      if (!assignGroup) return toast.error("Hãy chọn nhóm");
       //api
       // console.log(newGroupName, assignPM, assignGroup);
       let res = await postNewProject(newGroupName, assignPM, assignGroup);
@@ -162,6 +167,7 @@ const ModalAddProject = (pros) => {
                               // defaultValue={newArray[0]}
                               isClearable={true}
                               isSearchable={true}
+                              placeholder={<div>Chọn người chủ trì</div>}
                               // name="color"
                               options={newArray}
                            />
@@ -176,6 +182,7 @@ const ModalAddProject = (pros) => {
                               // defaultValue={newGroupArray[0]}
                               isClearable={true}
                               isSearchable={true}
+                              placeholder={<div>Chọn nhóm</div>}
                               // name="color"
                               options={newGroupArray}
                            />

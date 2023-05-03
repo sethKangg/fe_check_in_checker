@@ -38,7 +38,7 @@ const TablePageReport = (pros) => {
                               </p>
                            </div>
                            <div>
-                              <p className="name">Ngày gửi: {convertTime(e.createDay)}</p>
+                              <p className="name">Thời gian gửi: {convertTime(e.createDay)}</p>
                            </div>
                         </div>
                         <div className="user-position d-flex justify-content-between">

@@ -56,7 +56,7 @@ const ModalUpdateGroup = (props) => {
    }, [show]);
    const handleSubmit = () => {
       //vali
-      if (!currentPass) return toast.error("Tên nhóm không được để trốngz");
+      if (!currentPass) return toast.error("Tên nhóm không được để trống");
 
       //api
       changeAPI();

@@ -16,7 +16,10 @@ const ModalDisableAccount = (pros) => {
       } else if (res.status === 409) {
          toast.error("Không thể tự khóa tài khoản bản thân");
       } else {
-         toast.error("Có lỗi trong quá trình cập nhật");
+         Object.values(res.data.error).map((item, index) => {
+            // msgToast += item + "\n";
+            toast.error(item);
+         });
       }
 
       handleClose();

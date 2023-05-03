@@ -80,7 +80,7 @@ const ForgotPassword = () => {
                <h3>Hệ thống quản lý chấm công </h3>
                <div className="lg_row">
                   <p onClick={() => navigate("/")}>Trang chủ</p>
-                  <p onClick={() => navigate("/check_in")}>Điểm danh</p>
+                  <p onClick={() => navigate("/check_in")}>Chấm công</p>
                </div>
             </div>
             <div className="lg_right w-100 m-auto">

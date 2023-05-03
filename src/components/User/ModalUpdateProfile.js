@@ -41,7 +41,10 @@ const ModalUpdateProfile = (pros) => {
 
    const handleSubmit = async () => {
       //validate
-
+      if (!surname) return toast.error("Họ không được để trống");
+      if (!firstName) return toast.error("Tên không được để trống");
+      if (!phone) return toast.error("Số điện thoại không được để trống");
+      // if (!phone.length === 10) return toast.error("Số điện thoại phải gồm 10 số");
       //api
       await updateProfile();
       await fetchProfileInfor();

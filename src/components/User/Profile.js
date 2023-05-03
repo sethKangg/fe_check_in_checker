@@ -66,7 +66,7 @@ const Profile = (pros) => {
                <LetterAvatar
                   name={
                      userData.surname && userData.firstName
-                        ? userData.surname + " " + userData.firstName
+                        ? `${userData.surname}  ${userData.firstName}`
                         : ""
                   }
                />
@@ -76,18 +76,21 @@ const Profile = (pros) => {
          </div>
          <div className="right">
             <div className="btn-edit d-flex justify-content-end gap-3">
-
-               {account.username === userData.username ? <button
-                  className="btn btn-warning"
-                  onClick={() => handleClickUpdate(true, userData)}
-               >
-                  Cập nhật tài khoản
-               </button> : account.roleName === "Human resource" ? <button
-                  className="btn btn-warning"
-                  onClick={() => handleClickUpdate(true, userData)}
-               >
-                  Cập nhật tài khoản
-               </button> : (
+               {account.username === userData.username ? (
+                  <button
+                     className="btn btn-warning"
+                     onClick={() => handleClickUpdate(true, userData)}
+                  >
+                     Cập nhật tài khoản
+                  </button>
+               ) : account.roleName === "Human resource" ? (
+                  <button
+                     className="btn btn-warning"
+                     onClick={() => handleClickUpdate(true, userData)}
+                  >
+                     Cập nhật tài khoản
+                  </button>
+               ) : (
                   <></>
                )}
                {account.username === userData.username && (
@@ -100,7 +103,10 @@ const Profile = (pros) => {
                <h1
                   className="d-flex justify-content-center "
                   onClick={() => {
-                     console.log(account.username === userData.username, account.roleName === "Human resource");
+                     console.log(
+                        account.username === userData.username,
+                        account.roleName === "Human resource",
+                     );
                   }}
                >
                   Thông tin tài khoản
@@ -123,9 +129,12 @@ const Profile = (pros) => {
                   <div className="data">
                      <h3>Nhóm hiện tại</h3>
                      <p>
-                        {account.groupName
-                           ? `${account.groupName} #${account.groupId}`
+                        {userData.groupName
+                           ? `${userData.groupName} #${userData.groupId}`
                            : "Đang không thuộc nhóm nào"}
+                        {/* {account.groupName
+                           ? `${account.groupName} #${account.groupId}`
+                           : "Đang không thuộc nhóm nào"} */}
                      </p>
                   </div>
                </div>
@@ -141,11 +150,15 @@ const Profile = (pros) => {
                               <div>Tên dự án: {e.projectName} </div>
                               <div>Thời gian: {e.createDate} </div>
                               <div>
-                                 Trạng thái: <b> {e.status === "Done"
-                                    ? "Hoàn thành"
-                                    : e.status === "Cancel"
+                                 Trạng thái:{" "}
+                                 <b>
+                                    {" "}
+                                    {e.status === "Done"
+                                       ? "Hoàn thành"
+                                       : e.status === "Cancel"
                                        ? "Hủy bỏ"
-                                       : "Đang tiến hành"}</b>
+                                       : "Đang tiến hành"}
+                                 </b>
                               </div>
                            </div>
                         ))}

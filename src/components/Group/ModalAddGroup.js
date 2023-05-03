@@ -48,6 +48,7 @@ const ModalAddGroup = (pros) => {
       if (!newGroupName) {
          return toast.error("Tên nhóm không được để trống");
       }
+      if (!assignGroupLeader.current.value) return toast.error("Xin hãy chọn trưởng nhóm");
       // console.log(newGroupName, assignGroupLeader);
       //api
 
@@ -61,7 +62,7 @@ const ModalAddGroup = (pros) => {
             toast.error(item);
          });
       }
-      pros.setCurrentPage(1);
+      // pros.setCurrentPage(1);
       await fetchListGroup(1, PAGE_LIMIT, "");
    };
 

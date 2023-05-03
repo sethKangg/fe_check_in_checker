@@ -42,11 +42,11 @@ const ModalUpdateProject = (pros) => {
          setIsLoading1(false);
       }
    };
-   
+
    useEffect(() => {
       const fetchData = async () => {
          if (show === true) {
-            console.log("data UPdate: ", dataUpdate);
+            // console.log("data UPdate: ", dataUpdate);
             let res1 = await fetchListGroup();
             setNewGroupName(dataUpdate.projectName);
          }
@@ -56,8 +56,9 @@ const ModalUpdateProject = (pros) => {
    }, [show]);
 
    const handleSubmit = async () => {
+      if (!newGroupName) return toast.error("Tên nhóm không được để trống");
       let res = await putProject(dataUpdate.id, newGroupName, dataUpdate.pmId, dataUpdate.groupId);
-      console.log(res);
+      // console.log(res);
       if (res.status === 200) {
          toast.success(`Sửa dự án ${newGroupName} thành công `);
          handleClose();
@@ -117,7 +118,6 @@ const ModalUpdateProject = (pros) => {
                               options={newGroupArray}
                            />
                         </div>
-
                      </>
                   ) : (
                      <div className=" col-md-4  ">Đang tải dữ liệu ...</div>
