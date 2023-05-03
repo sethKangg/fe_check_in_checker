@@ -8,8 +8,11 @@ import { useEffect } from "react";
 import TablePageReport from "./TablePageReport";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import ModalAD from "./ModalAD";
 const Report = () => {
    const [show, setShow] = useState(false);
+   const [showModal, setShowModal] = useState(false);
+   const [dataShow, setDataShow] = useState([]);
    const [listComplaints, setListComplaints] = useState([]);
    const [currentPage, setCurrentPage] = useState(1);
    const [pageCount, setPageCount] = useState(1);
@@ -18,7 +21,7 @@ const Report = () => {
    const [isLoading, setIsLoading] = useState(false);
    const account = useSelector((state) => state.user.account);
    const staffId = account.roleName === "Human resource" ? "0" : account.id;
-
+   const [action, setAction] = useState("");
    const fetchApi = async (page, statusC) => {
       setIsLoading(true);
       try {
@@ -38,9 +41,15 @@ const Report = () => {
       // console.log(res);
       if (res.status === 200) {
          toast.success("Cập nhật yêu cầu thành công");
+         setShowModal(false);
          setCurrentPage(1);
          await fetchApi(currentPage, status);
       }
+   };
+   const clickHR = (item, queue) => {
+      setShowModal(true);
+      setDataShow(item);
+      setAction(queue);
    };
    useEffect(() => {
       fetchApi(currentPage, status);
@@ -99,49 +108,6 @@ const Report = () => {
             )}
          </div>
          <div>
-            {/* <div class="card-2 mt-3">
-               <div class="card-2-top-part">
-                  <div class="left-part">
-                     <div class="user-name d-flex justify-content-between">
-                        <div className="d-flex  align-items-center">
-                           <p class="name">Yêu cầu ?</p>
-                        </div>
-                        <div>
-                           <p className="name">Thời gian: </p>
-                        </div>
-                     </div>
-                     <div class="user-position d-flex justify-content-between">
-                        <div className="d-flex">
-                           <p class="position">Người gửi: </p>
-                           <p class="role mx-2"> Admin </p>
-                        </div>
-                        <div className="d-flex">
-                           <p class="position">Người duyệt: </p>
-                           <p class="role mx-2"> Admin </p>
-                        </div>
-                     </div>
-                     <div className="content">Nội dung</div>
-                  </div>
-               </div>
-               <div class="card-2-bottom-part ">
-                  <div class="bottom-part click-yeah py-3">
-                     <div class="link">
-                        <span class="icon">
-                           <AiOutlineCheckCircle size={30} color="green" />
-                        </span>
-                        Phê duyệt
-                     </div>
-                  </div>
-                  <div class="bottom-part click-yeet py-3">
-                     <div class="link">
-                        <span class="icon">
-                           <AiFillStop size={30} color="red" />
-                        </span>
-                        Từ chối
-                     </div>
-                  </div>
-               </div>
-            </div> */}
             {!isLoading ? (
                <TablePageReport
                   listComplaints={listComplaints}
@@ -149,6 +115,7 @@ const Report = () => {
                   pageCount={pageCount}
                   currentPage={currentPage}
                   putApi={putApi}
+                  clickHR={clickHR}
                />
             ) : (
                <>Đang tải dữ liệu ...</>
@@ -159,6 +126,16 @@ const Report = () => {
             setShow={setShow}
             fetchApi={fetchApi}
             setCurrentPage={setCurrentPage}
+         />
+         <ModalAD
+            show={showModal}
+            setShow={setShowModal}
+            data={dataShow}
+            putApi={putApi}
+            fetchApi={fetchApi}
+            currentPage={currentPage}
+            status={status}
+            action={action}
          />
       </div>
    );

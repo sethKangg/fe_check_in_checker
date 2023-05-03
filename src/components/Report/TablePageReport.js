@@ -4,7 +4,7 @@ import ReactPaginate from "react-paginate";
 import { useSelector } from "react-redux";
 
 const TablePageReport = (pros) => {
-   const { listComplaints, pageCount, setCurrentPage, putApi } = pros;
+   const { listComplaints, pageCount, setCurrentPage, putApi, clickHR } = pros;
    const handlePageClick = async (event) => {
       await setCurrentPage(event.selected + 1);
       // console.log(`User requested page number ${event.selected}, which is offset `);
@@ -100,7 +100,8 @@ const TablePageReport = (pros) => {
                            <div
                               className="link"
                               onClick={() => {
-                                 putApi(e.id, 1);
+                                 // putApi(e.id, 1);
+                                 clickHR(e, 1);
                               }}
                            >
                               <span className="icon">
@@ -113,7 +114,8 @@ const TablePageReport = (pros) => {
                            <div
                               className="link"
                               onClick={() => {
-                                 putApi(e.id, 0);
+                                 // putApi(e.id, 0);
+                                 clickHR(e, 0);
                               }}
                            >
                               <span className="icon">

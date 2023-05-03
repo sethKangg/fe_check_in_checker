@@ -84,7 +84,7 @@ const ModalAddProject = (pros) => {
    const handleSubmit = async () => {
       //validate
       if (!newGroupName) {
-         return toast.error("Tên nhóm không được để trống");
+         return toast.error("Tên dự án không được để trống");
       }
       if (!assignPM) return toast.error("Hãy chọn người chủ trì");
       if (!assignGroup) return toast.error("Hãy chọn nhóm");
