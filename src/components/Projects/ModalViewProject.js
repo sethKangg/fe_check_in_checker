@@ -112,7 +112,7 @@ const ModalViewProject = (pros) => {
       // }
       await fetchListMemberProject(dataView.id, 1, LIMIT_MEMBER);
       await fetchListStaff();
-      handleClose();
+      // handleClose();
       //   pros.setCurrentPage(1);
       //   return fetchListProject(1, "");
    };

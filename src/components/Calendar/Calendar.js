@@ -377,6 +377,7 @@ const Calendar = (pros) => {
             idParams={idParams}
             initCalendar={initCalendar}
             fetchDataCalendar={fetchDataCalendar}
+            nameTitle={nameTitle}
          />
       </>
    );

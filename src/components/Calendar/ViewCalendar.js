@@ -8,7 +8,8 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import ModalUpdateCalendar from "./ModalUpdateCalendar";
 const ViewCalendar = (pros) => {
-   const { show, setShow, day, month, year, idParams, initCalendar, fetchDataCalendar } = pros;
+   const { show, setShow, day, month, year, idParams, initCalendar, fetchDataCalendar, nameTitle } =
+      pros;
    const [listImg, setListImg] = useState([]);
    const [showImage, setShowImage] = useState(false);
    const [imageSrc, setImageSrc] = useState("");
@@ -122,9 +123,10 @@ const ViewCalendar = (pros) => {
                   <div className="info-content d-flex align-items-center ">
                      <div className=" col-md-6">
                         Tên:
-                        {dataDay.lastName && dataDay.lastName.length > 0
+                        {/* {dataDay.lastName && dataDay.lastName.length > 0
                            ? " " + dataDay.lastName + " " + dataDay.firstName
-                           : " chưa có thông tin"}
+                           : " chưa có thông tin"} */}
+                        {" " + nameTitle}
                      </div>
                      <div className="col-md-6 d-flex mx-1 align-items-center gap-2">
                         Trạng thái Check-In:
@@ -171,32 +173,32 @@ const ViewCalendar = (pros) => {
                               </>
                            )}
                         </div>
-                        <div className="mt-3 d-flex justify-content-between align-items-center">
+                        <div className="mt-3 w-75 d-flex justify-content-between">
                            {dataDay && dataDay.lateCheckInMinutes && (
                               <div>
-                                 <label>Check-in muộn: </label>{" "}
-                                 {" " + convertMinutesToTime(dataDay.lateCheckInMinutes)}
+                                 <label>Check-in muộn: </label>
+                                 {convertMinutesToTime(dataDay.lateCheckInMinutes)}{" "}
                               </div>
                            )}
                            {dataDay && dataDay.earlyCheckOutMinutes && (
                               <div>
                                  <label>Check-out sớm: </label>
-                                 {" " + convertMinutesToTime(dataDay.earlyCheckOutMinutes)}{" "}
+                                 {convertMinutesToTime(dataDay.earlyCheckOutMinutes)}{" "}
                               </div>
                            )}
                         </div>
                      </div>
                      <div>
                         {dataDay && dataDay.timeCheckIn && (
-                           <div className="d-flex justify-content-end align-items-center">
+                           <div className="d-flex justify-content-end">
                               <label>Check-in lúc:</label>
-                              {" " + dataDay.timeCheckIn}
+                              {dataDay.timeCheckIn}
                            </div>
                         )}
                         {dataDay && dataDay.timeCheckOut && (
-                           <div className="d-flex justify-content-end align-items-center">
+                           <div>
                               <label>Check-out lúc:</label>
-                              {" " + dataDay.timeCheckOut}
+                              {dataDay.timeCheckOut}
                            </div>
                         )}
                      </div>
