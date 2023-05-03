@@ -4,25 +4,34 @@ import { toast } from "react-toastify";
 import { addRecognizeImg } from "../../services/apiService";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-function TestCamera() {
+import Select from "react-select";
+
+const MultiCam = () => {
    const [cameraPhoto, setCameraPhoto] = useState(null);
    const [dataUri, setDataUri] = useState("");
+   const [listCam, setListCam] = useState([]);
    const videoRef = useRef(null);
-
+   const [currentCam, setCurrentCam] = useState([]);
+   const [flag, setFlag] = useState(null);
+   let newArray = [];
    useEffect(() => {
-      // We need to instantiate CameraPhoto inside useEffect because we
-      // need the refs.video to get the videoElement so the component has to be
-      // mounted.
       setCameraPhoto(new CameraPhoto(videoRef.current));
+      setFlag(1);
       // startCamera(FACING_MODES.USER, {});
    }, []);
+   useEffect(() => {
+      if (flag === 1) {
+         list();
+      }
+   }, [flag]);
    const navigate = useNavigate();
    const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+   const assignCam = useRef(null);
    // if (isAuthenticated) return navigate("/");
 
    function startCamera(idealFacingMode, idealResolution) {
       cameraPhoto
-         .startCamera(idealFacingMode, idealResolution)
+         .startCamera(currentCam, { idealFacingMode, idealResolution })
          .then(() => {
             console.log("camera is started !");
          })
@@ -30,9 +39,10 @@ function TestCamera() {
             console.error("Camera not started!", error);
          });
    }
-   function list() {
-      let listCam = [];
-      cameraPhoto.enumerateCameras().then((cameras) => {
+   const list = async () => {
+      let listCamL = [];
+      //   newArray = [];
+      await cameraPhoto.enumerateCameras().then((cameras) => {
          cameras.forEach((camera) => {
             let { kind, label, deviceId } = camera;
             let cameraStr = {
@@ -41,11 +51,17 @@ function TestCamera() {
                deviceId: deviceId,
             };
             // console.log(cameraStr);
-            listCam.push(cameraStr);
+            // listCamL.push(cameraStr);
+            newArray.push({ value: deviceId, label: label });
+            // let add = { value: deviceId, label: label };
+            // newArray = [...newArray, add];
+            // setListCam(cameraStr);
+            // console.log(newArray);
          });
       });
-      console.log(listCam);
-   }
+      //   setCurrentCam(newArray[0].value);
+      setListCam(newArray);
+   };
    function startCameraMaxResolution(idealFacingMode) {
       cameraPhoto
          .startCameraMaxResolution(idealFacingMode)
@@ -102,12 +118,38 @@ function TestCamera() {
    const handleSubmit = () => {
       handleCheckIn();
    };
-
+   const handleSelectDevice = (e) => {
+      //   assignCam.current.value = e.value;
+      //   console.log(e);
+      //   toast.success(e.value);
+      setCurrentCam(e.value);
+   };
    return (
       <div className="camera-div d-flex flex-column position-relative pt-3">
          <div className="position-relative ">
-            {/* <div onClick={() => list()}>CliCK</div> */}
-            <div className="d-flex justify-content-between">
+            <div className="d-flex gap-5 align-items-center">
+               {/* <button className="btn btn-primary" onClick={() => list()}>
+                  Tải danh sách máy ảnh
+               </button> */}
+               <div className="w-25">
+                  <Select
+                     //   ref={assignCam}
+                     onChange={(event) => handleSelectDevice(event)}
+                     className="basic-single"
+                     //   classNamePrefix="Chojn"
+                     //   defaultValue={newArray[0]}
+                     options={listCam.map((item) => ({
+                        value: item.value,
+                        label: item.label,
+                     }))}
+                     //   options={newArray}
+                     isSearchable={true}
+                     placeholder={<div>Chọn máy ảnh</div>}
+                     //   components={{ NoOptionsMessage }}
+                  />
+               </div>
+            </div>
+            <div className="d-flex justify-content-between mt-3">
                <button
                   className="btn btn-primary "
                   onClick={() => {
@@ -151,6 +193,6 @@ function TestCamera() {
          </div>
       </div>
    );
-}
+};
 
-export default TestCamera;
+export default MultiCam;

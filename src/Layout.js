@@ -23,6 +23,7 @@ import PrivateRoute from "./routes/PrivateRoute";
 import ErrorAuth from "./components/Auth/ErrorAuth";
 import ErrorPage from "./components/Auth/ErrorPage";
 import MonthlyReport from "./components/Report/MonthlyReport";
+import MultiCam from "./components/Camera/MultiCam";
 // import AllCamera from "./components/Camera/AllCamera";
 // import Camera from "./components/Camera/Camera";
 const Layout = () => {
@@ -37,6 +38,14 @@ const Layout = () => {
                   element={
                      // <PrivateRoute acceptRole={[2, 3, 4, 5]}>
                      <TestCamera />
+                     // </PrivateRoute>
+                  }
+               ></Route>
+               <Route
+                  path="/check_ins"
+                  element={
+                     // <PrivateRoute acceptRole={[2, 3, 4, 5]}>
+                     <MultiCam />
                      // </PrivateRoute>
                   }
                ></Route>

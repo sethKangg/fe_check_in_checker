@@ -157,8 +157,8 @@ const ViewCalendar = (pros) => {
                         </div>
                      </div>
                   </div>
-                  <div className="d-flex justify-content-between">
-                     <div>
+                  <div className="d-flex mt-3 ">
+                     <div className="w-50">
                         <div>
                            {dataDay && dataDay.note && (
                               <>
@@ -173,7 +173,7 @@ const ViewCalendar = (pros) => {
                               </>
                            )}
                         </div>
-                        <div className="mt-3 d-flex justify-content-between align-items-center">
+                        {/* <div className="mt-3 d-flex align-items-center">
                            {dataDay && dataDay.lateCheckInMinutes && (
                               <div>
                                  <label>Check-in muộn: </label>
@@ -186,23 +186,43 @@ const ViewCalendar = (pros) => {
                                  {" " + convertMinutesToTime(dataDay.earlyCheckOutMinutes)}
                               </div>
                            )}
-                        </div>
+                        </div> */}
                      </div>
-                     <div>
+                     <div className="w-50 mt-">
                         {dataDay && dataDay.timeCheckIn && (
-                           <div className="d-flex justify-content-end align-items-center">
+                           <div className="d-flex gap-2 align-items-center">
                               <label>Check-in lúc: </label>
                               {" " + dataDay.timeCheckIn}
+                              {dataDay && dataDay.lateCheckInMinutes && (
+                                 <div>
+                                    {"(Muộn " +
+                                       convertMinutesToTime(dataDay.lateCheckInMinutes) +
+                                       ")"}
+                                 </div>
+                              )}
                            </div>
                         )}
                         {dataDay && dataDay.timeCheckOut && (
-                           <div>
+                           <div className="d-flex gap-2 align-items-center">
                               <label>Check-out lúc:</label>
                               {" " + dataDay.timeCheckOut}
+                              {dataDay && dataDay.earlyCheckOutMinutes && (
+                                 <div>
+                                    {"(Sớm " +
+                                       convertMinutesToTime(dataDay.earlyCheckOutMinutes) +
+                                       ")"}
+                                 </div>
+                              )}
                            </div>
                         )}
                      </div>
                   </div>
+                  <h5 className="mt-3">
+                     <b>
+                        Thời gian làm việc: {dataDay.workingHours ? dataDay.workingHours : "0"}{" "}
+                        tiếng
+                     </b>
+                  </h5>
                </div>
 
                <div className="info mt-3">

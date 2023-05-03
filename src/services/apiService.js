@@ -19,7 +19,7 @@ const postCreateUser = (
          surname: surname,
          phone: phone,
          dateOfBirth: dateOfBirth,
-         promotionLevelId: 1,
+         // promotionLevelId: 1,
       },
    };
 
