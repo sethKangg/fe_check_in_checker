@@ -31,8 +31,8 @@ const ModalUpdateStaff = (pros) => {
       // console.log("update status: ", res);
       if (res.status === 200) {
          toast.success(`Cập nhật tài khoản ${dataUpdate.fullName} thành công`);
-         await pros.fetchListUser(pros.currentPage, PAGE_LIMIT, "", "");
          handleClose();
+         await pros.fetchListUser(pros.currentPage, PAGE_LIMIT, "", "");
       } else {
          // toast.error("Có lỗi xảy ra trong tiến trình cập nhật thông tin nhaan viên");
          Object.values(res.data.error).map((item, index) => {
@@ -92,7 +92,7 @@ const ModalUpdateStaff = (pros) => {
                         {listLevel.map((level, index) => {
                            return (
                               <option key={level.id} value={level.id}>
-                                 {level.name}
+                                 {level.description}
                               </option>
                            );
                         })}

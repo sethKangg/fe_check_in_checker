@@ -128,6 +128,9 @@ const TablePageReport = (pros) => {
                   )}
                </div>
             ))}
+         {listComplaints && listComplaints.length === 0 && (
+            <h1 className="  d-flex justify-content-center">Không có yêu cầu</h1>
+         )}
          <div className="mt-3 d-flex justify-content-center text-center">
             <ReactPaginate
                nextLabel="Trang sau>"
