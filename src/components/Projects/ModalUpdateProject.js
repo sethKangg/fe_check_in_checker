@@ -96,7 +96,7 @@ const ModalUpdateProject = (pros) => {
             <Modal.Body>
                <form className="row g-3" encType="multipart/form-data">
                   <div className="col-md-8">
-                     <label className="form-label">Tên nhóm</label>
+                     <label className="form-label">Tên dự án</label>
                      <input
                         type="text"
                         className="form-control"
