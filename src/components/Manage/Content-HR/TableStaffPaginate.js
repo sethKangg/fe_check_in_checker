@@ -42,6 +42,7 @@ const TableStaffPaginate = (pros) => {
                   <th scope="col">Ngày sinh</th>
                   <th scope="col">Email</th>
                   <th scope="col">Số điện thoại</th>
+                  <th scope="col">Nhóm</th>
                   <th scope="col">Cấp bậc</th>
                   <th scope="col">Chức vụ</th>
                   <th scope="col">Trạng thái</th>
@@ -58,6 +59,7 @@ const TableStaffPaginate = (pros) => {
                            <td scope="row">{convertTime(item.dateOfBirth)}</td>
                            <td scope="row">{item.email}</td>
                            <td scope="row">{item.phone}</td>
+                           <td scope="row">{item.groupName ? item.groupName : "Không có"}</td>
                            <td scope="row">{item.promotionLevel}</td>
                            <td scope="row">{item.roleName}</td>
                            <td scope="">

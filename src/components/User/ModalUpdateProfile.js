@@ -35,7 +35,10 @@ const ModalUpdateProfile = (pros) => {
       if (res.status === 200) {
          toast.success("Cập nhật thông tin tài khoản thành công");
       } else {
-         toast.error("Có lỗi xảy ra");
+         Object.values(res.data.error).map((item, index) => {
+            // msgToast += item + "\n";
+            toast.error(item);
+         });
       }
    };
 
