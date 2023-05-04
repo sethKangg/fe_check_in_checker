@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-
+import { GiPlainCircle } from "react-icons/gi";
+import { AiOutlineLock, AiOutlineUnlock } from "react-icons/ai";
+import { MdSettingsBackupRestore } from "react-icons/md";
 const TableAccountPaginate = (pros) => {
-   const { listUser, pageCount, searchValue, filterIndex } = pros;
-   const handlePageClick = (event) => {
-      pros.fetchListUser(event.selected + 1, 1, searchValue, filterIndex);
+   const { listUser, pageCount, searchValue, filterIndex, handleClickReset } = pros;
+   const dis = false;
+   const handlePageClick = async (event) => {
       pros.setCurrentPage(event.selected + 1);
+      await pros.fetchListUser(event.selected + 1, 1, searchValue, filterIndex);
       // console.log(`User requested page number ${event.selected}, which is offset `);
    };
    return (
@@ -18,7 +21,7 @@ const TableAccountPaginate = (pros) => {
                   <th scope="col">Tên</th>
                   <th scope="col">Email</th>
                   <th scope="col">Chức vụ</th>
-                  <th scope="col">Khả dụng</th>
+                  <th scope="col">Trạng thái hoạt động</th>
                </tr>
             </thead>
             <tbody>
@@ -32,40 +35,56 @@ const TableAccountPaginate = (pros) => {
                            <td>{item.staffName}</td>
                            <td>{item.email}</td>
                            <td>{item.roleName}</td>
-                           <td>{item.enable ? "TRUE" : "FALSE"}</td>
-                           <th className="d-flex ">
-                              <button className="btn btn-primary ml-3">View</button>
-                              <button
-                                 className="btn btn-warning mx-3"
-                                 onClick={() => pros.handleClickUpdate(true, item)}
-                              >
-                                 Update
-                              </button>
-                              <button
-                                 className="btn btn-danger mr-3"
-                                 onClick={() => pros.handleDelete(item)}
-                              >
-                                 Disable
-                              </button>
-                           </th>
+                           <td className="d-flex justify-content-center">
+                              {/* <input type="checkbox" disabled={dis} checked={item.enable} /> */}
+                              <GiPlainCircle color={`${item.enable ? "green" : "red"}`} />
+                              {/* {item.enable ? "TRUE" : "FALSE"} */}
+                           </td>
+                           {/* <td className=" "> */}
+
+                           <td
+                              className=""
+                              onClick={() => handleClickReset(item)}
+                              style={{
+                                 cursor: "pointer",
+                              }}
+                           >
+                              <MdSettingsBackupRestore />
+                           </td>
+                           <td
+                              // className={`btn mr-3  ${
+                              //    item.enable ? "btn-danger" : "btn-primary"
+                              // }`}
+                              onClick={() => pros.handleDelete(item)}
+                              style={{
+                                 cursor: "pointer",
+                              }}
+                           >
+                              {item.enable ? (
+                                 <AiOutlineLock color="red" />
+                              ) : (
+                                 <AiOutlineUnlock color="green" />
+                              )}
+                           </td>
+                           {/* </td> */}
                         </tr>
                      );
                   })}
                {listUser && listUser.length === 0 && (
                   <tr>
-                     <td colSpan={4}>No data found</td>
+                     <td colSpan={4}>Hiện không có dữ liệu</td>
                   </tr>
                )}
             </tbody>
          </table>
          <div className="mt-3 d-flex justify-content-center text-center">
             <ReactPaginate
-               nextLabel="Next>"
+               nextLabel="Trang sau>"
                onPageChange={handlePageClick}
                pageRangeDisplayed={3}
                marginPagesDisplayed={2}
                pageCount={pageCount}
-               previousLabel="<Prev"
+               previousLabel="<Trang trước"
                pageClassName="page-item"
                pageLinkClassName="page-link"
                previousClassName="page-item"

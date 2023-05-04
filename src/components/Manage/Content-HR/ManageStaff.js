@@ -3,6 +3,7 @@ import { Button, Card, Dropdown, DropdownButton, Form, InputGroup, Table } from 
 import { getListLevel, getStaff } from "../../../services/apiService";
 import "./HRManager.scss";
 import ModalUpdateStaff from "./ModalUpdateStaff";
+import ModalViewStaff from "./ModalViewStaff";
 import TableStaffPaginate from "./TableStaffPaginate";
 const ManageStaff = () => {
    const PAGE_LIMIT = 4;
@@ -19,20 +20,26 @@ const ManageStaff = () => {
    const [listLevel, setListLevel] = useState([]);
    const [dataUpdate, setDataUpdate] = useState({});
    const [dataDelete, setDataDelete] = useState({});
-
+   const [dataView, setDataView] = useState([]);
    const debouncedSearchTerm = useDebounce(searchValue, 800);
-
+   const [isLoading, setIsLoading] = useState(false);
    const fetchListUser = async (page, size, searchValue, filterIndex) => {
-      let res = await getStaff(page, size, searchValue, filterIndex);
-      // console.log("Userdata: ", res);
-      if (res.status == 200) {
-         setListStaff(res.data.list);
-         setPageCount(res.data.allPages);
+      try {
+         setIsLoading(true);
+         let res = await getStaff(page, 10, searchValue, filterIndex);
+         // console.log("Userdata: ", res);
+         if (res.status == 200) {
+            setListStaff(res.data.list);
+            setPageCount(res.data.allPages);
+         }
+      } catch (e) {
+      } finally {
+         setIsLoading(false);
       }
    };
    const fetchListLevel = async () => {
       let res = await getListLevel();
-      console.log("List Level: ", res);
+      // console.log("List Level: ", res);
       if (res.status == 200) {
          setListLevel(res.data);
          // setPageCount(res.data.allPages);
@@ -51,9 +58,6 @@ const ManageStaff = () => {
    useEffect(() => {
       const fetchLevel = async () => {
          let res = await fetchListLevel();
-         // console.log(res);
-         // console.log("Fetch level");
-         // Process the response here
       };
 
       fetchLevel();
@@ -64,8 +68,9 @@ const ManageStaff = () => {
       // console.log(item);
    };
 
-   const handleShowHideModal = (value) => {
-      setShowModal(value);
+   const handleClickView = (value, item) => {
+      setShowModal(true);
+      setDataView(item);
    };
 
    const handleDelete = (value) => {
@@ -81,10 +86,17 @@ const ManageStaff = () => {
       setCurrentPage(1);
    };
 
+   const handleSearch = (e) => {
+      setSearchValue(e.target.value);
+      setCurrentPage(1);
+      // let res = await fetchListUser(1, PAGE_LIMIT, searchValue, filterIndex);
+      // console.log(res);
+   };
+
    return (
-      <div className="manage-container">
+      <div className="manage-container p-3">
          <div className="title d-flex justify-content-center ">
-            <h1>Manage User</h1>
+            <h1>Quản lý nhân viên</h1>
          </div>
          <div className="user-content mt-3">
             <div>
@@ -92,41 +104,47 @@ const ManageStaff = () => {
                   <Form.Control
                      placeholder="Tìm theo tên tài khoản"
                      value={searchValue}
-                     onChange={(e) => setSearchValue(e.target.value)}
+                     onChange={(e) => handleSearch(e)}
                   />
                </InputGroup>
             </div>
-            <div className="d-flex align-items-center justify-content-between">
-               <div>
+            <div className="d-flex align-items-center justify-content-end">
+               {/* <div>
                   <button className="border-0 btn btn-primary" onClick={() => setShowModal(true)}>
                      Thêm nhân viên mới
                   </button>
-               </div>
-               <div className="">
+               </div> */}
+               <div className="d-flex">
+                  {/* <label>Lọc tài khoản theo</label> */}
                   <Form.Select
                      aria-label="Default select example"
                      value={filterIndex}
                      onChange={(event) => handleClickFilter(event)}
                   >
                      <option value="2">Tất cả</option>
-                     <option value="1">Active</option>
-                     <option value="0">Inactive</option>
+                     <option value="1">Đang hoạt động</option>
+                     <option value="0">Không hoạt động</option>
                   </Form.Select>
                </div>
             </div>
             <div className="table-user mt-3">
-               <TableStaffPaginate
-                  PAGE_LIMIT={PAGE_LIMIT}
-                  listStaff={listStaff}
-                  handleClickUpdate={handleClickUpdate}
-                  handleDelete={handleDelete}
-                  fetchListUser={fetchListUser}
-                  pageCount={pageCount}
-                  currentPage={currentPage}
-                  searchValue={searchValue}
-                  filterIndex={filterIndex}
-                  setCurrentPage={setCurrentPage}
-               />
+               {isLoading ? (
+                  <>Đang tải dữ liệu </>
+               ) : (
+                  <TableStaffPaginate
+                     PAGE_LIMIT={PAGE_LIMIT}
+                     listStaff={listStaff}
+                     handleClickUpdate={handleClickUpdate}
+                     handleDelete={handleDelete}
+                     fetchListUser={fetchListUser}
+                     pageCount={pageCount}
+                     currentPage={currentPage}
+                     searchValue={searchValue}
+                     filterIndex={filterIndex}
+                     setCurrentPage={setCurrentPage}
+                     handleClickView={handleClickView}
+                  />
+               )}
             </div>
          </div>
          <div>
@@ -156,6 +174,7 @@ const ManageStaff = () => {
                currentPage={currentPage}
                setCurrentPage={setCurrentPage}
             /> */}
+            <ModalViewStaff show={showModal} setShow={setShowModal} dataView={dataView} />
          </div>
       </div>
    );

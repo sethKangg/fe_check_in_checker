@@ -58,7 +58,7 @@
     justify-content: center;
     gap: 5px;
     padding: 5px 10px;
-    border: 2px dotted red;
+    border: 1px dotted red;
     border-radius: 13px;
     background-color: #fff;
 
@@ -66,12 +66,12 @@
     cursor: pointer;
 }
 
-@media (min-width: 576px) {
-    .list-group-item {
-        flex: 1 1 calc(50% - 10px);
-        max-width: calc(50% - 10px);
-    }
-}
+// @media (min-width: 576px) {
+//     .list-group-item {
+//         flex: 1 1 calc(50% - 10px);
+//         max-width: calc(50% - 10px);
+//     }
+// }
 
 .fill:hover,
 .fill:focus {
@@ -86,24 +86,11 @@
     border-radius: 10px;
     background: none;
     border: 2px solid;
-    font-weight: 600;
+    font-weight: 6 00;
     // line-height: 1;
     margin: 0.5em;
     padding: 0.5em 15px;
     color: #a972cb;
     transition: 0.25s;
-}
-
-@media (min-width: 768px) {
-    .list-group-item {
-        flex: 1 1 calc(33.3333% - 10px);
-        max-width: calc(33.3333% - 10px);
-    }
-}
-
-@media (min-width: 1280) {
-    .list-group-item {
-        flex: 1 1 calc(12.3333% - 10px);
-        max-width: calc(12.3333% - 10px);
-    }
+    font-weight: 640;
 }

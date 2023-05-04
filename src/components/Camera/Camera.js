@@ -17,7 +17,7 @@ const Camera = (props) => {
    }, [wecamRef]);
 
    const onUserMedia = (e) => {
-      console.log(e);
+      // console.log(e);
    };
 
    const handleClickCheckIn = () => {

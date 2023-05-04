@@ -21,24 +21,54 @@ const Header = () => {
       toast.success("Đăng xuất thành công");
       navigate("/login");
    };
+
    return (
       <Navbar bg="light" expand="lg">
          <Container>
             <NavLink className="navbar-brand" to={"/"}>
-               Công ty X
+               CTS
             </NavLink>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                <Nav className="me-auto">
                   <NavLink className="nav-link" to={"/"}>
-                     Home
+                     Trang chủ
                   </NavLink>
-                  <NavLink className="nav-link" to={"/users"}>
-                     User
-                  </NavLink>
-                  <NavLink className="nav-link" to={"/manage"}>
-                     Manage
-                  </NavLink>
+                  {account.roleName === "Human resource" ? (
+                     <NavLink className="nav-link" to={"/manage/manage-staff"}>
+                        Quản lý
+                     </NavLink>
+                  ) : null}
+                  {account.roleName === "Admin" ? (
+                     <NavLink className="nav-link" to={"/manage/manage-account"}>
+                        Quản lý
+                     </NavLink>
+                  ) : null}
+                  {isAuthenticated && account.roleName !== "Admin" && (
+                     <NavLink className="nav-link" to={`/calendar`}>
+                        Lịch
+                     </NavLink>
+                  )}
+                  {account.roleName === "Group leader" || account.roleName === "Project manager" ? (
+                     <NavLink className="nav-link" to={"/project"}>
+                        Dự án
+                     </NavLink>
+                  ) : null}
+                  {account.roleName === "Human resource" || account.roleName === "Group leader" ? (
+                     <NavLink className="nav-link" to={"/group"}>
+                        Nhóm
+                     </NavLink>
+                  ) : null}
+                  {isAuthenticated && account.roleName !== "Admin" && (
+                     <NavLink className="nav-link" to={"/report"}>
+                        Yêu cầu
+                     </NavLink>
+                  )}
+                  {account.roleName === "Human resource" && (
+                     <NavLink className="nav-link" to={"/monthly-report"}>
+                        Báo cáo tháng
+                     </NavLink>
+                  )}
                </Nav>
                <Nav>
                   {isAuthenticated == false ? (
@@ -47,17 +77,38 @@ const Header = () => {
                            className="btn border-dark mx-2 p-2 border-2"
                            onClick={() => handleLogin()}
                         >
-                           Log in
+                           Đăng nhập
                         </button>
 
-                        <button className="btn border-dark btn-info mx-2 p-2 border-2">
-                           Check in
+                        <button
+                           className="btn border-dark btn-info mx-2 p-2 border-2"
+                           onClick={() => navigate("check_in")}
+                        >
+                           Chấm công
                         </button>
                      </>
                   ) : (
-                     <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                        <NavDropdown.Item onClick={() => handleLogOut()}>Log out</NavDropdown.Item>
-                     </NavDropdown>
+                     <>
+                        {/* <button
+                           className="btn border-dark btn-info mx-2 p-2 border-2"
+                           onClick={() => navigate("check_in")}
+                        >
+                           Chấm công
+                        </button> */}
+                        <NavDropdown
+                           title={account.username + " - " + account.roleName}
+                           id="basic-nav-dropdown"
+                        >
+                           <NavDropdown.Item
+                              onClick={() => navigate(`/profile/${account.username}`)}
+                           >
+                              Thông tin tài khoản
+                           </NavDropdown.Item>
+                           <NavDropdown.Item onClick={() => handleLogOut()}>
+                              Đăng xuất
+                           </NavDropdown.Item>
+                        </NavDropdown>
+                     </>
                   )}
                </Nav>
             </Navbar.Collapse>

@@ -20,16 +20,17 @@
 
     .main-container {
         .app-content {
+            min-height: 90vh;
             padding-bottom: 20px;
 
             .home-container {
                 .home-content {
                     .img-profile {
                         img {
-                            border: 3px solid green;
-                            height: 160px;
-                            width: 250px;
-                            clip-path: circle();
+                            border-radius: 50%;
+                            width: 200px;
+                            height: 200px;
+                            object-fit: cover;
                         }
                     }
                 }
@@ -58,4 +59,9 @@ video {
     .container-xxl {
         max-width: 1500px !important;
     }
+}
+
+label {
+    font-size: 18px;
+    font-weight: 600;
 }

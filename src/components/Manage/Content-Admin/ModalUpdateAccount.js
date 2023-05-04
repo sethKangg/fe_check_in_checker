@@ -32,7 +32,7 @@ const ModalUpdateAccount = (pros) => {
       }
    }, [dataUpdate]);
 
-   const handleSubmit = () => {
+   const handleSubmit = async () => {
       //validate
 
       //api
@@ -40,16 +40,16 @@ const ModalUpdateAccount = (pros) => {
       //   let res = await postCreateUser(email);
       // pros.fetchListUser();
 
-      pros.fetchListUser(pros.currentPage, 1, "", "   ");
+      await pros.fetchListUser(pros.currentPage, 1, "", "   ");
       handleClose();
-      toast.error("ehe");
+      // toast.error("ehe");
    };
 
    return (
       <>
          <Modal show={show} onHide={handleClose} size="xl">
             <Modal.Header closeButton>
-               <Modal.Title>Update user</Modal.Title>
+               <Modal.Title>Cập nhận tài khoản</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                <form className="row g-3">
@@ -73,7 +73,7 @@ const ModalUpdateAccount = (pros) => {
                   </div>
 
                   <div className="col-md-6">
-                     <label className="form-label">Username</label>
+                     <label className="form-label">Tên tài khoản</label>
                      <input
                         type="text"
                         className="form-control"
@@ -82,7 +82,7 @@ const ModalUpdateAccount = (pros) => {
                      />
                   </div>
                   <div className="col-md-6">
-                     <label className="form-label">Staff Name</label>
+                     <label className="form-label">Tên nhân viên</label>
                      <input
                         type="text"
                         className="form-control"
@@ -91,7 +91,7 @@ const ModalUpdateAccount = (pros) => {
                      />
                   </div>
                   <div className="col-md-6">
-                     <label className="form-label">Role</label>
+                     <label className="form-label">Chức vụ </label>
                      <input
                         type="text"
                         className="form-control"
@@ -100,7 +100,7 @@ const ModalUpdateAccount = (pros) => {
                      />
                   </div>
                   <div className="col-md-6">
-                     <label className="form-label">isEnable</label>
+                     <label className="form-label">Khả dụng</label>
                      <input
                         type="text"
                         className="form-control"
@@ -112,10 +112,10 @@ const ModalUpdateAccount = (pros) => {
             </Modal.Body>
             <Modal.Footer>
                <Button variant="secondary" onClick={handleClose}>
-                  Close
+                  Đóng
                </Button>
                <Button variant="primary" onClick={() => handleSubmit()}>
-                  Save Changes
+                  Xác nhận
                </Button>
             </Modal.Footer>
          </Modal>

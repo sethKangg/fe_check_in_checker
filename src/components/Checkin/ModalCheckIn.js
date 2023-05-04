@@ -1,18 +1,24 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
-
+import { addRecognizeImg } from "../../services/apiService";
+import axios from "../../utils/axiosCustomize";
 const ModalCheckIn = (props) => {
    const { show, setShow, imgPreview } = props;
    const handleClose = () => {
       setShow(false);
    };
+   // console.log(imgPreview);
+   const sendAPI = async () => {
+      // const imgData = imgPreview.substring(22);
+      const imgData = imgPreview.substring("data:image/webp;base64,".length);
+      // console.log(imgData);
+      // let data = { img: { imgPreview } };
+      let res = await addRecognizeImg(imgData);
+      console.log(res);
+   };
    return (
       <div>
          <>
-            {/* <Button variant='primary' onClick={handleShow}>
-            Launch demo modal
-         </Button> */}
-
             <Modal show={show} onHide={handleClose} size="xl">
                <Modal.Header closeButton>
                   <Modal.Title>Add new user</Modal.Title>
@@ -54,9 +60,11 @@ const ModalCheckIn = (props) => {
                </Modal.Body>
                <Modal.Footer>
                   <Button variant="secondary" onClick={handleClose}>
-                     Close
+                     Đóng
                   </Button>
-                  <Button variant="primary">Save Changes</Button>
+                  <Button variant="primary" onClick={() => sendAPI()}>
+                     Xác nhận
+                  </Button>
                </Modal.Footer>
             </Modal>
          </>

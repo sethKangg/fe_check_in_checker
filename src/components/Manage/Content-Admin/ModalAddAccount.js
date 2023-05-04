@@ -33,7 +33,7 @@ const ModalAddAccount = (pros) => {
    const handleSubmit = async () => {
       //validate
       //api
-
+      // console.log(username, password, roleId, email, firstName, surName, dateOfBirth, phone);
       let res = await postCreateUser(
          username,
          password,
@@ -44,10 +44,11 @@ const ModalAddAccount = (pros) => {
          dateOfBirth,
          phone,
       );
-      console.log("res +", res);
+      // console.log("res +", res);
+
       if (res.status === 200) {
          handleClose();
-         toast.success(`${res.data} `);
+         toast.success(`Tạo tài khoản mới thành công `);
       } else {
          // let response = res.data.error.map((number, index) => {
          // });
@@ -69,7 +70,7 @@ const ModalAddAccount = (pros) => {
 
          <Modal show={show} onHide={handleClose} size="xl">
             <Modal.Header closeButton>
-               <Modal.Title>Add new user</Modal.Title>
+               <Modal.Title>Thêm tài khoản mới</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                <form className="row g-3" encType="multipart/form-data">
@@ -101,7 +102,7 @@ const ModalAddAccount = (pros) => {
                      />
                   </div>
                   <div className="col-md-4">
-                     <label className="form-label">Họ</label>
+                     <label className="form-label">Chức vụ</label>
                      <Form.Select
                         value={roleId}
                         onChange={(event) => setRoleId(event.target.value)}
@@ -153,10 +154,10 @@ const ModalAddAccount = (pros) => {
             </Modal.Body>
             <Modal.Footer>
                <Button variant="secondary" onClick={handleClose}>
-                  Close
+                  Đóng
                </Button>
                <Button variant="primary" onClick={handleSubmit}>
-                  Save Changes
+                  Xác nhận
                </Button>
             </Modal.Footer>
          </Modal>

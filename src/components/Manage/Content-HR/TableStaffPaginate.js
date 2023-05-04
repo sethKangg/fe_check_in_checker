@@ -1,25 +1,51 @@
 import React from "react";
 import { Table } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
-
+import { useNavigate } from "react-router-dom";
+import { FiImage, FiSearch, FiMenu } from "react-icons/fi";
+import { GiPlainCircle } from "react-icons/gi";
 const TableStaffPaginate = (pros) => {
-   const { listStaff, pageCount, searchValue, filterIndex, PAGE_LIMIT } = pros;
-   const handlePageClick = (event) => {
-      pros.fetchListUser(event.selected + 1, PAGE_LIMIT, searchValue, filterIndex);
+   const { listStaff, pageCount, searchValue, filterIndex, PAGE_LIMIT, handleClickView } = pros;
+   const handlePageClick = async (event) => {
       pros.setCurrentPage(event.selected + 1);
+      await pros.fetchListUser(event.selected + 1, PAGE_LIMIT, searchValue, filterIndex);
       // console.log(`User requested page number ${event.selected}, which is offset `);
    };
+   const convertTime = (time) => {
+      const date = new Date(time);
+
+      const options = {
+         timeZone: "Asia/Ho_Chi_Minh",
+         // weekday: "long",
+         year: "numeric",
+         month: "long",
+         day: "numeric",
+         // hour: "numeric",
+         // minute: "numeric",
+         // second: "numeric",
+      };
+      try {
+         const localTime = date.toLocaleString("vi-VN", options);
+         return localTime;
+      } catch (er) {
+         return "Không xác định";
+      }
+   };
+   const navigate = useNavigate();
    return (
       <>
          <Table striped bordered hover responsive className="user-table">
             <thead>
                <tr>
                   <th scope="col">Mã ID</th>
-                  <th scope="col">Tên tài khoản</th>
-                  <th scope="col">Tên</th>
+                  <th scope="col">Tên </th>
+                  <th scope="col">Ngày sinh</th>
                   <th scope="col">Email</th>
+                  <th scope="col">Số điện thoại</th>
+                  <th scope="col">Nhóm</th>
+                  <th scope="col">Cấp bậc</th>
                   <th scope="col">Chức vụ</th>
-                  <th scope="col">Khả dụng</th>
+                  <th scope="col">Trạng thái</th>
                </tr>
             </thead>
             <tbody>
@@ -30,23 +56,40 @@ const TableStaffPaginate = (pros) => {
                         <tr key={index}>
                            <th scope="row">{item.id}</th>
                            <td scope="row">{item.fullName}</td>
-                           <td scope="row">{item.dateOfBirth}</td>
+                           <td scope="row">{convertTime(item.dateOfBirth)}</td>
                            <td scope="row">{item.email}</td>
                            <td scope="row">{item.phone}</td>
+                           <td scope="row">{item.groupName ? item.groupName : "Không có"}</td>
                            <td scope="row">{item.promotionLevel}</td>
+                           <td scope="row">{item.roleName}</td>
+                           <td scope="">
+                              {/* <input type="checkbox" disabled={true} checked={item.enable} /> */}
+                              <GiPlainCircle color={`${item.enable ? "green" : "red"}`} />
+                              {/* {item.enable ? "TRUE" : "FALSE"} */}
+                           </td>
                            <th className="actions">
-                              <button className="btn btn-primary ml-3">View</button>
                               <button
-                                 className="btn btn-warning mx-3"
-                                 onClick={() => pros.handleClickUpdate(true, item)}
+                                 className="btn btn-primary "
+                                 onClick={() => {
+                                    handleClickView(true, item);
+                                 }}
                               >
-                                 Update
+                                 <FiImage />
                               </button>
                               <button
-                                 className="btn btn-danger mr-3"
-                                 onClick={() => pros.handleDelete(item)}
+                                 className="btn btn-primary"
+                                 onClick={() => {
+                                    navigate(`/profile/${item.username}`);
+                                 }}
                               >
-                                 Disable
+                                 <FiSearch />
+                              </button>
+                              <button
+                                 disabled={item.roleName !== "Human resource" ? false : true}
+                                 className="btn btn-warning"
+                                 onClick={() => pros.handleClickUpdate(true, item)}
+                              >
+                                 <FiMenu />
                               </button>
                            </th>
                         </tr>
@@ -54,7 +97,7 @@ const TableStaffPaginate = (pros) => {
                   })}
                {listStaff && listStaff.length === 0 && (
                   <tr>
-                     <td colSpan={4}>No data found</td>
+                     <td colSpan={4}>Hiện không có dữ liệu</td>
                   </tr>
                )}
             </tbody>
@@ -90,12 +133,12 @@ const TableStaffPaginate = (pros) => {
          </Table> */}
          <div className="mt-3 d-flex justify-content-center text-center">
             <ReactPaginate
-               nextLabel="Next>"
+               nextLabel="Trang sau>"
                onPageChange={handlePageClick}
                pageRangeDisplayed={3}
                marginPagesDisplayed={2}
                pageCount={pageCount}
-               previousLabel="<Prev"
+               previousLabel="<Trang trước"
                pageClassName="page-item"
                pageLinkClassName="page-link"
                previousClassName="page-item"

@@ -11,7 +11,19 @@ import ManageAccount from "./components/Manage/Content-Admin/ManageAccount";
 import Manage from "./components/Manage/Manage";
 import ManageStaff from "./components/Manage/Content-HR/ManageStaff";
 import Profile from "./components/User/Profile";
-import YourGroup from "./components/Group/YourGroup";
+import Groups from "./components/Group/Groups";
+import Projects from "./components/Projects/Projects";
+import Calendar from "./components/Calendar/Calendar";
+import AllCamera from "./components/Camera/AllCamera";
+import TestCamera from "./components/Camera/TestCamera";
+import ViewCaptured from "./components/Manage/Content-ViewCapture/ViewCaptured";
+import Report from "./components/Report/Report";
+import ForgotPassword from "./components/Auth/ForgotPassword";
+import PrivateRoute from "./routes/PrivateRoute";
+import ErrorAuth from "./components/Auth/ErrorAuth";
+import ErrorPage from "./components/Auth/ErrorPage";
+import MonthlyReport from "./components/Report/MonthlyReport";
+import MultiCam from "./components/Camera/MultiCam";
 // import AllCamera from "./components/Camera/AllCamera";
 // import Camera from "./components/Camera/Camera";
 const Layout = () => {
@@ -21,16 +33,90 @@ const Layout = () => {
             <Route path="/" element={<App />}>
                <Route index element={<Home />} />
                <Route path="/users" element={<User />} />
-               <Route path="/check_in" element={<CheckIn />}></Route>
-               <Route path="/profile" element={<Profile />}></Route>
-               <Route path="/group" element={<YourGroup />}></Route>
+               <Route
+                  path="/check_in"
+                  element={
+                     // <PrivateRoute acceptRole={[2, 3, 4, 5]}>
+                     <TestCamera />
+                     // </PrivateRoute>
+                  }
+               ></Route>
+               <Route
+                  path="/check_ins"
+                  element={
+                     // <PrivateRoute acceptRole={[2, 3, 4, 5]}>
+                     <MultiCam />
+                     // </PrivateRoute>
+                  }
+               ></Route>
+               <Route path="/profile/:username" element={<Profile />}></Route>
+               <Route
+                  path="/group"
+                  element={
+                     <PrivateRoute acceptRole={[2, 4]}>
+                        <Groups />
+                     </PrivateRoute>
+                  }
+               ></Route>
+               <Route
+                  path="/project"
+                  element={
+                     <PrivateRoute acceptRole={[2, 3, 4]}>
+                        <Projects />
+                     </PrivateRoute>
+                  }
+               ></Route>
+               <Route
+                  path="/calendar"
+                  element={
+                     <PrivateRoute acceptRole={[2, 3, 4, 5]}>
+                        <Calendar />
+                     </PrivateRoute>
+                  }
+               ></Route>
+               <Route path="/allCamera" element={<AllCamera />}></Route>
+               <Route
+                  path="/report"
+                  element={
+                     <PrivateRoute acceptRole={[2, 3, 4, 5]}>
+                        <Report />
+                     </PrivateRoute>
+                  }
+               ></Route>
+               <Route
+                  path="/monthly-report"
+                  element={
+                     <PrivateRoute acceptRole={[2]}>
+                        <MonthlyReport />
+                     </PrivateRoute>
+                  }
+               ></Route>
+               {/* <Route path="/testCamera" element={<TestCamera />}></Route> */}
             </Route>
-            <Route path="/manage" element={<Manage />}>
-               <Route index path="manage-account" element={<ManageAccount />} />
-               <Route index path="manage-staff" element={<ManageStaff />} />
+            <Route
+               path="/manage/"
+               element={
+                  <PrivateRoute acceptRole={[1, 2]}>
+                     <Manage />
+                  </PrivateRoute>
+               }
+            >
+               <Route
+                  path="manage-account"
+                  element={
+                     <PrivateRoute acceptRole={[1]}>
+                        <ManageAccount />
+                     </PrivateRoute>
+                  }
+               />
+               <Route path="manage-staff" element={<ManageStaff />} />
+               <Route path="view-capture" element={<ViewCaptured />} />
                {/* <Route path="dashboard" element={<Admin />} /> */}
             </Route>
             <Route path="/login" element={<Login />}></Route>
+            <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+            <Route path="/error-authe" element={<ErrorAuth />}></Route>
+            <Route path="*" element={<ErrorPage />}></Route>
          </Routes>
          <ToastContainer
             position="top-right"
